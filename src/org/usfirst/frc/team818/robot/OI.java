@@ -1,18 +1,23 @@
 package org.usfirst.frc.team818.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
+	public JoystickButton elevatorBottom, elevatorSwitch, elevatorScale;
 
 	public OI() {
 
 		// Instantiating Joysticks
-		leftStick = new Joystick(0);
-		rightStick = new Joystick(1);
-		gamepad = new Joystick(2);
+		leftStick = new Joystick(Constants.leftJoystickPort);
+		rightStick = new Joystick(Constants.rightJoystickPort);
+		gamepad = new Joystick(Constants.gamepadPort);
 		
+		elevatorBottom = new JoystickButton(gamepad, 0);
+		elevatorSwitch = new JoystickButton(gamepad, 0);
+		elevatorScale = new JoystickButton(gamepad, 0);
 		
 	}
 
