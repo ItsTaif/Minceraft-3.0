@@ -61,4 +61,17 @@ public class OI {
 	public double getGamepadRightX() {
 		return (Math.abs(gamepad.getRawAxis(4)) > 0.1) ? -gamepad.getRawAxis(2) : 0;
 	}
+	
+	public boolean getElevatorBottom(){
+		return elevatorBottom.get();
+	}
+	
+	public boolean getElevatorSwitch(){
+		return elevatorSwitch.get();
+	}
+	
+	public boolean getElevatorScale(){
+		return elevatorScale.get();
+	}
+	
 }

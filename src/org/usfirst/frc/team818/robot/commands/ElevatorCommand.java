@@ -1,21 +1,55 @@
 package org.usfirst.frc.team818.robot.commands;
 
+import org.usfirst.frc.team818.robot.Constants;
+
 public class ElevatorCommand extends CommandBase {
   
-    public ElevatorCommand() {
+    private static double distanceBottom, distanceTarget;
+    private static boolean joystickToggle;
+	
+	public ElevatorCommand() {
        	requires(elevator);
     }
 
     protected void initialize() {
     	elevator.set(0);
+    	joystickToggle = false;
+    	distanceBottom = Constants.elevatorBottomPosition;
+    	elevator.setSetpoint(distanceBottom);
     }
 
     protected void execute() {
     	
+    	if(elevator.reachedBottom())
+    		distanceBottom = elevator.getDistance();
     	
-    	
-    	
-    	elevator.set(elevator.getPIDOutputElevator());
+    	if(Math.abs(oi.getGamepadRightY()) > 0.1){
+    		
+    		elevator.disablePID();
+    		joystickToggle = true;
+    		elevator.set(oi.getGamepadRightY());
+    		
+    	}else {
+    		
+    		elevator.enablePID();
+    		
+    		if(joystickToggle){
+    			distanceTarget = elevator.getDistance();
+    			joystickToggle = false;
+    		}
+    		
+    		if(oi.getElevatorBottom())
+        		distanceTarget = distanceBottom;
+        	else if(oi.getElevatorScale())
+        		distanceTarget = Constants.elevatorSwitchPosition;
+        	else if(oi.getElevatorSwitch())
+        		distanceTarget = Constants.elevatorScalePosition;
+        	
+        	elevator.setSetpoint(distanceTarget);
+	    	elevator.set(elevator.getPIDOutputElevator());
+	    	
+    	}
+
     }
 
     protected boolean isFinished() {
@@ -24,9 +58,11 @@ public class ElevatorCommand extends CommandBase {
 
     protected void end() {
     	elevator.set(0);
+    	elevator.disablePID();
     }
 
     protected void interrupted() {
     	elevator.set(0);
+    	elevator.disablePID();
     }
 }

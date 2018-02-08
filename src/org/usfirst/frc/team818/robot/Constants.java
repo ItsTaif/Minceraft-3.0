@@ -29,10 +29,9 @@ public class Constants {
 	public static final int elevatorMotorPort = 12;
 	public static final int ultrasonicOutPort = 0;
 	public static final int ultrasonicInPort = 0;
-	public static final int elevatorVoltagePosition1 = 0;
-	public static final int elevatorVoltagePosition2 = 0;
-	public static final int elevatorVoltagePosition3 = 0;
-	public static final int elevatorVoltagePosition4 = 0;
+	public static final int elevatorBottomPosition = 0;
+	public static final int elevatorSwitchPosition = 0;
+	public static final int elevatorScalePosition = 0;
 	
 	public static final int exampleMotorPort = 818; // Example number
 	

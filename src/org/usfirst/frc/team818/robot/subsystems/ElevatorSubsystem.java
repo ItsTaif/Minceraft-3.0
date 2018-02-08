@@ -7,14 +7,17 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ElevatorSubsystem extends Subsystem {
 
 	TalonSRX elevatorMotor;
 	Ultrasonic ultra;
+	DigitalInput limitBottom;
 
 	private static final double[] ELEVATOR_PID_VALUES = { 0.01, 0.001, 0 };
 	private static final double[] ELEVATOR_PID_RANGE = { -1, 1 };
@@ -32,6 +35,7 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorMotor = new WPI_TalonSRX(elevatorMotorPort);
 			
 			ultra = new Ultrasonic(ultraSonicSensorPortOut, ultraSonicSensorPortIn);
+			ultra.setDistanceUnits(Unit.kInches);
 		}
 
 		pidOutputElevator = new DoublePIDOutput();
@@ -53,9 +57,21 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorMotor.set(ControlMode.PercentOutput,speed);
 	}
 	
+	public double getDistance(){
+		return ultra.getRangeInches();
+	}
+	
+	public boolean reachedBottom(){
+		return limitBottom.get();
+	}
+	
 	public void setSetpoint(double setpoint){
 		if (elevatorEnabled) 	
 			elevatorController.setSetpoint(setpoint);
+	}
+	
+	public boolean isPIDEnabled(){
+		return elevatorController.isEnabled();
 	}
 	
 	public void enablePID() {
