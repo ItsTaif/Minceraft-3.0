@@ -59,19 +59,19 @@ public class ClimberSubsystem extends Subsystem {
 		}
 	}
 
-	public void setSpeed() {
+	public void start() {
 		if (climberEnabled) {
 			cMotor.set(1);
 		}
 	}
 
-	public void setSpeedReverse() {
+	public void reverse() {
 		if (climberEnabled) {
 			cMotor.set(-0.25);
 		}
 	}
 
-	public void setSpeedOff() {
+	public void stop() {
 		if (climberEnabled) {
 			cMotor.set(0);
 		}
