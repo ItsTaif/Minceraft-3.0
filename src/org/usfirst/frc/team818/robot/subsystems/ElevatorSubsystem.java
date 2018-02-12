@@ -17,7 +17,7 @@ public class ElevatorSubsystem extends Subsystem {
 
 	TalonSRX elevatorMotor;
 	Ultrasonic ultra;
-	DigitalInput limitBottom;
+	DigitalInput limitBottom, limitTop;
 
 	private static final double[] ELEVATOR_PID_VALUES = { 0.01, 0.001, 0 };
 	private static final double[] ELEVATOR_PID_RANGE = { -1, 1 };
@@ -27,12 +27,14 @@ public class ElevatorSubsystem extends Subsystem {
 
 	private boolean elevatorEnabled;
 
-	public ElevatorSubsystem(int elevatorMotorPort, int ultraSonicSensorPortOut, int ultraSonicSensorPortIn, boolean elevatorEnabled) {
+	public ElevatorSubsystem(int elevatorMotorPort, int ultraSonicSensorPortOut, int ultraSonicSensorPortIn, int limitSwitchPortTop, int limitSwitchPortBottom, boolean elevatorEnabled) {
 
 		this.elevatorEnabled = elevatorEnabled;
-
 		if (elevatorEnabled) {
 			elevatorMotor = new WPI_TalonSRX(elevatorMotorPort);
+			
+			limitBottom = new DigitalInput(limitSwitchPortBottom);
+			limitTop = new DigitalInput(limitSwitchPortTop);
 			
 			ultra = new Ultrasonic(ultraSonicSensorPortOut, ultraSonicSensorPortIn);
 			ultra.setDistanceUnits(Unit.kInches);
@@ -63,6 +65,10 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public boolean reachedBottom(){
 		return limitBottom.get();
+	}
+	
+	public boolean reachedTop(){
+		return limitTop.get();
 	}
 	
 	public void setSetpoint(double setpoint){

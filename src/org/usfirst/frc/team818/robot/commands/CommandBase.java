@@ -28,7 +28,7 @@ public abstract class CommandBase extends Command {
 		compressor = new CompressorSubsystem(Constants.compressorEnabled);
 		drive = new DriveSubsystem(Constants.leftMotorPorts, Constants.rightMotorPorts, Constants.gyroDrivePort, 
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);
-		elevator = new ElevatorSubsystem(Constants.elevatorMotorPort, Constants.ultrasonicOutPort, Constants.ultrasonicInPort, Constants.elevatorEnabled);
+		elevator = new ElevatorSubsystem(Constants.elevatorMotorPort, Constants.ultrasonicOutPort, Constants.ultrasonicInPort, Constants.limitSwitchPortTop, Constants.limitSwitchPortBottom, Constants.elevatorEnabled);
 		intake = new IntakeSubsystem(Constants.intakeLeftMotorPort, Constants.intakeRightMotorPort, Constants.intakePistonPorts, Constants.intakeEnabled);
 		shifter = new ShifterSubsystem(Constants.shifterLeftPistonPorts, Constants.shifterRightPistonPorts, Constants.shifterEnabled);
 	

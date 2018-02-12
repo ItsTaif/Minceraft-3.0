@@ -27,7 +27,10 @@ public class ElevatorCommand extends CommandBase {
     		
     		elevator.disablePID();
     		joystickToggle = true;
-    		elevator.set(oi.getGamepadRightY());
+    		
+    		if(elevator.reachedBottom() && oi.getGamepadRightY() < 0) elevator.set(0);
+    		else if(elevator.reachedTop() && oi.getGamepadRightY() > 0) elevator.set(0);
+    		else elevator.set(oi.getGamepadRightY());
     		
     	}else {
     		
