@@ -33,17 +33,17 @@ public class IntakeSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void intakeIn() {
+	public void intakeIn(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(0.5);
-			intakeR.set(-0.5);
+			intakeL.set(speed);
+			intakeR.set(-speed);
 		}
 	}
 	
-	public void intakeOut() {
+	public void intakeOut(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(-0.5);
-			intakeR.set(0.5);
+			intakeL.set(-speed);
+			intakeR.set(speed);
 		}
 	}
 	

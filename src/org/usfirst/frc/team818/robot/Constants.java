@@ -39,11 +39,14 @@ public class Constants {
 	public static final int elevatorBottomPosition = 0;
 	public static final int elevatorSwitchPosition = 0;
 	public static final int elevatorScalePosition = 0;
+	public static final int limitSwitchPortTop = 1;
+	public static final int limitSwitchPortBottom = 2;
 	
 	//Used in Intake SUbsystem
 	public static final int intakeLeftMotorPort = 7;
 	public static final int intakeRightMotorPort = 8;
 	public static final int[] intakePistonPorts = { 4, 5 };
+	public static final int limitSwitchPortIntake = 3;
 	
 	//Used in the Shifter Subsystem
 	public static final int[] shifterLeftPistonPorts = { 2, 3 };
