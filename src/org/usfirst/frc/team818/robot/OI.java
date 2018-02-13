@@ -1,5 +1,7 @@
 package org.usfirst.frc.team818.robot;
 
+import org.usfirst.frc.team818.robot.commands.ClimberDropCommand;
+import org.usfirst.frc.team818.robot.commands.ClimberSpinCommand;
 import org.usfirst.frc.team818.robot.commands.DynamicBraking;
 import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
@@ -13,7 +15,7 @@ public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
 	public JoystickButton left1, dynamicBraking, left3, left4, left5, right1, right2, right3, right4, right5, 
-		elevatorSwitch, elevatorBottom, gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown;
+		elevatorSwitch, elevatorBottom, gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberDrop, climberSpin;
 
 	public OI() {
 
@@ -41,6 +43,8 @@ public class OI {
 		intakeOut = new JoystickButton(gamepad, 6);
 		intakeUp = new JoystickButton(gamepad, 7);
 		intakeDown = new JoystickButton(gamepad, 8);
+		climberDrop = new JoystickButton(gamepad, 9);
+		climberSpin = new JoystickButton(gamepad, 10);
 		
 		//Buttons
 		dynamicBraking.whileHeld(new DynamicBraking());
@@ -48,6 +52,8 @@ public class OI {
 		intakeOut.whileHeld(new IntakeOutCommand());
 		intakeUp.whenPressed(new IntakeUpCommand());
 		intakeDown.whenPressed(new IntakeDownCommand());
+		climberDrop.whenPressed(new ClimberDropCommand());
+		climberSpin.whileHeld(new ClimberSpinCommand());
 		
 	}
 	
