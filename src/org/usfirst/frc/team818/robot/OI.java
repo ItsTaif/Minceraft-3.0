@@ -1,13 +1,19 @@
 package org.usfirst.frc.team818.robot;
 
+import org.usfirst.frc.team818.robot.commands.DynamicBraking;
+import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeUpCommand;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
-	public JoystickButton left1, left2, left3, left4, left5, right1, right2, right3, right4, right5, 
-		elevatorSwitch, elevatorBottom, gamepad3, elevatorScale, gamepad5, gamepad6, gamepad7, gamepad8;
+	public JoystickButton left1, dynamicBraking, left3, left4, left5, right1, right2, right3, right4, right5, 
+		elevatorSwitch, elevatorBottom, gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown;
 
 	public OI() {
 
@@ -16,8 +22,9 @@ public class OI {
 		rightStick = new Joystick(Constants.rightJoystickPort);
 		gamepad = new Joystick(Constants.gamepadPort);
 		
+		// Instantiating Buttons
 		left1 = new JoystickButton(leftStick, 1);
-		left2 = new JoystickButton(leftStick, 2);
+		dynamicBraking = new JoystickButton(leftStick, 2);
 		left3 = new JoystickButton(leftStick, 3);
 		left4 = new JoystickButton(leftStick, 4);
 		left5 = new JoystickButton(leftStick, 5);
@@ -30,15 +37,19 @@ public class OI {
 		elevatorBottom = new JoystickButton(gamepad, 2);
 		gamepad3 = new JoystickButton(gamepad, 3);
 		elevatorScale = new JoystickButton(gamepad, 4);
-		gamepad5 = new JoystickButton(gamepad, 5);
-		gamepad6 = new JoystickButton(gamepad, 6);
-		gamepad7 = new JoystickButton(gamepad, 7);
-		gamepad8 = new JoystickButton(gamepad, 8);
+		intakeIn = new JoystickButton(gamepad, 5);
+		intakeOut = new JoystickButton(gamepad, 6);
+		intakeUp = new JoystickButton(gamepad, 7);
+		intakeDown = new JoystickButton(gamepad, 8);
+		
+		//Buttons
+		dynamicBraking.whileHeld(new DynamicBraking());
+		intakeIn.whileHeld(new IntakeInCommand());
+		intakeOut.whileHeld(new IntakeOutCommand());
+		intakeUp.whenPressed(new IntakeUpCommand());
+		intakeDown.whenPressed(new IntakeDownCommand());
 		
 	}
-	
-	//Buttons
-	
 	
 	// Joystick Axes
 	public double getLeftY() {
