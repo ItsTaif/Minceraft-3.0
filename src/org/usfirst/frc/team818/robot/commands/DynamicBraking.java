@@ -7,8 +7,8 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-public class DynamicBreaking extends CommandBase {
-	public DynamicBreaking() {
+public class DynamicBraking extends CommandBase {
+	public DynamicBraking() {
 		requires(drive);
 	}
 
