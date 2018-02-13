@@ -161,6 +161,20 @@ public class DriveSubsystem extends Subsystem {
 			return 0;
 	}
 
+	public double getLeftDistance() {
+		if (driveEnabled) {
+			return leftEncoder.getDistance();
+		} else
+			return 0;
+	}
+
+	public double getRightDistance() {
+		if (driveEnabled) {
+			return rightEncoder.getDistance();
+		} else
+			return 0;
+	}
+	
 	public void resetBothEncoders() {
 		if (driveEnabled) {
 			rightEncoder.reset();

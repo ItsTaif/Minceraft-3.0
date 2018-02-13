@@ -1,14 +1,12 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
-import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
 
 public class Drive4Distance extends CommandBase {
 
-	double distance, speed, pLeft, pRight;
-	int leftTicks, rightTicks;
+	double distance, speed, pLeft, pRight, leftDistance, rightDistance;
 	Timer timer;
 
 	public Drive4Distance(double speed, double distance) {
@@ -48,8 +46,8 @@ public class Drive4Distance extends CommandBase {
 
 	protected void execute() {
 	
-		leftTicks = Math.abs(drive.getLeftRotation());
-		rightTicks = Math.abs(drive.getRightRotation());
+		leftDistance = Math.abs(drive.getLeftDistance());
+		rightDistance = Math.abs(drive.getRightDistance());
 
 		pLeft = speed;
 		pRight = speed;
@@ -59,7 +57,7 @@ public class Drive4Distance extends CommandBase {
 
 	protected boolean isFinished() {
 		if (timer.hasPeriodPassed(5)
-				|| (Math.abs(Constants.cycleDistance * ((leftTicks + rightTicks / 2) / 360)) >= Math.abs(distance))) {
+				|| (Math.abs((leftDistance + rightDistance) / 2) >= Math.abs(distance))) {
 			return true;
 		} else
 			return false;
