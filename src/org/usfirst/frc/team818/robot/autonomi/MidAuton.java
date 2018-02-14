@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *ISSA PROTOYPE FAM DON'T RUN THIS JUST YET
  */
-public class PrototypeAuton extends CommandGroup {
+public class MidAuton extends CommandGroup {
 
 	String gameData;
 	int target;
@@ -16,7 +16,7 @@ public class PrototypeAuton extends CommandGroup {
 	private static LinkedList<Target> priority = new LinkedList<>();
 	PriorityList autonPriority = new PriorityList();
 
-	public PrototypeAuton() {
+	public MidAuton() {
 
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 

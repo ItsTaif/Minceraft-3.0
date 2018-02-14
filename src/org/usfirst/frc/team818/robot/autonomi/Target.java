@@ -2,8 +2,8 @@ package org.usfirst.frc.team818.robot.autonomi;
 
 public class Target {
 	
-	int targetNumber;
 	String targetLocation;
+	int targetNumber;
 	
 	Target(){
 		targetLocation = "none";
