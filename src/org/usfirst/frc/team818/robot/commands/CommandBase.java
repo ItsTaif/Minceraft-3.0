@@ -33,6 +33,9 @@ public abstract class CommandBase extends Command {
 		shifter = new ShifterSubsystem(Constants.shifterLeftPistonPorts, Constants.shifterRightPistonPorts, Constants.shifterEnabled);
 	
 		oi = new OI();
+		
+		compressor.startCompressor();
+		shifter.highGear();
 	}
 	
 	public static void disable() {
