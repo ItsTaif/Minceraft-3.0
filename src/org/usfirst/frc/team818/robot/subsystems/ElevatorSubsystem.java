@@ -1,6 +1,6 @@
 package org.usfirst.frc.team818.robot.subsystems;
 
-import org.usfirst.frc.team818.robot.commands.DriveCommand;
+import org.usfirst.frc.team818.robot.commands.ElevatorCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -51,7 +51,7 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveCommand());
+		setDefaultCommand(new ElevatorCommand());
 	}
 
 	public void set(double speed) {

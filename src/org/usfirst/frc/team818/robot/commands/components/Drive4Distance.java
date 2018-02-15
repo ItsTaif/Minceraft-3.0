@@ -9,7 +9,7 @@ public class Drive4Distance extends CommandBase {
 	double distance, speed, pLeft, pRight, leftDistance, rightDistance;
 	Timer timer;
 
-	public Drive4Distance(double speed, double distance) {
+	public Drive4Distance(double distance, double speed) {
 		requires(drive);
 		timer = new Timer();
 		this.distance = distance;

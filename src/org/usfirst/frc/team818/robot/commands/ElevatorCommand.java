@@ -16,6 +16,7 @@ public class ElevatorCommand extends CommandBase {
     	joystickToggle = false;
     	distanceBottom = Constants.elevatorBottomPosition;
     	elevator.setSetpoint(distanceBottom);
+    	elevator.enablePID();
     }
 
     protected void execute() {
@@ -34,9 +35,8 @@ public class ElevatorCommand extends CommandBase {
     		
     	}else {
     		
-    		elevator.enablePID();
-    		
     		if(joystickToggle){
+    			elevator.enablePID();
     			distanceTarget = elevator.getDistance();
     			joystickToggle = false;
     		}

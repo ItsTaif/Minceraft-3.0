@@ -31,10 +31,10 @@ public class OI {
 		dynamicBraking = new JoystickButton(leftStick, 2);
 		shiftGear = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
-		elevatorSwitch = new JoystickButton(gamepad, 1);
-		elevatorBottom = new JoystickButton(gamepad, 2);
-		gamepad3 = new JoystickButton(gamepad, 3);
-		elevatorScale = new JoystickButton(gamepad, 4);
+		elevatorSwitch = new JoystickButton(gamepad, 1); // not implemented
+		elevatorBottom = new JoystickButton(gamepad, 2); // not implemented
+		gamepad3 = new JoystickButton(gamepad, 3); // used for ???
+		elevatorScale = new JoystickButton(gamepad, 4); // not implemented
 		intakeIn = new JoystickButton(gamepad, 5);
 		intakeOut = new JoystickButton(gamepad, 6);
 		intakeUp = new JoystickButton(gamepad, 7);
