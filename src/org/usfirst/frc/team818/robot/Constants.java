@@ -11,8 +11,8 @@ public class Constants {
 	public static final boolean exampleEnabled = false;
 
 	// Robot Dimensions
-	public static final double robotWidth = 818;
-	public static final double robotLength = 818;
+	public static final double robotHalfWidth = 818 / 2;
+	public static final double robotHalfLength = 818 / 2;
 	// Joystick Ports
 	public static final int leftJoystickPort = 0;
 	public static final int rightJoystickPort = 1;

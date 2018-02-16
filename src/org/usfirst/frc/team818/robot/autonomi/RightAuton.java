@@ -2,6 +2,7 @@ package org.usfirst.frc.team818.robot.autonomi;
 
 import java.util.LinkedList;
 
+import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
@@ -66,56 +67,56 @@ public class RightAuton extends CommandGroup {
 
 		switch (target) {
 		case 1: //left Scale
-			addSequential(new WaitCommand(delay));
-			addSequential(new Drive4Distance(235.235, 0.7));
-			addParallel(new ElevatorAutonCommand("Scale"));
+			addSequential(new WaitCommand(delay)); // wait set amount of time
+			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength, 0.7)); // move forward to gap between the platform and the Switch
+			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(264, 0.7));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(264 - Constants.robotHalfLength - Constants.robotHalfWidth, 0.7)); // move to the right side of the field
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(90));
-			addSequential(new Drive4Distance(88.765));
+			addSequential(new TurnAngle(90)); // 90 degree right turn
+			addSequential(new Drive4Distance(88.765 - Constants.robotHalfLength)); // move forward next to Scale
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(90));
-			addSequential(new Drive4Distance(42));
+			addSequential(new TurnAngle(90)); // 90 degree right turn
+			addSequential(new Drive4Distance(42 - Constants.robotHalfLength)); // move forward to Scale
 			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2));
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			break;
 		case 2: //rightScale
-			addSequential(new WaitCommand(delay));
-			addSequential(new Drive4Distance(324, 0.7));
-			addParallel(new ElevatorAutonCommand("Scale"));
+			addSequential(new WaitCommand(delay)); // wait set amount of time
+			addSequential(new Drive4Distance(324 - Constants.robotHalfLength, 0.7)); // move forward to middle of the field
+			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(42));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(42 - Constants.robotHalfWidth - Constants.robotHalfLength)); // move forward to Scale
 			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2));
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			break;
 		case 3: //leftSwitch
-			addSequential(new WaitCommand(delay));
-			addSequential(new Drive4Distance(235.235, 0.7));
-			addParallel(new ElevatorAutonCommand("Scale"));
+			addSequential(new WaitCommand(delay)); // wait set amount of time
+			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength, 0.7));
+			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(264, 0.7));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(264 - Constants.robotHalfLength - Constants.robotHalfWidth, 0.7)); // move to the right side of the field
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(67.235));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(67.235 - Constants.robotHalfLength)); // move forward next to Switch
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(55.25));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength)); // move forward to Switch
 			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2));
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			break;
 		case 4: //rightSwitch
-			addSequential(new WaitCommand(delay));
-			addSequential(new Drive4Distance(168));
-			addParallel(new ElevatorAutonCommand("Switch"));
+			addSequential(new WaitCommand(delay)); // wait set amount of time
+			addSequential(new Drive4Distance(168 - Constants.robotHalfLength)); // move forward next to Switch
+			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
 			addSequential(new WaitCommand(0.25));
-			addSequential(new TurnAngle(-90));
-			addSequential(new Drive4Distance(55.25));
+			addSequential(new TurnAngle(-90)); // 90 degree left turn
+			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength - Constants.robotHalfWidth)); // move forward to Switch
 			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2));
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			break;
 		case 5: addSequential(new DoNothing());
 			break;
