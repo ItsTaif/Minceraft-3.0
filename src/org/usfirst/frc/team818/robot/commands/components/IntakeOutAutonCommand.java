@@ -33,11 +33,11 @@ public class IntakeOutAutonCommand extends CommandBase {
 
 	protected void initialize() {
 		timer.start();
-    	intake.intakeOut(0.8);
+    	intake.intakeOff();
 	}
 
 	protected void execute() {
-		intake.intakeOut(0.8);
+		intake.intakeOut(speed);
 	}
 
 	protected boolean isFinished() {
