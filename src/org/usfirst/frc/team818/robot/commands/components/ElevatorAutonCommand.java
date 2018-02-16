@@ -37,7 +37,13 @@ public class ElevatorAutonCommand extends CommandBase {
     }
 
     protected boolean isFinished() {
-        return (position.equals("Bottom")) ? elevator.reachedBottom() : elevator.getDistance() >= Constants.elevatorSwitchPosition;
+    	if(position.equals("Bottom"))
+    		return elevator.reachedBottom();
+    	else if(position.equals("Switch"))
+    		return elevator.getDistance() >= Constants.elevatorSwitchPosition;
+        else if(position.equals("Scale"))
+        	return elevator.getDistance() >= Constants.elevatorScalePosition;
+        else return true;
     }
 
     protected void end() {

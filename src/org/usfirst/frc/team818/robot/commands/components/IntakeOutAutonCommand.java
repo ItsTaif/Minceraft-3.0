@@ -9,23 +9,30 @@ package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class IntakeOutAutonCommand extends CommandBase {
+	
+	Timer timer;
 	
 	private double speed, time;
 	
 	public IntakeOutAutonCommand(double speed) {
 		requires(intake);
+		timer = new Timer();
 		this.speed = speed;
 		this.time = 3;
 	}
 	
 	public IntakeOutAutonCommand(double speed, double time) {
 		requires(intake);
+		timer = new Timer();
 		this.speed = speed;
 		this.time = time;		
 	}
 
 	protected void initialize() {
+		timer.start();
     	intake.intakeOut(0.8);
 	}
 
@@ -34,7 +41,7 @@ public class IntakeOutAutonCommand extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return timer.hasPeriodPassed(time);
 	}
 
 	protected void end() {
