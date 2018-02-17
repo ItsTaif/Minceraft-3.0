@@ -7,13 +7,16 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
+import java.util.LinkedList;
+
 import edu.wpi.first.wpilibj.Timer;
 
 public class ClimberSpinCommand extends CommandBase {
 	
 	Timer timer = new Timer();
 	double currentAverage;
-	double[] storeCurrent = new double[8];
+	//double[] storeCurrent = new double[8];
+	private static LinkedList<Current> storeCurrent = new LinkedList<>();
 	boolean override = false;
 	
 	public ClimberSpinCommand() {
@@ -28,29 +31,30 @@ public class ClimberSpinCommand extends CommandBase {
 	protected void initialize() {
 		climber.setForward();
 		timer.start();
+		for(int i = 0; i < 8; i++){
+			storeCurrent.add(new Current(0));
+		}
 	}
 
 	protected void execute() {
 		if((timer.get() * 1000) % 100 == 0 ){
     		
-    		for(int i = 0; i < storeCurrent.length; i++){
-    			if(storeCurrent[i] == 0){
-    				storeCurrent[i] = climber.getClimberCurrent();
+    		for(int i = 0; i < storeCurrent.size(); i++){
+    			if(storeCurrent.get(i).current == 0){
+    				storeCurrent.set(i, new Current(climber.getClimberCurrent()));
     				break;                                  
     			} else if (i == 7){
-    				for(int j = 0; j < storeCurrent.length - 1; j++){
-    					storeCurrent[j] = storeCurrent[j + 1];
-    				}
-    				storeCurrent[i] = climber.getClimberCurrent();
+    				storeCurrent.removeFirst();
+    				storeCurrent.add(new Current(climber.getClimberCurrent()));
     			}
     		}
     	}
 		if(timer.get() > 1){
     		double currentSum = 0;
-    		for(int i = 0; i < storeCurrent.length; i++){
-    			currentSum = storeCurrent[i] + currentSum ; 
+    		for(int i = 0; i < storeCurrent.size(); i++){
+    			currentSum = storeCurrent.get(i).current + currentSum ; 
     		}
-    		currentAverage = currentSum / storeCurrent.length;
+    		currentAverage = currentSum / storeCurrent.size();
     	}
 	}
 
