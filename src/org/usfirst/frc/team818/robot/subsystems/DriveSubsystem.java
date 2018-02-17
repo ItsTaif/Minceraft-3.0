@@ -56,6 +56,9 @@ public class DriveSubsystem extends Subsystem {
 
 			driveGyro = new AnalogGyro(gyroPort);
 			accelerometer = new BuiltInAccelerometer();
+
+			leftEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
+			rightEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
 		}
 
 		pidOutputRight = new DoublePIDOutput();
@@ -98,8 +101,6 @@ public class DriveSubsystem extends Subsystem {
 		speedLimitControllerRight.setContinuous(false);
 		speedLimitControllerRight.setSetpoint(0);
 		
-		leftEncoder.setDistancePerPulse(Constants.cycleDistance);
-		rightEncoder.setDistancePerPulse(Constants.cycleDistance);
 	}
 
 	public void initDefaultCommand() {
@@ -159,6 +160,18 @@ public class DriveSubsystem extends Subsystem {
 			return rightEncoder.get();
 		} else
 			return 0;
+	}
+	
+	public void setEncoderGearRatio(String gear){
+		
+		if(gear.equals("High Gear")){
+			leftEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
+			rightEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
+		}else if(gear.equals("Low Gear")){
+			leftEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioLow);
+			rightEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioLow);
+		}
+		
 	}
 
 	public double getLeftDistance() {
