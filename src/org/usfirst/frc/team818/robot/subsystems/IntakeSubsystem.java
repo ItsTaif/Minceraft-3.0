@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,8 +17,9 @@ public class IntakeSubsystem extends Subsystem {
 	private Talon intakeL, intakeR;
 	private DoubleSolenoid intakePiston;
 	private boolean intakeEnabled;
+	private DigitalInput cube;
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, boolean intakeEnabled) {
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, int limitSwitchPortIntake, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
 
@@ -25,6 +27,7 @@ public class IntakeSubsystem extends Subsystem {
 			intakeL = new Talon(intakeLMotorPort);
 			intakeR = new Talon(intakeRMotorPort);
 			intakePiston = new DoubleSolenoid(intakePistonPorts[0], intakePistonPorts[1]);
+			cube = new DigitalInput(limitSwitchPortIntake);
 		}
 	}
 
@@ -77,6 +80,10 @@ public class IntakeSubsystem extends Subsystem {
     	if(intakeEnabled) {
     		intakePiston.set(DoubleSolenoid.Value.kOff);
     	}
+    }
+    
+    public boolean hasCube(){
+    	return cube.get();
     }
 
 }

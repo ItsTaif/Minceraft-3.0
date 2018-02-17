@@ -29,7 +29,7 @@ public class IntakeInCommand extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return intake.hasCube();
 	}
 
 	protected void end() {
