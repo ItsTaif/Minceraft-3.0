@@ -10,6 +10,7 @@ import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeUpCommand;
 import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -31,10 +32,10 @@ public class OI {
 		dynamicBraking = new JoystickButton(leftStick, 2);
 		shiftGear = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
-		elevatorSwitch = new JoystickButton(gamepad, 1); // not implemented
-		elevatorBottom = new JoystickButton(gamepad, 2); // not implemented
-		gamepad3 = new JoystickButton(gamepad, 3); // used for ???
-		elevatorScale = new JoystickButton(gamepad, 4); // not implemented
+		elevatorSwitch = new JoystickButton(gamepad, 1);
+		elevatorBottom = new JoystickButton(gamepad, 2);
+		gamepad3 = new JoystickButton(gamepad, 3); // currently unused, will be probably backDrive
+		elevatorScale = new JoystickButton(gamepad, 4);
 		intakeIn = new JoystickButton(gamepad, 5);
 		intakeOut = new JoystickButton(gamepad, 6);
 		intakeUp = new JoystickButton(gamepad, 7);
@@ -50,9 +51,17 @@ public class OI {
 		intakeOut.whileHeld(new IntakeOutCommand());
 		intakeUp.whenPressed(new IntakeUpCommand());
 		intakeDown.whenPressed(new IntakeDownCommand());
-		climberDrop.whenPressed(new ClimberDropCommand());
-		climberSpin.whileHeld(new ClimberSpinCommand());
 
+		// Climber can only run in the last 30 seconds
+		try {
+			if (DriverStation.getInstance().getMatchTime() <= 30) {
+				climberDrop.whenPressed(new ClimberDropCommand());
+				climberSpin.whileHeld(new ClimberSpinCommand());
+			}
+		} catch (Exception e) {
+			climberDrop.whenPressed(new ClimberDropCommand());
+			climberSpin.whileHeld(new ClimberSpinCommand());
+		}
 	}
 
 	// Joystick Axes

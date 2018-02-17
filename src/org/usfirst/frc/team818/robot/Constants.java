@@ -9,6 +9,7 @@ public class Constants {
 	public static final boolean intakeEnabled = true;
 	public static final boolean shifterEnabled = true;
 	public static final boolean exampleEnabled = false;
+	public static final boolean climberTimeEnabled = false;
 
 	// Robot Dimensions
 	public static final double robotHalfWidth = 818 / 2;
