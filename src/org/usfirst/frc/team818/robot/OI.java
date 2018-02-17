@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
-	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom, gamepad3,
-			elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberDrop, climberSpin;
+	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom,
+			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberDrop, climberSpin;
 
 	public OI() {
 
@@ -66,6 +66,19 @@ public class OI {
 		}
 	}
 
+	// Elevator Configurations
+	public boolean getElevatorBottom() {
+		return elevatorBottom.get();
+	}
+
+	public boolean getElevatorSwitch() {
+		return elevatorSwitch.get();
+	}
+
+	public boolean getElevatorScale() {
+		return elevatorScale.get();
+	}
+
 	// Joystick Axes
 	public double getLeftY() {
 		return (Math.abs(leftStick.getY()) > 0.1) ? -leftStick.getY() : 0;
@@ -105,18 +118,6 @@ public class OI {
 
 	public double getGamepadRightX() {
 		return (Math.abs(gamepad.getRawAxis(4)) > 0.1) ? -gamepad.getRawAxis(2) : 0;
-	}
-
-	public boolean getElevatorBottom() {
-		return elevatorBottom.get();
-	}
-
-	public boolean getElevatorSwitch() {
-		return elevatorSwitch.get();
-	}
-
-	public boolean getElevatorScale() {
-		return elevatorScale.get();
 	}
 
 }
