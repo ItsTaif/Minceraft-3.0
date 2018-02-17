@@ -8,6 +8,7 @@ import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeUpCommand;
+import org.usfirst.frc.team818.robot.commands.LimitedDriveCommand;
 import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
-	public JoystickButton left1, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom, gamepad3,
+	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom, gamepad3,
 			elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberDrop, climberSpin;
 
 	public OI() {
@@ -28,7 +29,7 @@ public class OI {
 		gamepad = new Joystick(Constants.gamepadPort);
 
 		// Instantiating Buttons
-		left1 = new JoystickButton(leftStick, 1); // will be speed limit override
+		speedLimit = new JoystickButton(leftStick, 1); // will be speed limit override
 		dynamicBraking = new JoystickButton(leftStick, 2);
 		shiftGear = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
@@ -44,6 +45,7 @@ public class OI {
 		climberSpin = new JoystickButton(gamepad, 10);
 
 		// Buttons
+		speedLimit.whenPressed(new LimitedDriveCommand());
 		dynamicBraking.whileHeld(new DynamicBraking());
 		shiftGear.toggleWhenPressed(new ShiftLowCommand());
 		armadilloDrive.whenPressed(new ArmadilloDrive());
