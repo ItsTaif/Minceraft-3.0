@@ -26,7 +26,7 @@ public class MidAuton extends CommandGroup {
 		
 		priority = autonPriority.getPriority();
 		
-		delay = SmartDashboard.getNumber("delay", 0);
+		delay = SmartDashboard.getNumber("Delay", 0);
 		target = 5;
 
 		for (int i = 0; i < priority.size(); i++) {

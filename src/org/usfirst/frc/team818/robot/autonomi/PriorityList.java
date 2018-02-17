@@ -12,6 +12,9 @@ public class PriorityList {
 
 	public PriorityList() {
 
+		for (int i = 0; i < 4; i++)
+			priority.addLast(new Target("", 0));
+		
 		for (int i = 0; i < 4; i++) {
 
 			if ((int) SmartDashboard.getNumber(targets[i], 0) > 0) {
@@ -22,7 +25,7 @@ public class PriorityList {
 
 				} catch (Exception e) {
 
-					priority.addLast(new Target(targets[i], 1));
+					priority.addLast(new Target(targets[i], i + 1));
 				}
 
 			}
