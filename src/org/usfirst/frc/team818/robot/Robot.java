@@ -7,38 +7,36 @@
 
 package org.usfirst.frc.team818.robot;
 
+import org.usfirst.frc.team818.robot.commands.CommandBase;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
-	public static OI m_oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-	@Override
 	public void robotInit() {
-		m_oi = new OI();
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		CommandBase.init();
+//		chooser.addObject("My Auto", new MyAutoCommand());
+//		SmartDashboard.putData("Auto mode", m_chooser);
+		
 	}
 
-	@Override
 	public void disabledInit() {
 
 	}
 
-	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -53,24 +51,20 @@ public class Robot extends TimedRobot {
 		}
 	}
 
-	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-	@Override
 	public void teleopInit() {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
 	}
 
-	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
 
-	@Override
 	public void testPeriodic() {
 	}
 }
