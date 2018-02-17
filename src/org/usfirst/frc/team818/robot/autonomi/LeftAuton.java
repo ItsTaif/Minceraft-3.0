@@ -82,10 +82,10 @@ public class LeftAuton extends CommandGroup {
 			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
-			addSequential(new Drive4Distance(264 - Constants.robotHalfLength - Constants.robotHalfWidth, 0.7)); // move to the right side of the field
+			addSequential(new Drive4Distance(264 - Constants.robotHalfWidth, 0.7)); // move forward to the right side of the field
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
-			addSequential(new Drive4Distance(88.765 - Constants.robotHalfLength)); // move forward next to Scale
+			addSequential(new Drive4Distance(88.765)); // move forward next to Scale
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(42 - Constants.robotHalfLength)); // move forward to Scale
@@ -104,14 +104,14 @@ public class LeftAuton extends CommandGroup {
 			break;
 		case 4: //rightSwitch
 			addSequential(new WaitCommand(delay)); // wait set amount of time
-			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength, 0.7));
+			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength, 0.7)); // move forward to gap between the platform and the Switch
 			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
-			addSequential(new Drive4Distance(264 - Constants.robotHalfLength - Constants.robotHalfWidth, 0.7)); // move to the right side of the field
+			addSequential(new Drive4Distance(264 - Constants.robotHalfWidth, 0.7)); // move to the forward right side of the field
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
-			addSequential(new Drive4Distance(67.235 - Constants.robotHalfLength)); // move forward next to Switch
+			addSequential(new Drive4Distance(67.235)); // move forward next to Switch
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength)); // move forward to Switch
