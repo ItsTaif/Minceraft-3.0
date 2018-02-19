@@ -7,9 +7,6 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team818.robot.Robot;
-
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -27,7 +24,7 @@ public class IntakeCommand extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		intake.intakeIn();
+		intake.intakeIn(0.5);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

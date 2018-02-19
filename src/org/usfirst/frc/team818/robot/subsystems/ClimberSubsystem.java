@@ -62,31 +62,19 @@ public class ClimberSubsystem extends Subsystem {
 		}
 	}
 
-<<<<<<< HEAD
-	public void start() {
-=======
 	public void setForward() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
 			cMotor.set(ControlMode.PercentOutput, 1);
 		}
 	}
 
-<<<<<<< HEAD
-	public void reverse() {
-=======
 	public void setReverse() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
 			cMotor.set(ControlMode.PercentOutput, -0.25);
 		}
 	}
 
-<<<<<<< HEAD
-	public void stop() {
-=======
 	public void setOff() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
 			cMotor.set(ControlMode.PercentOutput, 0);
 		}

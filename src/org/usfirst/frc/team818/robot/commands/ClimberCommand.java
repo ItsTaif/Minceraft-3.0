@@ -7,9 +7,6 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team818.robot.Robot;
-
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -28,7 +25,6 @@ public class ClimberCommand extends CommandBase {
 	@Override
 	protected void execute() {
 		climb.open();
-		climb.start();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -41,7 +37,6 @@ public class ClimberCommand extends CommandBase {
 	@Override
 	protected void end() {
 		climb.off();
-		climb.stop();
 	}
 
 	// Called when another command which requires one or more of the same
@@ -49,6 +44,5 @@ public class ClimberCommand extends CommandBase {
 	@Override
 	protected void interrupted() {
 		climb.off();
-		climb.stop();
 	}
 }
