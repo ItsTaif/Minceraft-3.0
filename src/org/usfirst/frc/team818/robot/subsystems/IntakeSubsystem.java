@@ -7,27 +7,23 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem {
 
 	private Talon intakeL, intakeR;
-	private DoubleSolenoid intakePiston;
 	private boolean intakeEnabled;
-	private DigitalInput cube;
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, int limitSwitchPortIntake, boolean intakeEnabled) {
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
 
 		if (intakeEnabled) {
+
 			intakeL = new Talon(intakeLMotorPort);
 			intakeR = new Talon(intakeRMotorPort);
-			intakePiston = new DoubleSolenoid(intakePistonPorts[0], intakePistonPorts[1]);
-			cube = new DigitalInput(limitSwitchPortIntake);
+
 		}
 	}
 
@@ -36,17 +32,17 @@ public class IntakeSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void intakeIn(double speed) {
+	public void intakeIn() {
 		if (intakeEnabled) {
-			intakeL.set(speed);
-			intakeR.set(-speed);
+			intakeL.set(0.5);
+			intakeR.set(-0.5);
 		}
 	}
 	
-	public void intakeOut(double speed) {
+	public void intakeOut() {
 		if (intakeEnabled) {
-			intakeL.set(-speed);
-			intakeR.set(speed);
+			intakeL.set(-0.5);
+			intakeR.set(0.5);
 		}
 	}
 	
@@ -56,34 +52,5 @@ public class IntakeSubsystem extends Subsystem {
 			intakeR.set(0);
 		}
 	}
-	
-	public void intakeSetSpeed(double speed) {
-		if (intakeEnabled) {
-			intakeL.set(speed);
-			intakeR.set(-speed);
-		}
-	}
-	
-	public void intakeDown() {
-    	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kForward);	
-    	}
-    }
-    
-    public void intakeUp() {
-    	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kReverse);
-    	}
-    }
-    
-    public void intakeVertOff() {
-    	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kOff);
-    	}
-    }
-    
-    public boolean hasCube(){
-    	return cube.get();
-    }
 
 }

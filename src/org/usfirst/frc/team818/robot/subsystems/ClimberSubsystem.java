@@ -7,17 +7,14 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ClimberSubsystem extends Subsystem {
 
-	private TalonSRX cMotor;
+	private Talon cMotor;
 	private int cMotorPort;
 	private DoubleSolenoid piston;
 	private PowerDistributionPanel pdp;
@@ -29,7 +26,7 @@ public class ClimberSubsystem extends Subsystem {
 
 		if (climberEnabled) {
 
-			cMotor = new WPI_TalonSRX(climberMotorPort);
+			cMotor = new Talon(climberMotorPort);
 			piston = new DoubleSolenoid(climberPistonPort[0], climberPistonPort[1]);
 			pdp = new PowerDistributionPanel();
 
@@ -62,40 +59,24 @@ public class ClimberSubsystem extends Subsystem {
 		}
 	}
 
-<<<<<<< HEAD
 	public void start() {
-=======
-	public void setForward() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
-			cMotor.set(ControlMode.PercentOutput, 1);
+			cMotor.set(1);
 		}
 	}
 
-<<<<<<< HEAD
 	public void reverse() {
-=======
-	public void setReverse() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
-			cMotor.set(ControlMode.PercentOutput, -0.25);
+			cMotor.set(-0.25);
 		}
 	}
 
-<<<<<<< HEAD
 	public void stop() {
-=======
-	public void setOff() {
->>>>>>> 6741f18bf254973e605257675392466ecc3a0414
 		if (climberEnabled) {
-			cMotor.set(ControlMode.PercentOutput, 0);
+			cMotor.set(0);
 		}
 	}
 	
-	public boolean getCurrent(){
-		
-		return true;
-	}
 	//This may need to be (and if not needed, should be) switched to CAN
 	public double getClimberCurrent() {
 		return (climberEnabled) ? Math.abs(pdp.getCurrent(cMotorPort)) : -1;

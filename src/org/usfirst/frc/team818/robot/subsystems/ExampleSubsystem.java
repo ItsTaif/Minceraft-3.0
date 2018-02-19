@@ -5,29 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team818.robot.commands;
+package org.usfirst.frc.team818.robot.subsystems;
 
-public class ClimberReverseCommand extends CommandBase {
-	public ClimberReverseCommand() {
-		requires(climber);
-	}
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-	protected void initialize() {
-	}
+/**
+ * An example subsystem.  You can replace me with your own Subsystem.
+ */
+public class ExampleSubsystem extends Subsystem {
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 
-	protected void execute() {
-    	climber.setReverse();
-	}
-
-	protected boolean isFinished() {
-		return false;
-	}
-
-	protected void end() {
-		climber.setOff();
-	}
-
-	protected void interrupted() {
-		climber.setOff();
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
 	}
 }
