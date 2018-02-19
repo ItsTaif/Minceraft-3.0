@@ -8,11 +8,13 @@
 package org.usfirst.frc.team818.robot;
 
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 
@@ -59,6 +61,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		RobotLog.putMessage("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
+		System.out.println("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
 	}
 
 	public void teleopPeriodic() {
