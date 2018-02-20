@@ -55,7 +55,9 @@ public class Constants {
 	public static final int intakeLeftMotorPort = 7;
 	public static final int intakeRightMotorPort = 8;
 	public static final int[] intakePistonPorts = { 4, 5 };
-	public static final int limitSwitchPortIntake = 3;
+	public static final int limitSwitchPortIntakeCube = 3;
+	public static final int limitSwitchPortIntakeUp = 3;
+	public static final int limitSwitchPortIntakeDown = 3;
 
 	// Used in the Shifter Subsystem
 	public static final int[] shifterLeftPistonPorts = { 2, 3 };

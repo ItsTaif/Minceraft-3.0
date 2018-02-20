@@ -7,27 +7,33 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem {
 
-	private Talon intakeL, intakeR;
-	private DoubleSolenoid intakePiston;
+	private TalonSRX intakeL, intakeR;
+	private VictorSPX intakeArm;
 	private boolean intakeEnabled;
-	private DigitalInput cube;
+	private DigitalInput cube, intakeLimitUp, intakeLimitDown;
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, int limitSwitchPortIntake, boolean intakeEnabled) {
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, int limitSwitchPortIntakeUp, int limitSwitchPortIntakeDown, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
 
 		if (intakeEnabled) {
-			intakeL = new Talon(intakeLMotorPort);
-			intakeR = new Talon(intakeRMotorPort);
-			intakePiston = new DoubleSolenoid(intakePistonPorts[0], intakePistonPorts[1]);
-			cube = new DigitalInput(limitSwitchPortIntake);
+			intakeL = new WPI_TalonSRX(intakeLMotorPort);
+			intakeR = new WPI_TalonSRX(intakeRMotorPort);
+			intakeArm = new WPI_VictorSPX(0);
+			cube = new DigitalInput(limitSwitchPortIntakeCube);
+			intakeLimitUp = new DigitalInput(limitSwitchPortIntakeUp);
+			intakeLimitDown = new DigitalInput(limitSwitchPortIntakeDown);
 		}
 	}
 
@@ -38,52 +44,53 @@ public class IntakeSubsystem extends Subsystem {
 	
 	public void intakeIn(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(speed);
-			intakeR.set(-speed);
+			intakeL.set(ControlMode.PercentOutput, speed);
+			intakeR.set(ControlMode.PercentOutput, -speed);
 		}
 	}
 	
 	public void intakeOut(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(-speed);
-			intakeR.set(speed);
+			intakeL.set(ControlMode.PercentOutput, -speed);
+			intakeR.set(ControlMode.PercentOutput, speed);
 		}
 	}
 	
 	public void intakeOff() {
 		if (intakeEnabled) {
-			intakeL.set(0);
-			intakeR.set(0);
-		}
-	}
-	
-	public void intakeSetSpeed(double speed) {
-		if (intakeEnabled) {
-			intakeL.set(speed);
-			intakeR.set(-speed);
+			intakeL.set(ControlMode.PercentOutput, 0);
+			intakeR.set(ControlMode.PercentOutput, 0);
 		}
 	}
 	
 	public void intakeDown() {
     	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kForward);	
+    		intakeArm.set(ControlMode.PercentOutput, 0.5);
     	}
     }
     
     public void intakeUp() {
     	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kReverse);
+    		intakeArm.set(ControlMode.PercentOutput, -0.5);
     	}
     }
     
     public void intakeVertOff() {
     	if(intakeEnabled) {
-    		intakePiston.set(DoubleSolenoid.Value.kOff);
+    		intakeArm.set(ControlMode.PercentOutput, 0);
     	}
     }
     
     public boolean hasCube(){
     	return cube.get();
+    }
+    
+    public boolean intakeReachUp() {
+    	return intakeLimitUp.get();
+    }
+    
+    public boolean intakeReachDown() {
+    	return intakeLimitDown.get();
     }
 
 }

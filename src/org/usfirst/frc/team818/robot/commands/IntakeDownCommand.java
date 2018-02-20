@@ -21,7 +21,7 @@ public class IntakeDownCommand extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return intake.intakeReachDown();
 	}
 
 	protected void end() {
