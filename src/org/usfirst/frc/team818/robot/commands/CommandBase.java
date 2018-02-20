@@ -26,7 +26,7 @@ public abstract class CommandBase extends Command {
 	
 	public static void init() {
 		
-		climber = new ClimberSubsystem(Constants.climberMotorPort, Constants.climberPistonPort, Constants.climberEnabled);
+		climber = new ClimberSubsystem(Constants.climberMotorPort, Constants.rClimberPistonPort, Constants.dClimberPistonPort, Constants.climberEnabled);
 		compressor = new CompressorSubsystem(Constants.compressorEnabled);
 		drive = new DriveSubsystem(Constants.leftMotorPorts, Constants.rightMotorPorts, Constants.gyroDrivePort, 
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);

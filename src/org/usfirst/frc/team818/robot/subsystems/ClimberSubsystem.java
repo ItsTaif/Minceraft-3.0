@@ -10,33 +10,26 @@ package org.usfirst.frc.team818.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ClimberSubsystem extends Subsystem {
 
 	private TalonSRX cMotor;
-	private int cMotorPort;
-	private DoubleSolenoid piston;
-	private PowerDistributionPanel pdp;
+	private DoubleSolenoid rPiston, dPiston; //pistons for releasing, detatching
 	private boolean climberEnabled;
 
-	public ClimberSubsystem(int climberMotorPort, int[] climberPistonPort, boolean climberEnabled) {
+	public ClimberSubsystem(int climberMotorPort, int[] rClimberPistonPort, int[] dClimberPistonPort, boolean climberEnabled) {
 	
 		this.climberEnabled = climberEnabled;
 
 		if (climberEnabled) {
 
 			cMotor = new WPI_TalonSRX(climberMotorPort);
-			piston = new DoubleSolenoid(climberPistonPort[0], climberPistonPort[1]);
-			pdp = new PowerDistributionPanel();
+			rPiston = new DoubleSolenoid(rClimberPistonPort[0], rClimberPistonPort[1]);
+			dPiston = new DoubleSolenoid(dClimberPistonPort[0], dClimberPistonPort[1]);
 
 		}
-
-		cMotorPort = climberMotorPort;
-
 	}
 
 	public void initDefaultCommand() {
@@ -44,33 +37,45 @@ public class ClimberSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void open() {
+	public void rOpen() {
 		if (climberEnabled) {
-			piston.set(DoubleSolenoid.Value.kForward);
+			rPiston.set(DoubleSolenoid.Value.kForward);
 		}
 	}
 
-	public void close() {
+	public void rClose() {
 		if (climberEnabled) {
-			piston.set(DoubleSolenoid.Value.kReverse);
+			rPiston.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 
-	public void off() {
+	public void rOff() {
 		if (climberEnabled) {
-			piston.set(DoubleSolenoid.Value.kOff);
+			rPiston.set(DoubleSolenoid.Value.kOff);
+		}
+	}
+	
+	public void dOpen() {
+		if (climberEnabled) {
+			dPiston.set(DoubleSolenoid.Value.kForward);
 		}
 	}
 
-	public void setForward() {
+	public void dClose() {
 		if (climberEnabled) {
-			cMotor.set(ControlMode.PercentOutput, 1);
+			dPiston.set(DoubleSolenoid.Value.kReverse);
 		}
 	}
 
-	public void setReverse() {
+	public void dOff() {
 		if (climberEnabled) {
-			cMotor.set(ControlMode.PercentOutput, -0.25);
+			dPiston.set(DoubleSolenoid.Value.kOff);
+		}
+	}
+
+	public void setSpeed(double speed) {
+		if (climberEnabled) {
+			cMotor.set(ControlMode.PercentOutput, speed);
 		}
 	}
 
@@ -79,15 +84,5 @@ public class ClimberSubsystem extends Subsystem {
 			cMotor.set(ControlMode.PercentOutput, 0);
 		}
 	}
-	
-	public boolean getCurrent(){
-		
-		return true;
-	}
-	//This may need to be (and if not needed, should be) switched to CAN
-	public double getClimberCurrent() {
-		return (climberEnabled) ? Math.abs(pdp.getCurrent(cMotorPort)) : -1;
-	}
 
-	
 }

@@ -23,14 +23,13 @@ public class Constants {
 
 	// Used in Climber Subsystem
 	public static final int climberMotorPort = 11;
-	public static final int[] climberPistonPort = { 6, 7 };
+	public static final int[] rClimberPistonPort = { 6, 7 };
+	public static final int[] dClimberPistonPort = { 8, 9 };
 
 	// Used in Drive Subsystem
 	public static final int[] leftMotorPorts = { 1, 3, 5 }; // done
 	public static final int[] rightMotorPorts = { 2, 4, 6 }; // done
 	public static final int gyroDrivePort = 0;
-	
-	public static final int[] climberPistonPorts = {};
 
 	public static final int[] leftEncoderPorts = { 3, 4 };
 	public static final int[] rightEncoderPorts = { 1, 2 };
