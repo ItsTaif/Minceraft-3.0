@@ -1,7 +1,7 @@
 package org.usfirst.frc.team818.robot;
 
 import org.usfirst.frc.team818.robot.commands.ArmadilloDrive;
-import org.usfirst.frc.team818.robot.commands.ClimberDropCommand;
+import org.usfirst.frc.team818.robot.commands.ClimberDetatchCommand;
 import org.usfirst.frc.team818.robot.commands.ClimberSpinCommand;
 import org.usfirst.frc.team818.robot.commands.DynamicBraking;
 import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
@@ -19,7 +19,7 @@ public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
 	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom,
-			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberDrop, climberSpin;
+			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberRelease, climberDetatch;
 
 	public OI() {
 
@@ -41,8 +41,8 @@ public class OI {
 		intakeOut = new JoystickButton(gamepad, 6);
 		intakeUp = new JoystickButton(gamepad, 7);
 		intakeDown = new JoystickButton(gamepad, 8);
-		climberDrop = new JoystickButton(gamepad, 9);
-		climberSpin = new JoystickButton(gamepad, 10);
+		climberRelease = new JoystickButton(gamepad, 9);
+		climberDetatch = new JoystickButton(gamepad, 10);
 
 		// Buttons
 		speedLimit.whenPressed(new LimitedDriveCommand());
@@ -57,12 +57,12 @@ public class OI {
 		// Climber can only run in the last 30 seconds
 		try {
 			if (DriverStation.getInstance().getMatchTime() <= 30) {
-				climberDrop.whenPressed(new ClimberDropCommand());
-				climberSpin.whileHeld(new ClimberSpinCommand());
+				climberRelease.whenPressed(new ClimberDetatchCommand());
+				climberDetatch.whileHeld(new ClimberSpinCommand());
 			}
 		} catch (Exception e) {
-			climberDrop.whenPressed(new ClimberDropCommand());
-			climberSpin.whileHeld(new ClimberSpinCommand());
+			climberRelease.whenPressed(new ClimberDetatchCommand());
+			climberDetatch.whileHeld(new ClimberSpinCommand());
 		}
 	}
 
@@ -104,7 +104,7 @@ public class OI {
 		return (Math.abs(rightStick.getZ()) > 0.1) ? -rightStick.getZ() : 0;
 	}
 
-	public double getGamepadLeftY() {
+	public double getGamepadLeftY() { //used for climber
 		return (Math.abs(gamepad.getRawAxis(1)) > 0.1) ? -gamepad.getRawAxis(1) : 0;
 	}
 
@@ -112,7 +112,7 @@ public class OI {
 		return (Math.abs(gamepad.getRawAxis(3)) > 0.1) ? -gamepad.getRawAxis(3) : 0;
 	}
 
-	public double getGamepadLeftX() {
+	public double getGamepadLeftX() { //used for elevator
 		return (Math.abs(gamepad.getRawAxis(2)) > 0.1) ? -gamepad.getRawAxis(0) : 0;
 	}
 

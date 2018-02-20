@@ -7,16 +7,16 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-public class ClimberReverseCommand extends CommandBase {
-	public ClimberReverseCommand() {
+public class ClimberDetatchCommand extends CommandBase {
+	public ClimberDetatchCommand() {
 		requires(climber);
 	}
 
 	protected void initialize() {
+		climber.dOpen();
 	}
 
 	protected void execute() {
-    	climber.setReverse();
 	}
 
 	protected boolean isFinished() {
@@ -24,10 +24,10 @@ public class ClimberReverseCommand extends CommandBase {
 	}
 
 	protected void end() {
-		climber.setOff();
+		climber.dOff();
 	}
 
 	protected void interrupted() {
-		climber.setOff();
+		climber.dOff();
 	}
 }

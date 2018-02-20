@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ElevatorSubsystem extends Subsystem {
 
-	TalonSRX elevatorMotor;
+	TalonSRX elevatorMotor1, elevatorMotor2;
 	Ultrasonic ultra;
 	DigitalInput limitBottom, limitTop;
 
@@ -27,11 +27,12 @@ public class ElevatorSubsystem extends Subsystem {
 
 	private boolean elevatorEnabled;
 
-	public ElevatorSubsystem(int elevatorMotorPort, int ultraSonicSensorPortOut, int ultraSonicSensorPortIn, int limitSwitchPortTop, int limitSwitchPortBottom, boolean elevatorEnabled) {
+	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int ultraSonicSensorPortOut, int ultraSonicSensorPortIn, int limitSwitchPortTop, int limitSwitchPortBottom, boolean elevatorEnabled) {
 
 		this.elevatorEnabled = elevatorEnabled;
 		if (elevatorEnabled) {
-			elevatorMotor = new WPI_TalonSRX(elevatorMotorPort);
+			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPort1);
+			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPort2);
 			
 			limitBottom = new DigitalInput(limitSwitchPortBottom);
 			limitTop = new DigitalInput(limitSwitchPortTop);
@@ -55,8 +56,10 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void set(double speed) {
-		if (elevatorEnabled) 
-			elevatorMotor.set(ControlMode.PercentOutput,speed);
+		if (elevatorEnabled) {
+			elevatorMotor1.set(ControlMode.PercentOutput,speed);
+			elevatorMotor2.set(ControlMode.PercentOutput,speed);			
+		}
 	}
 	
 	public double getDistance(){
