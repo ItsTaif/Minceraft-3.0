@@ -42,7 +42,8 @@ public class Constants {
 	public static final int speedLimit = 156; // in inches
 
 	// Used in Elevator Subsystem
-	public static final int elevatorMotorPort = 12;
+	public static final int elevatorMotorPort1 = 12;
+	public static final int elevatorMotorPort2 = 13;
 	public static final int ultrasonicOutPort = 0;
 	public static final int ultrasonicInPort = 0;
 	public static final int elevatorBottomPosition = 0;
