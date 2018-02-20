@@ -23,14 +23,14 @@ public class IntakeSubsystem extends Subsystem {
 	private boolean intakeEnabled;
 	private DigitalInput cube, intakeLimitUp, intakeLimitDown;
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int[] intakePistonPorts, int limitSwitchPortIntakeUp, int limitSwitchPortIntakeDown, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int intakeArmMotorPort, int limitSwitchPortIntakeUp, int limitSwitchPortIntakeDown, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
 
 		if (intakeEnabled) {
 			intakeL = new WPI_TalonSRX(intakeLMotorPort);
 			intakeR = new WPI_TalonSRX(intakeRMotorPort);
-			intakeArm = new WPI_VictorSPX(0);
+			intakeArm = new WPI_VictorSPX(intakeArmMotorPort);
 			cube = new DigitalInput(limitSwitchPortIntakeCube);
 			intakeLimitUp = new DigitalInput(limitSwitchPortIntakeUp);
 			intakeLimitDown = new DigitalInput(limitSwitchPortIntakeDown);

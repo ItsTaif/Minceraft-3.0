@@ -21,17 +21,6 @@ public class VaultAuton extends CommandGroup {
     	addSequential(new Drive4Distance(18.0));
     	addSequential(new IntakeOutAutonCommand(0.5, 2.0));
     	addSequential(new Drive4Distance(-10.0));
-    	addSequential(new TurnAngle(-160));
-    	addSequential(new Drive4Distance(10.0));
-    	addSequential(new TurnAngle(-20));
-    	addSequential(new Drive4Distance(20.0));
-    	addParallel(new IntakeInAutonCommand(1.0, 2.0));
-    	addSequential(new Drive4Distance(-10.0));
-    	addSequential(new TurnAngle(-160));
-    	addSequential(new Drive4Distance(10.0));
-    	addSequential(new TurnAngle(-20));
-    	addSequential(new Drive4Distance(20.0));
-    	addSequential(new IntakeOutAutonCommand(0.5, 2.0));
     	addSequential(new Drive4Distance(-10.0));
     	addSequential(new TurnAngle(90));
     	addSequential(new Drive4Distance(140.0));

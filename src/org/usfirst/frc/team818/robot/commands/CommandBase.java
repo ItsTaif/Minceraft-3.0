@@ -32,7 +32,7 @@ public abstract class CommandBase extends Command {
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);
 		
 		elevator = new ElevatorSubsystem(Constants.elevatorMotorPort1, Constants.elevatorMotorPort2, Constants.ultrasonicOutPort, Constants.ultrasonicInPort, Constants.limitSwitchPortTop, Constants.limitSwitchPortBottom, Constants.elevatorEnabled);
-		intake = new IntakeSubsystem(Constants.intakeLeftMotorPort, Constants.intakeRightMotorPort, Constants.intakePistonPorts, Constants.limitSwitchPortIntakeUp, Constants.limitSwitchPortIntakeDown, Constants.limitSwitchPortIntakeCube, Constants.intakeEnabled);
+		intake = new IntakeSubsystem(Constants.intakeLeftMotorPort, Constants.intakeRightMotorPort, Constants.intakeArmMotorPort, Constants.limitSwitchPortIntakeUp, Constants.limitSwitchPortIntakeDown, Constants.limitSwitchPortIntakeCube, Constants.intakeEnabled);
 		shifter = new ShifterSubsystem(Constants.shifterLeftPistonPorts, Constants.shifterRightPistonPorts, Constants.shifterEnabled);
 	
 		oi = new OI();

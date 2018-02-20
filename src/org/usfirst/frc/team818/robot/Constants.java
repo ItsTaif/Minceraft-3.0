@@ -23,8 +23,8 @@ public class Constants {
 
 	// Used in Climber Subsystem
 	public static final int climberMotorPort = 11;
-	public static final int[] rClimberPistonPort = { 6, 7 };
-	public static final int[] dClimberPistonPort = { 8, 9 };
+	public static final int[] rClimberPistonPort = { 4, 5 };
+	public static final int[] dClimberPistonPort = { 6, 7 };
 
 	// Used in Drive Subsystem
 	public static final int[] leftMotorPorts = { 1, 3, 5 }; // done
@@ -54,7 +54,7 @@ public class Constants {
 	// Used in Intake SUbsystem
 	public static final int intakeLeftMotorPort = 7;
 	public static final int intakeRightMotorPort = 8;
-	public static final int[] intakePistonPorts = { 4, 5 };
+	public static final int intakeArmMotorPort = 11;
 	public static final int limitSwitchPortIntakeCube = 3;
 	public static final int limitSwitchPortIntakeUp = 3;
 	public static final int limitSwitchPortIntakeDown = 3;
