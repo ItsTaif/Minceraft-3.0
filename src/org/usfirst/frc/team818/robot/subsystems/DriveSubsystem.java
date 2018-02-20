@@ -68,36 +68,36 @@ public class DriveSubsystem extends Subsystem {
 		dynamicBreakingControllerRight = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0], DYNAMIC_BREAKING_PID_VALUES[1],
 				DYNAMIC_BREAKING_PID_VALUES[2], rightEncoder, pidOutputRight);
 		dynamicBreakingControllerRight.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
-		dynamicBreakingControllerRight.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
+		dynamicBreakingControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 		dynamicBreakingControllerRight.setSetpoint(0);
 		dynamicBreakingControllerRight.setContinuous(false);
 
 		dynamicBreakingControllerLeft = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0], DYNAMIC_BREAKING_PID_VALUES[1],
 				DYNAMIC_BREAKING_PID_VALUES[2], leftEncoder, pidOutputLeft);
 		dynamicBreakingControllerLeft.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
-		dynamicBreakingControllerLeft.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
+		dynamicBreakingControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 		dynamicBreakingControllerLeft.setSetpoint(0);
 		dynamicBreakingControllerLeft.setContinuous(false);
 
 		gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2],
 				driveGyro, pidOutputGryo);
 		gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
-		gyroController.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
+		gyroController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 		gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
-		gyroController.setContinuous();
+		gyroController.setContinuous(false);
 		gyroController.setSetpoint(0);
 		
 		speedLimitControllerLeft = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1], SPEEDLIMIT_PID_VALUES[2],
 				leftEncoder, pidOutputSpeedLimitLeft);
 		speedLimitControllerLeft.setOutputRange(SPEEDLIMIT_PID_RANGE[0], SPEEDLIMIT_PID_RANGE[1]);
-		speedLimitControllerLeft.setInputRange(Double.MIN_VALUE, Double.MAX_VALUE);
+		speedLimitControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 		speedLimitControllerLeft.setContinuous(false);
 		speedLimitControllerLeft.setSetpoint(0);
 
 		speedLimitControllerRight = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1], SPEEDLIMIT_PID_VALUES[2],
 				rightEncoder, pidOutputSpeedLimitRight);
 		speedLimitControllerRight.setOutputRange(SPEEDLIMIT_PID_RANGE[0], SPEEDLIMIT_PID_RANGE[1]);
-		speedLimitControllerRight.setInputRange(Double.MIN_VALUE, Double.MAX_VALUE);
+		speedLimitControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 		speedLimitControllerRight.setContinuous(false);
 		speedLimitControllerRight.setSetpoint(0);
 		
