@@ -7,6 +7,7 @@ import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
+import org.usfirst.frc.team818.robot.commands.components.MidAutonSecondCube;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -20,8 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class MidAuton extends CommandGroup {
 
 	String gameData;
-	int target;
+	int target, action;
 	double delay;
+	boolean endLeft;
 	private static LinkedList<Target> priority = new LinkedList<>();
 	PriorityList autonPriority = new PriorityList();
 
@@ -32,6 +34,7 @@ public class MidAuton extends CommandGroup {
 		priority = autonPriority.getPriority();
 		
 		delay = SmartDashboard.getNumber("Delay", 0);
+		action = (int) SmartDashboard.getNumber("SecondAction", 0);
 		target = 5;
 
 		for (int i = 0; i < priority.size(); i++) {
@@ -81,7 +84,8 @@ public class MidAuton extends CommandGroup {
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(42 +  - Constants.robotHalfLength)); // move forward  to Scale
-			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube			
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+			endLeft = true;
 			break;
 		case 2: //rightScale
 			addSequential(new WaitCommand(delay));
@@ -98,6 +102,7 @@ public class MidAuton extends CommandGroup {
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(42 - Constants.robotHalfLength)); // move forward  to Scale
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube		
+			endLeft = false;
 			break;
 		case 3: //leftSwitch
 			addSequential(new WaitCommand(delay));
@@ -111,6 +116,7 @@ public class MidAuton extends CommandGroup {
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(71.5 - Constants.robotHalfLength)); // move forward to Switch
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+			endLeft = true;
 			break;
 		case 4: //rightSwitch
 			addSequential(new WaitCommand(delay));
@@ -124,11 +130,14 @@ public class MidAuton extends CommandGroup {
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(71.5 - Constants.robotHalfLength)); // move forward to Switch
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+			endLeft = false;
 			break;
 		case 5: addSequential(new DoNothing());
 			break;
 
 		}
+		
+		addSequential(new MidAutonSecondCube(endLeft, action));
 
 	}
 }

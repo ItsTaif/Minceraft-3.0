@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *ISSA PROTOYPE FAM DON'T RUN THIS JUST YET
  */
-public class LeftAuton extends CommandGroup {
+public class LeftAuton1 extends CommandGroup {
 
 	String gameData;
 	int target;
@@ -25,7 +25,7 @@ public class LeftAuton extends CommandGroup {
 	private static LinkedList<Target> priority = new LinkedList<>();
 	PriorityList autonPriority = new PriorityList();
 
-	public LeftAuton() {
+	public LeftAuton1() {
 
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
@@ -76,7 +76,7 @@ public class LeftAuton extends CommandGroup {
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(42 - Constants.robotHalfWidth - Constants.robotHalfLength)); // move forward to Scale
 			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube.
 			break;
 		case 2: //rightScale
 			addSequential(new WaitCommand(delay)); // wait set amount of time
