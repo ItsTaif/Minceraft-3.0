@@ -12,18 +12,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ShifterSubsystem extends Subsystem {
 	
-	Solenoid gearShiftLeftHigh, gearShiftLeftLow, gearShiftRightHigh, gearShiftRightLow;
+	Solenoid gearShiftHigh, gearShiftLow;
 	private boolean shifterEnabled;
 	
-	public ShifterSubsystem(int[] gearLeftPorts, int[] gearRightPorts, boolean shifterEnabled) {
+	public ShifterSubsystem(int[] gearPorts, boolean shifterEnabled) {
 
 		this.shifterEnabled = shifterEnabled;
 
 		if (shifterEnabled) {
-			gearShiftLeftHigh = new Solenoid(gearLeftPorts[0]);
-			gearShiftLeftLow = new Solenoid(gearLeftPorts[1]);
-			gearShiftRightHigh = new Solenoid(gearRightPorts[0]);
-			gearShiftRightLow = new Solenoid(gearRightPorts[1]);
+			gearShiftHigh = new Solenoid(gearPorts[0]);
+			gearShiftLow = new Solenoid(gearPorts[1]);
 		}
 	}
 	
@@ -33,28 +31,22 @@ public class ShifterSubsystem extends Subsystem {
 	
 	public void lowGear() {
 		if (shifterEnabled) {
-			gearShiftLeftHigh.set(true);
-			gearShiftLeftLow.set(false);
-			gearShiftRightHigh.set(true);
-			gearShiftRightLow.set(false);
+			gearShiftHigh.set(true);
+			gearShiftLow.set(false);
 		}
 	}
 
 	public void highGear() {
 		if (shifterEnabled) {
-			gearShiftLeftHigh.set(false);
-			gearShiftLeftLow.set(true);
-			gearShiftRightHigh.set(false);
-			gearShiftRightLow.set(true);
+			gearShiftHigh.set(false);
+			gearShiftLow.set(true);
 		}
 	}
 
 	public void offGear() {
 		if (shifterEnabled) {
-			gearShiftLeftHigh.set(false);
-			gearShiftLeftLow.set(false);
-			gearShiftRightHigh.set(false);
-			gearShiftRightLow.set(false);
+			gearShiftHigh.set(false);
+			gearShiftLow.set(false);
 		}
 	}
 	

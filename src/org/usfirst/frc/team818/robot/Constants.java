@@ -60,7 +60,6 @@ public class Constants {
 	public static final int limitSwitchPortIntakeDown = 3;
 
 	// Used in the Shifter Subsystem
-	public static final int[] shifterLeftPistonPorts = { 2, 3 };
-	public static final int[] shifterRightPistonPorts = { 0, 1 };
+	public static final int[] shifterPistonPorts = { 0, 1 };
 
 }
