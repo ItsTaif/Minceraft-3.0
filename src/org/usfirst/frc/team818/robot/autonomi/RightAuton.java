@@ -94,6 +94,12 @@ public class RightAuton extends CommandGroup {
 			addSequential(new Drive4Distance(42 - Constants.robotHalfWidth - Constants.robotHalfLength)); // move forward to Scale
 			addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+			if(SmartDashboard.getBoolean("Second Scale", false)){
+				
+			}else if(SmartDashboard.getBoolean("Second Switch", false)){
+				
+				
+			}
 			break;
 		case 3: //leftSwitch
 			addSequential(new WaitCommand(delay)); // wait set amount of time
