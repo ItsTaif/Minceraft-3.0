@@ -252,6 +252,17 @@ public class DriveSubsystem extends Subsystem {
 					speedLimitControllerRight.enable();
 				if (!speedLimitControllerLeft.isEnabled())
 					speedLimitControllerLeft.enable();
+			} else if (pidType.equals("driveDistance")) {
+				if (!dynamicBreakingControllerRight.isEnabled())
+					dynamicBreakingControllerRight.enable();
+				if (!dynamicBreakingControllerLeft.isEnabled())
+					dynamicBreakingControllerLeft.enable();
+				if (!gyroController.isEnabled())
+					gyroController.enable();
+				if(speedLimitControllerLeft.isEnabled())
+					speedLimitControllerLeft.disable();
+				if(speedLimitControllerRight.isEnabled())
+					speedLimitControllerRight.disable();
 			}
 		}
 	}
@@ -287,6 +298,10 @@ public class DriveSubsystem extends Subsystem {
 		return (driveEnabled) ? gyroController.onTarget() : true;
 	}
 
+	public boolean distanceOnTarget() {
+		return (driveEnabled) ? dynamicBreakingControllerRight.onTarget() : true;
+	}
+	
 	public double getPIDOutputGyro() {
 		return (driveEnabled) ? pidOutputGryo.get() : 0;
 	}

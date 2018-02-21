@@ -8,7 +8,7 @@ public class BaseLine extends CommandGroup {
 
 	public BaseLine() {
 
-		addSequential(new Drive4Distance(90, 0.5));
+		addSequential(new Drive4Distance(90));
 
 	}
 }

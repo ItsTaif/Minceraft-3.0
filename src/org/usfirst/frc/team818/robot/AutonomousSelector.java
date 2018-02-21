@@ -22,35 +22,19 @@ import org.usfirst.frc.team818.robot.utilities.RobotLog;
  */
 
 public class AutonomousSelector {
-
-	public static final String[] autonomi = {"DoNothing", "Baseline", "LeftAuton", "MidAuton", "RightAuton"};
 	
 	public static Command getSelectedAutonomous(){
 		
-		int autoIndex;
 		Command autonomous = new DoNothing();
 		
 		try{
 			
-			autoIndex = Integer.parseInt(SmartDashboard.getString("Autonomous", "DoNothing"));
-			
-		} catch (Exception exc){
-			
-			RobotLog.putMessage("Couldn't find the selected autonomous mode");
-			RobotLog.putMessage(exc.getMessage());
-			autoIndex = 0;
-			
-		}
-		
-		try{
-			
-			autonomous = (CommandGroup)Class.forName("org.usfirst.frc.team818.robot.autonomi." + autonomi[autoIndex]).newInstance();
+			autonomous = (CommandGroup)Class.forName("org.usfirst.frc.team818.robot.autonomi." + SmartDashboard.getString("Autonomous", "DoNothing")).newInstance();
 			
 		} catch (Exception e){
 			
 			RobotLog.putMessage("Could not run " + autonomous.toString());
 			RobotLog.putMessage(e.getMessage());
-			autonomous = new DoNothing();
 			
 		}
 		
