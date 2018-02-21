@@ -41,7 +41,7 @@ public class IntakeInAutonCommand extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(time);
+		return timer.hasPeriodPassed(time) || intake.hasCube();
 	}
 
 	protected void end() {
