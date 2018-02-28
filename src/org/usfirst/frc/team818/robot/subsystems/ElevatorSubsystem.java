@@ -1,33 +1,22 @@
 package org.usfirst.frc.team818.robot.subsystems;
 
 import org.usfirst.frc.team818.robot.commands.ElevatorCommand;
-import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ElevatorSubsystem extends Subsystem {
 
 	TalonSRX elevatorMotor1, elevatorMotor2;
-	Ultrasonic ultra;
-	DigitalInput limitBottom, limitTop;
-
-	private static final double[] ELEVATOR_PID_VALUES = { 0.01, 0.001, 0 };
-	private static final double[] ELEVATOR_PID_RANGE = { -1, 1 };
-
-	private PIDController elevatorController;
-	private DoublePIDOutput pidOutputElevator;
+	DigitalInput limitBottom, limitTop, limitElevator, limitCarrage;
 
 	private boolean elevatorEnabled;
 
-	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int ultraSonicSensorPortOut, int ultraSonicSensorPortIn, int limitSwitchPortTop, int limitSwitchPortBottom, boolean elevatorEnabled) {
+	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int limitSwitchPortTop, int limitSwitchPortBottom,int limitSwitchPortCarrage, int limitSwitchPortElevator, boolean elevatorEnabled) {
 
 		this.elevatorEnabled = elevatorEnabled;
 		if (elevatorEnabled) {
@@ -36,19 +25,11 @@ public class ElevatorSubsystem extends Subsystem {
 			
 			limitBottom = new DigitalInput(limitSwitchPortBottom);
 			limitTop = new DigitalInput(limitSwitchPortTop);
+			limitElevator = new DigitalInput(limitSwitchPortElevator);
+			limitCarrage = new DigitalInput(limitSwitchPortCarrage);
 			
-			ultra = new Ultrasonic(ultraSonicSensorPortOut, ultraSonicSensorPortIn);
-			ultra.setDistanceUnits(Unit.kInches);
 		}
 
-		pidOutputElevator = new DoublePIDOutput();
-
-		elevatorController = new PIDController(ELEVATOR_PID_VALUES[0], ELEVATOR_PID_VALUES[1],
-				ELEVATOR_PID_VALUES[2], ultra, pidOutputElevator);
-		elevatorController.setOutputRange(ELEVATOR_PID_RANGE[0], ELEVATOR_PID_RANGE[1]);
-		elevatorController.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
-		elevatorController.setSetpoint(0);
-		elevatorController.setContinuous(false);
 	}
 
 	public void initDefaultCommand() {
@@ -62,8 +43,12 @@ public class ElevatorSubsystem extends Subsystem {
 		}
 	}
 	
-	public double getDistance(){
-		return ultra.getRangeInches();
+	public boolean triggerElevator() {
+		return limitElevator.get();
+	}
+	
+	public boolean triggerCarrage() {
+		return limitCarrage.get();
 	}
 	
 	public boolean reachedBottom(){
@@ -72,31 +57,6 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public boolean reachedTop(){
 		return limitTop.get();
-	}
-	
-	public void setSetpoint(double setpoint){
-		if (elevatorEnabled) 	
-			elevatorController.setSetpoint(setpoint);
-	}
-	
-	public boolean isPIDEnabled(){
-		return elevatorController.isEnabled();
-	}
-	
-	public void enablePID() {
-		if (elevatorEnabled) 
-			if (!elevatorController.isEnabled())
-				elevatorController.enable();
-	}
-
-	public void disablePID() {
-		if (elevatorEnabled)
-			if (elevatorController.isEnabled())
-				elevatorController.disable();
-	}
-
-	public double getPIDOutputElevator() {
-		return (elevatorEnabled) ? pidOutputElevator.get() : 0;
 	}
 
 }
