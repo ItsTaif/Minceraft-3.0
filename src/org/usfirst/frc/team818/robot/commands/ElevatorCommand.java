@@ -1,12 +1,11 @@
 package org.usfirst.frc.team818.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team818.robot.Constants;
 
 public class ElevatorCommand extends CommandBase {
   
-	int position;
-	double speed;
-	boolean triggeredCarrage, triggeredElevator;
+    private static double distanceBottom, distanceTarget;
+    private static boolean joystickToggle;
 	
 	public ElevatorCommand() {
        	requires(elevator);
@@ -14,85 +13,46 @@ public class ElevatorCommand extends CommandBase {
 
     protected void initialize() {
     	elevator.set(0);
-    	position = 0;
-    	speed = 0;
+    	joystickToggle = false;
+    	distanceBottom = Constants.elevatorBottomPosition;
+    	elevator.setSetpoint(distanceBottom);
+    	elevator.enablePID();
     }
 
     protected void execute() {
     	
+    	if(elevator.reachedBottom())
+    		distanceBottom = elevator.getDistance();
+    	
     	if(Math.abs(oi.getGamepadRightY()) > 0.1){
     		
-    		if(elevator.reachedBottom() && oi.getGamepadRightY() < 0) speed = 0;
-    		else if(elevator.reachedTop() && oi.getGamepadRightY() > 0) speed = 0;
-    		else speed = oi.getGamepadRightY();
+    		elevator.disablePID();
+    		joystickToggle = true;
+    		
+    		if(elevator.reachedBottom() && oi.getGamepadRightY() < 0) elevator.set(0);
+    		else if(elevator.reachedTop() && oi.getGamepadRightY() > 0) elevator.set(0);
+    		else elevator.set(oi.getGamepadRightY());
     		
     	}else {
     		
-    		if(oi.getElevatorBottom()) {
-    			
-    			if(position > 0 && !elevator.reachedBottom()) {
-    				
-    				if(position == 1)
-    					speed = -0.3;
-    				else 
-    					speed = -0.7;
-    				
-    			}else speed = 0;
-    			
-    		}else if(oi.getElevatorSwitch()) {
-    			
-    			if(position > 4) {
-    				
-    				speed = -0.7;
-				
-    			}if(position < 4) {
-
-    				speed = 0.7;
-				
-    			}else speed = 0;
-    			
-    		}else if(oi.getElevatorScale()) {
-    			
-    			if(position < 8 && !elevator.reachedTop()) {
-    				
-    				if(position == 7)
-    					speed = 0.3;
-    				else 
-    					speed = 0.7;
-    				
-    			}else speed = 0;
-    			
+    		if(joystickToggle){
+    			elevator.enablePID();
+    			distanceTarget = elevator.getDistance();
+    			joystickToggle = false;
     		}
     		
+    		if(oi.getElevatorBottom())
+        		distanceTarget = distanceBottom;
+        	else if(oi.getElevatorScale())
+        		distanceTarget = Constants.elevatorSwitchPosition;
+        	else if(oi.getElevatorSwitch())
+        		distanceTarget = Constants.elevatorScalePosition;
+        	
+        	elevator.setSetpoint(distanceTarget);
+	    	elevator.set(elevator.getPIDOutputElevator());
+	    	
     	}
-    	
-    	if(speed > 0 && elevator.triggerCarrage() && !triggeredCarrage) {
-    		position++;
-    	}
-    	if(speed > 0 && elevator.triggerElevator() && !triggeredCarrage) {
-    		position++;
-    	}
-    	if(speed < 0 && elevator.triggerCarrage() && !triggeredElevator) {
-    		position--;
-    	}
-    	if(speed < 0 && elevator.triggerElevator() && !triggeredElevator) {
-    		position--;
-    	}
-    	
-    	if(elevator.triggerCarrage())
-    		triggeredCarrage = true;
-    	else if(triggeredCarrage)
-    		triggeredCarrage = false;
-    	
-    	if(elevator.triggerElevator())
-        	triggeredElevator = true;
-    	else if(triggeredElevator)
-    		triggeredElevator = false;
-    	    	
-    	elevator.set(speed);
 
-    	//SmartDashboard.putNumber("position", (double)position);
-    	//SmartDashboard.putNumber("elevatorSpeed", speed);
     }
 
     protected boolean isFinished() {
@@ -101,9 +61,11 @@ public class ElevatorCommand extends CommandBase {
 
     protected void end() {
     	elevator.set(0);
+    	elevator.disablePID();
     }
 
     protected void interrupted() {
     	elevator.set(0);
+    	elevator.disablePID();
     }
 }

@@ -43,13 +43,13 @@ public class Constants {
 	// Used in Elevator Subsystem
 	public static final int elevatorMotorPort1 = 12;
 	public static final int elevatorMotorPort2 = 13;
+	public static final int ultrasonicOutPort = 0;
+	public static final int ultrasonicInPort = 0;
 	public static final int elevatorBottomPosition = 0;
 	public static final int elevatorSwitchPosition = 0;
 	public static final int elevatorScalePosition = 0;
 	public static final int limitSwitchPortTop = 1;
 	public static final int limitSwitchPortBottom = 2;
-	public static final int limitSwitchPortElevator = 1;
-	public static final int limitSwitchPortCarrage = 2;
 
 	// Used in Intake SUbsystem
 	public static final int intakeLeftMotorPort = 7;

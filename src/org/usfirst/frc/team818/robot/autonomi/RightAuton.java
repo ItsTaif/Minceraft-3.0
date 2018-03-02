@@ -7,8 +7,6 @@ import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
-import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Scale;
-import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Switch;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -85,11 +83,6 @@ public class RightAuton extends CommandGroup {
 			addSequential(new Drive4Distance(42 - Constants.robotHalfLength)); // move forward to Scale
 			addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Scale("left", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Scale("left", "Switch"));
-			}
 			break;
 		case 2: //rightScale
 			addSequential(new WaitCommand(delay)); // wait set amount of time
@@ -102,9 +95,10 @@ public class RightAuton extends CommandGroup {
 			addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Scale("right", "Scale"));
+				
 			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Scale("right", "Switch"));
+				
+				
 			}
 			break;
 		case 3: //leftSwitch
@@ -123,11 +117,6 @@ public class RightAuton extends CommandGroup {
 			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength)); // move forward to Switch
 			addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Switch("left", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Switch("left", "Switch"));
-			}
 			break;
 		case 4: //rightSwitch
 			addSequential(new WaitCommand(delay)); // wait set amount of time
@@ -139,11 +128,6 @@ public class RightAuton extends CommandGroup {
 			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength - Constants.robotHalfWidth)); // move forward to Switch
 			addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Switch("right", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Switch("right", "Switch"));
-			}
 			break;
 		case 5: addSequential(new DoNothing());
 			break;
