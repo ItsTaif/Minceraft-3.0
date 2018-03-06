@@ -2,13 +2,12 @@ package org.usfirst.frc.team818.robot;
 
 public class Constants {
 
-	public static final boolean climberEnabled = true;
+	public static final boolean climberEnabled = false;
 	public static final boolean compressorEnabled = true;
 	public static final boolean driveEnabled = true;
-	public static final boolean elevatorEnabled = true;
-	public static final boolean intakeEnabled = true;
+	public static final boolean elevatorEnabled = false;
+	public static final boolean intakeEnabled = false;
 	public static final boolean shifterEnabled = true;
-	public static final boolean exampleEnabled = false;
 	public static final boolean climberTimeEnabled = false;
 
 	// Robot Dimensions
@@ -35,8 +34,8 @@ public class Constants {
 	public static final int[] rightEncoderPorts = { 1, 2 };
 
 	public static final int wheelRadius = 3;
-	public static final int encoderGearRatioHigh = 1; // need to check between low gear and high gear
-	public static final int encoderGearRatioLow = 1; // need to check between low gear and high gear
+	public static final int encoderGearRatioHigh = 6; // need to check between low gear and high gear
+	public static final int encoderGearRatioLow = 23; // need to check between low gear and high gear
 	public static final double cycleDistance = (2 * wheelRadius * Math.PI / 360);
 	public static final int speedLimit = 156; // in inches
 

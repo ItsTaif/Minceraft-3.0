@@ -37,6 +37,8 @@ public class ElevatorAutonCommand extends CommandBase {
     }
 
     protected boolean isFinished() {
+    	if(!Constants.elevatorEnabled)
+    		return true;
     	if(position.equals("Bottom"))
     		return elevator.reachedBottom();
     	else if(position.equals("Switch"))

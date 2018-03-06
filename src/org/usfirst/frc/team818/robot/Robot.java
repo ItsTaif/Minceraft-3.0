@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team818.robot;
 
+import org.usfirst.frc.team818.robot.autonomi.Baseline;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		
 		CommandBase.init();
+		RobotLog.init();
 //		chooser.addObject("My Auto", new MyAutoCommand());
 //		SmartDashboard.putData("Auto mode", m_chooser);
 		
@@ -38,8 +40,8 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousInit() {
-		m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
-
+		//m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
+		m_autonomousCommand = new Baseline();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -54,6 +56,8 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
+		SmartDashboard.putString("RobotLog", "L:" + CommandBase.drive.getLeftRotation()+" R:"+CommandBase.drive.getRightRotation());
 		Scheduler.getInstance().run();
 	}
 
@@ -66,6 +70,8 @@ public class Robot extends TimedRobot {
 	}
 
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
+		SmartDashboard.putString("RobotLog", "L:" + CommandBase.drive.getLeftRotation()+" R:"+CommandBase.drive.getRightRotation());
 		Scheduler.getInstance().run();
 	}
 

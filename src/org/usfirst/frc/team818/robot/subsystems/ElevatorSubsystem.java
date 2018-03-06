@@ -4,6 +4,7 @@ import org.usfirst.frc.team818.robot.commands.ElevatorCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -37,22 +38,25 @@ public class ElevatorSubsystem extends Subsystem {
 			limitBottom = new DigitalInput(limitSwitchPortBottom);
 			limitTop = new DigitalInput(limitSwitchPortTop);
 			
+			FeedbackDevice sensorStatus;
+			
 			elevatorEncoder = new Encoder(elevatorEncoderPorts[0], elevatorEncoderPorts[1]);
 			elevatorEncoder.setDistancePerPulse(elevatorDistance);
-			elevatorEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+				elevatorEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+	
+			pidOutputElevator = new DoublePIDOutput();
+	
+			elevatorController = new PIDController(ELEVATOR_PID_VALUES[0], ELEVATOR_PID_VALUES[1],
+					ELEVATOR_PID_VALUES[2], elevatorEncoder, pidOutputElevator);
+			elevatorController.setOutputRange(ELEVATOR_PID_RANGE[0], ELEVATOR_PID_RANGE[1]);
+			elevatorController.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
+			elevatorController.setSetpoint(0);
+			elevatorController.setContinuous(false);
 		}
-
-		pidOutputElevator = new DoublePIDOutput();
-
-		elevatorController = new PIDController(ELEVATOR_PID_VALUES[0], ELEVATOR_PID_VALUES[1],
-				ELEVATOR_PID_VALUES[2], elevatorEncoder, pidOutputElevator);
-		elevatorController.setOutputRange(ELEVATOR_PID_RANGE[0], ELEVATOR_PID_RANGE[1]);
-		elevatorController.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
-		elevatorController.setSetpoint(0);
-		elevatorController.setContinuous(false);
 	}
 
 	public void initDefaultCommand() {
+		if(elevatorEnabled)
 		setDefaultCommand(new ElevatorCommand());
 	}
 

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team818.robot.autonomi;
 
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
-import org.usfirst.frc.team818.robot.commands.components.IntakeInAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
 
