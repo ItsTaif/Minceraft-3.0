@@ -58,6 +58,8 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
 		SmartDashboard.putString("RobotLog", "L:" + CommandBase.drive.getLeftRotation()+" R:"+CommandBase.drive.getRightRotation());
+		System.out.println("Gyro: " +  CommandBase.drive.getAngle());
+		System.out.println("L: " + CommandBase.drive.getLeftRotation()+" R: "+CommandBase.drive.getRightRotation());
 		Scheduler.getInstance().run();
 	}
 

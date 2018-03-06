@@ -33,7 +33,7 @@ public class Drive4Distance extends CommandBase {
 	protected void execute() {
 		pLeft = drive.getPIDOutputLeft();
 		pRight = MathUtil.setLimits(drive.getPIDOutputRight() - drive.getPIDOutputGyro(), -1, 1);
-		drive.setBoth(pLeft, pRight);
+		drive.setBoth(pLeft *.5, pRight*.5);
 	}
 
 	protected boolean isFinished() {

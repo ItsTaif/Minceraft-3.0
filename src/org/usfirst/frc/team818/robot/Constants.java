@@ -37,7 +37,7 @@ public class Constants {
 	public static final int encoderGearRatioHigh = 6; // need to check between low gear and high gear
 	public static final int encoderGearRatioLow = 23; // need to check between low gear and high gear
 	public static final double cycleDistance = (2 * wheelRadius * Math.PI / 360);
-	public static final int speedLimit = 156; // in inches
+	public static final int speedLimit = 12; // in inches
 	public static final double slipVal = 111.1;
 
 	// Used in Elevator Subsystem

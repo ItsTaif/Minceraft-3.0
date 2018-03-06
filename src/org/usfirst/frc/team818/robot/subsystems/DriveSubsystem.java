@@ -33,7 +33,7 @@ public class DriveSubsystem extends Subsystem {
 	private static final double[] TRACTION_DRIVE_PID_RANGE = { -1, 1 };
 	private static final double GYRO_PID_TOLERANCE = 1;
 	private static final double[] SPEEDLIMIT_PID_VALUES = { 0.01, 0.001, 0 };
-	private static final double[] SPEEDLIMIT_PID_RANGE = { -Constants.speedLimit, Constants.speedLimit };
+	private static final double[] SPEEDLIMIT_PID_RANGE = { -1, 1 };
 
 	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, speedLimitControllerLeft, speedLimitControllerRight, TCLeft, TCRight;
 	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft, pidOutputSpeedLimitLeft, pidOutputSpeedLimitRight, pidOutputTCLeft, pidOutputTCRight;
@@ -110,7 +110,7 @@ public class DriveSubsystem extends Subsystem {
 			speedLimitControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			speedLimitControllerRight.setContinuous(false);
 			speedLimitControllerRight.setSetpoint(0);
-			
+			/*
 			TCLeft = new PIDController(TRACTION_DRIVE_PID_VALUES[0], TRACTION_DRIVE_PID_VALUES[1], TRACTION_DRIVE_PID_VALUES[2],
 					leftCurrent, pidOutputTCLeft) ;
 			TCLeft.setOutputRange(TRACTION_DRIVE_PID_RANGE[0], TRACTION_DRIVE_PID_RANGE[1]);
@@ -124,6 +124,7 @@ public class DriveSubsystem extends Subsystem {
 			TCRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			TCRight.setContinuous(false);
 			TCRight.setSetpoint(Constants.slipVal);
+			*/
 		}
 		
 	}
