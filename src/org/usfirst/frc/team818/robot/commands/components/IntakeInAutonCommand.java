@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team818.robot.commands.components;
 
+import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -41,7 +42,10 @@ public class IntakeInAutonCommand extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(time) || intake.hasCube();
+		if(!Constants.intakeEnabled)
+			return true;
+		else
+			return timer.hasPeriodPassed(time) || intake.hasCube();
 	}
 
 	protected void end() {

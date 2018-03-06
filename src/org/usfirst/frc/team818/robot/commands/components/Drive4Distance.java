@@ -27,6 +27,7 @@ public class Drive4Distance extends CommandBase {
 
 		drive.enablePID("driveDistance");
 		drive.setRotatePoint(0);
+		drive.setDistanceSetpoint(distance);
 	}
 
 	protected void execute() {

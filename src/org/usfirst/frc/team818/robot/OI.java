@@ -89,19 +89,19 @@ public class OI {
 	}
 
 	public double getLeftX() {
-		return (Math.abs(leftStick.getX()) > 0.1) ? -leftStick.getX() : 0;
+		return (Math.abs(leftStick.getX()) > 0.1) ? leftStick.getX() : 0;
 	}
 
 	public double getRightX() {
-		return (Math.abs(rightStick.getX()) > 0.1) ? -rightStick.getX() : 0;
+		return (Math.abs(rightStick.getX()) > 0.1) ? rightStick.getX() : 0;
 	}
 
 	public double getLeftZ() {
-		return (Math.abs(leftStick.getZ()) > 0.1) ? -leftStick.getZ() : 0;
+		return (Math.abs(leftStick.getZ()) > 0.1) ? leftStick.getZ() : 0;
 	}
 
 	public double getRightZ() {
-		return (Math.abs(rightStick.getZ()) > 0.1) ? -rightStick.getZ() : 0;
+		return (Math.abs(rightStick.getZ()) > 0.1) ? rightStick.getZ() : 0;
 	}
 
 	public double getGamepadLeftY() { //used for climber
@@ -113,11 +113,11 @@ public class OI {
 	}
 
 	public double getGamepadLeftX() { //used for elevator
-		return (Math.abs(gamepad.getRawAxis(2)) > 0.1) ? -gamepad.getRawAxis(0) : 0;
+		return (Math.abs(gamepad.getRawAxis(0)) > 0.1) ? gamepad.getRawAxis(0) : 0;
 	}
 
 	public double getGamepadRightX() {
-		return (Math.abs(gamepad.getRawAxis(4)) > 0.1) ? -gamepad.getRawAxis(2) : 0;
+		return (Math.abs(gamepad.getRawAxis(2)) > 0.1) ? gamepad.getRawAxis(2) : 0;
 	}
 
 }
