@@ -30,8 +30,8 @@ public class Constants {
 	public static final int[] rightMotorPorts = { 2, 4, 6 }; // done
 	public static final int gyroDrivePort = 0;
 
-	public static final int[] leftEncoderPorts = { 3, 4 };
-	public static final int[] rightEncoderPorts = { 1, 2 };
+	public static final int[] leftEncoderPorts = { 2, 3 };
+	public static final int[] rightEncoderPorts = { 0, 1 };
 
 	public static final int wheelRadius = 3;
 	public static final int encoderGearRatioHigh = 6; // need to check between low gear and high gear
