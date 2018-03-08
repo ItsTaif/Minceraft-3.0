@@ -13,15 +13,16 @@ public class IntakeUpCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-    	intake.intakeUp();
+		intake.intakeVertOff();
 	}
 
 	protected void execute() {
-    	
+    	intake.setIntakeVert(0.3);
 	}
 
 	protected boolean isFinished() {
-		return intake.intakeReachUp();
+		return false;
+		//return intake.intakeReachUp();
 	}
 
 	protected void end() {

@@ -65,19 +65,25 @@ public class IntakeSubsystem extends Subsystem {
 	
 	public void intakeDown() {
     	if(intakeEnabled) {
-    		intakeArm.set(ControlMode.PercentOutput, 0.5);
+    		//intakeArm.set(ControlMode.PercentOutput, 0.5);
     	}
     }
     
     public void intakeUp() {
     	if(intakeEnabled) {
-    		intakeArm.set(ControlMode.PercentOutput, -0.5);
+    		//intakeArm.set(ControlMode.PercentOutput, -0.5);
     	}
     }
     
     public void intakeVertOff() {
     	if(intakeEnabled) {
     		intakeArm.set(ControlMode.PercentOutput, 0);
+    	}
+    }
+    
+    public void setIntakeVert(double speed) {
+    	if(intakeEnabled) {
+    		intakeArm.set(ControlMode.PercentOutput, speed);;
     	}
     }
     

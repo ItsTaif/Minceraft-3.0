@@ -13,11 +13,11 @@ public class IntakeDownCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-    	intake.intakeDown();
+		intake.intakeVertOff();
 	}
 
 	protected void execute() {
-    	
+    	intake.setIntakeVert(-0.3);
 	}
 
 	protected boolean isFinished() {

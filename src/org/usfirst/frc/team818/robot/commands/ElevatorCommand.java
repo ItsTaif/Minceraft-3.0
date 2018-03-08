@@ -21,9 +21,10 @@ public class ElevatorCommand extends CommandBase {
 
     protected void execute() {
     	
+    	elevator.set(oi.getGamepadRightY());
+    	/*
     	if(elevator.reachedBottom())
     		distanceBottom = elevator.getDistance();
-    	
     	if(Math.abs(oi.getGamepadRightY()) > 0.1){
     		
     		elevator.disablePID();
@@ -34,7 +35,6 @@ public class ElevatorCommand extends CommandBase {
     		else elevator.set(oi.getGamepadRightY());
     		
     	}else {
-    		
     		if(joystickToggle){
     			elevator.enablePID();
     			distanceTarget = elevator.getDistance();
@@ -50,8 +50,8 @@ public class ElevatorCommand extends CommandBase {
         	
         	elevator.setSetpoint(distanceTarget);
 	    	elevator.set(elevator.getPIDOutputElevator());
-	    	
     	}
+	    */
 
     }
 

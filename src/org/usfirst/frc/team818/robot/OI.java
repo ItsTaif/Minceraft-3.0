@@ -51,8 +51,8 @@ public class OI {
 		armadilloDrive.whenPressed(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
-		intakeUp.whenPressed(new IntakeUpCommand());
-		intakeDown.whenPressed(new IntakeDownCommand());
+		intakeUp.whileHeld(new IntakeUpCommand());
+		intakeDown.whileHeld(new IntakeDownCommand());
 
 		// Climber can only run in the last 30 seconds
 		try {

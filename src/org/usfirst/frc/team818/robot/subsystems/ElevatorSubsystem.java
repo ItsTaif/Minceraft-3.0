@@ -35,10 +35,12 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPort1);
 			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPort2);
 			
-			limitBottom = new DigitalInput(limitSwitchPortBottom);
-			limitTop = new DigitalInput(limitSwitchPortTop);
+			//As of the time of writing, there are no limit switches
+			//limitBottom = new DigitalInput(limitSwitchPortBottom);
+			//limitTop = new DigitalInput(limitSwitchPortTop);
+					
+			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 			
-			FeedbackDevice sensorStatus;
 			
 			elevatorEncoder = new Encoder(elevatorEncoderPorts[0], elevatorEncoderPorts[1]);
 			elevatorEncoder.setDistancePerPulse(elevatorDistance);
@@ -72,11 +74,13 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
 	public boolean reachedBottom(){
-		return limitBottom.get();
+		return false;
+		//return limitBottom.get();
 	}
 	
 	public boolean reachedTop(){
-		return limitTop.get();
+		return false;
+		//return limitTop.get();
 	}
 	
 	public void setSetpoint(double setpoint){
