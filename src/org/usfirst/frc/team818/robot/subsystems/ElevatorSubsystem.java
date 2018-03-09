@@ -1,7 +1,6 @@
 package org.usfirst.frc.team818.robot.subsystems;
 
 import org.usfirst.frc.team818.robot.commands.ElevatorCommand;
-import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -9,24 +8,17 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem extends Subsystem {
 
 	TalonSRX elevatorMotor1, elevatorMotor2;
 	Encoder elevatorEncoder;
-	DigitalInput limitBottom, limitTop;
+	double setpoint;
 
 	private static final double[] ELEVATOR_PID_VALUES = { 0.01, 0.001, 0 };
 	private static final double[] ELEVATOR_PID_RANGE = { -1, 1 };
-
-	private PIDController elevatorController;
-	private DoublePIDOutput pidOutputElevator;
 
 	private boolean elevatorEnabled;
 
@@ -37,25 +29,19 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPort1);
 			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPort2);
 			
-			//As of the time of writing, there are no limit switches
-			//limitBottom = new DigitalInput(limitSwitchPortBottom);
-			//limitTop = new DigitalInput(limitSwitchPortTop);
+			elevatorMotor2.follow(elevatorMotor1);
 					
 			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-			
-			elevatorEncoder = new Encoder(8,9);
-			elevatorMotor1.getSensorCollection().getQuadraturePosition();
-			elevatorEncoder.setDistancePerPulse(elevatorDistance);
-				elevatorEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-	
-			pidOutputElevator = new DoublePIDOutput();
-	
-			elevatorController = new PIDController(ELEVATOR_PID_VALUES[0], ELEVATOR_PID_VALUES[1],
-					ELEVATOR_PID_VALUES[2], elevatorEncoder, pidOutputElevator);
-			elevatorController.setOutputRange(ELEVATOR_PID_RANGE[0], ELEVATOR_PID_RANGE[1]);
-			elevatorController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			elevatorController.setSetpoint(0);
-			elevatorController.setContinuous(false);
+
+			elevatorMotor1.configNominalOutputForward(0, 0);
+			 elevatorMotor1.configNominalOutputReverse(0, 0);
+			 elevatorMotor1.configPeakOutputForward(ELEVATOR_PID_RANGE[1], 0);
+			 elevatorMotor1.configPeakOutputReverse(ELEVATOR_PID_RANGE[0], 0);
+
+			 elevatorMotor1.config_kP(0, ELEVATOR_PID_VALUES[0], 0);
+			 elevatorMotor1.config_kI(0, ELEVATOR_PID_VALUES[1], 0);
+			 elevatorMotor1.config_kD(0, ELEVATOR_PID_VALUES[2], 0);
+
 		}
 	}
 	
@@ -68,52 +54,25 @@ public class ElevatorSubsystem extends Subsystem {
 		setDefaultCommand(new ElevatorCommand());
 	}
 
+	public double getPosition() {
+		return(elevatorEnabled) ? elevatorMotor1.getSensorCollection().getQuadraturePosition() : 0;		
+	}
 	public void set(double speed) {
 		if (elevatorEnabled) {
-			elevatorMotor1.set(ControlMode.PercentOutput,speed);
-			elevatorMotor2.set(ControlMode.PercentOutput,speed);			
+			elevatorMotor1.set(ControlMode.PercentOutput,speed);		
 		}
 	}
 	
-	public double getDistance(){
-		return elevatorEncoder.getDistance();
-	}
-	
-	public boolean reachedBottom(){
-		return false;
-		//return limitBottom.get();
-	}
-	
-	public boolean reachedTop(){
-		return false;
-		//return limitTop.get();
+	public void hold() {
+		if (elevatorEnabled) {
+			elevatorMotor1.set(ControlMode.Position,setpoint);			
+		}
 	}
 	
 	public void setSetpoint(double setpoint){
 		if (elevatorEnabled) 	
-			elevatorController.setSetpoint(setpoint);
-	}
-	
-	public boolean isPIDEnabled(){
-		return elevatorController.isEnabled();
-	}
-	
-	public void enablePID() {
-		if (elevatorEnabled) 
-			if (!elevatorController.isEnabled()) {
-				//elevatorController.enable();
-			}
+			this.setpoint = setpoint;
 	}
 
-	public void disablePID() {
-		if (elevatorEnabled)
-			if (elevatorController.isEnabled())
-				elevatorController.disable();
-	}
-
-	public double getPIDOutputElevator() {
-		//return (elevatorEnabled) ? pidOutputElevator.get() : 0;
-		return 0;
-	}
 
 }

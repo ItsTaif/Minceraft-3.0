@@ -3,7 +3,7 @@ package org.usfirst.frc.team818.robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team818.robot.autonomi.DoNothing;
+import org.usfirst.frc.team818.robot.autonomi.*;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 /**

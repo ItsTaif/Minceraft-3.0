@@ -5,7 +5,7 @@ import org.usfirst.frc.team818.robot.commands.CommandBase;
 
 public class ElevatorAutonCommand extends CommandBase {
   
-    private double distanceBottom, distanceTarget;
+    private double positionBottom, positionTarget;
     private String position;
 	
 	public ElevatorAutonCommand(String position) {
@@ -15,24 +15,21 @@ public class ElevatorAutonCommand extends CommandBase {
 
     protected void initialize() {
     	elevator.set(0);
-    	distanceBottom = Constants.elevatorBottomPosition;
-    	elevator.setSetpoint(distanceBottom);
+    	positionBottom = Constants.elevatorBottomPosition;
+    	elevator.setSetpoint(positionBottom);
     }
 
     protected void execute() {
-    	
-    	if(elevator.reachedBottom())
-    		distanceBottom = elevator.getDistance();
 		
 		if(position.equals("Bottom"))
-    		distanceTarget = distanceBottom;
+    		positionTarget = positionBottom;
     	else if(position.equals("Switch"))
-    		distanceTarget = Constants.elevatorSwitchPosition;
+    		positionTarget = Constants.elevatorSwitchPosition;
     	else if(position.equals("Scale"))
-    		distanceTarget = Constants.elevatorScalePosition;
+    		positionTarget = Constants.elevatorScalePosition;
     	
-    	elevator.setSetpoint(distanceTarget);
-    	elevator.set(elevator.getPIDOutputElevator());
+    	elevator.setSetpoint(positionTarget);
+    	elevator.hold();
 	    	
     }
 
@@ -40,21 +37,20 @@ public class ElevatorAutonCommand extends CommandBase {
     	if(!Constants.elevatorEnabled)
     		return true;
     	if(position.equals("Bottom"))
-    		return elevator.reachedBottom();
+    		return elevator.getPosition() <= Constants.elevatorBottomPosition + 10;
     	else if(position.equals("Switch"))
-    		return elevator.getDistance() >= Constants.elevatorSwitchPosition;
+    		return elevator.getPosition() >= Constants.elevatorSwitchPosition - 10 || 
+    			elevator.getPosition() <= Constants.elevatorSwitchPosition + 10;
         else if(position.equals("Scale"))
-        	return elevator.getDistance() >= Constants.elevatorScalePosition;
+        	return elevator.getPosition() >= Constants.elevatorScalePosition - 10;
         else return true;
     }
 
     protected void end() {
     	elevator.set(0);
-    	elevator.disablePID();
     }
 
     protected void interrupted() {
     	elevator.set(0);
-    	elevator.disablePID();
     }
 }

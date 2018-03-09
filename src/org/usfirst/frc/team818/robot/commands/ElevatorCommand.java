@@ -1,8 +1,5 @@
 package org.usfirst.frc.team818.robot.commands;
 
-import org.usfirst.frc.team818.robot.Constants;
-import org.usfirst.frc.team818.robot.utilities.MathUtil;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,8 +15,6 @@ public class ElevatorCommand extends CommandBase {
 
     protected void initialize() {
     	elevator.set(0);
-    	elevator.setSetpoint(Constants.bottomVal);
-    	elevator.enablePID();
     	timer = new Timer();
     	timer.start();
     	setPoint = 0;
@@ -40,20 +35,15 @@ public class ElevatorCommand extends CommandBase {
 
 		if(Math.abs(oi.getGamepadRightY()) > 0.1){
 	
-			elevator.disablePID();
-			joystickToggle = true;
-	
-			if(elevator.reachedBottom() && oi.getGamepadRightY() < 0) elevator.set(0);
-			else if(elevator.reachedTop() && oi.getGamepadRightY() > 0) elevator.set(0);
-			else elevator.set(oi.getGamepadRightY());
-	
+			joystickToggle = true;	
+			elevator.set(oi.getGamepadRightY());
+			
 		}else {
 			if(joystickToggle){
-				elevator.enablePID();
-				elevator.setSetpoint(elevator.getDistance());
+				elevator.setSetpoint(elevator.getPosition());
 				joystickToggle = false;
 			}
-	    	elevator.set(elevator.getPIDOutputElevator());
+	    	elevator.hold();
 		}
     	/*
     	if(elevator.reachedBottom())
@@ -94,11 +84,9 @@ public class ElevatorCommand extends CommandBase {
 
     protected void end() {
     	elevator.set(0);
-    	elevator.disablePID();
     }
 
     protected void interrupted() {
     	elevator.set(0);
-    	elevator.disablePID();
     }
 }
