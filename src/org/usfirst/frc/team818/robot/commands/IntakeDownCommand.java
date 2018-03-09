@@ -13,15 +13,14 @@ public class IntakeDownCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-		intake.intakeVertOff();
+		intake.pidSetPoint(0);
 	}
 
 	protected void execute() {
-    	intake.setIntakeVert(-0.3);
 	}
 
 	protected boolean isFinished() {
-		return intake.intakeReachDown();
+		return false;
 	}
 
 	protected void end() {

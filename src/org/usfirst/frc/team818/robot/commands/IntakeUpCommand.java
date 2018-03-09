@@ -13,11 +13,10 @@ public class IntakeUpCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-		intake.intakeVertOff();
+		intake.pidSetPoint(60);
 	}
 
 	protected void execute() {
-    	intake.setIntakeVert(0.3);
 	}
 
 	protected boolean isFinished() {

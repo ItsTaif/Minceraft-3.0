@@ -5,8 +5,8 @@ public class Constants {
 	public static final boolean climberEnabled = false;
 	public static final boolean compressorEnabled = true;
 	public static final boolean driveEnabled = true;
-	public static final boolean elevatorEnabled = false;
-	public static final boolean intakeEnabled = false;
+	public static final boolean elevatorEnabled = true;
+	public static final boolean intakeEnabled = true;
 	public static final boolean shifterEnabled = true;
 	public static final boolean climberTimeEnabled = false;
 
@@ -50,14 +50,14 @@ public class Constants {
 	public static final int limitSwitchPortTop = 1;//needs to be corrected
 	public static final int limitSwitchPortBottom = 2;//needs to be corrected
 	public static final double elevatorDistance = 12/360;//needs to be corrected
+	public static final double bottomVal = 0;
+	public static final double topVal = 200;
 
 	// Used in Intake SUbsystem
-	public static final int intakeLeftMotorPort = 7;
-	public static final int intakeRightMotorPort = 9;
-	public static final int intakeArmMotorPort = 11;
-	public static final int limitSwitchPortIntakeCube = 3;//needs to be corrected
-	public static final int limitSwitchPortIntakeUp = 3;//needs to be corrected
-	public static final int limitSwitchPortIntakeDown = 3;//needs to be corrected
+	public static final int intakeLeftMotorPort = 9;
+	public static final int intakeRightMotorPort = 11;
+	public static final int intakeArmMotorPort = 7;
+	public static final int limitSwitchPortIntakeCube = 6;//needs to be corrected
 
 	// Used in the Shifter Subsystem
 	public static final int[] shifterPistonPorts = { 0, 1 };

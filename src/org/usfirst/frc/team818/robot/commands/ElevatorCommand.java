@@ -1,11 +1,16 @@
 package org.usfirst.frc.team818.robot.commands;
 
 import org.usfirst.frc.team818.robot.Constants;
+import org.usfirst.frc.team818.robot.utilities.MathUtil;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorCommand extends CommandBase {
   
-    private static double distanceBottom, distanceTarget;
-    private static boolean joystickToggle;
+    Timer timer;
+    double setPoint;
+    boolean joystickToggle;
 	
 	public ElevatorCommand() {
        	requires(elevator);
@@ -13,15 +18,43 @@ public class ElevatorCommand extends CommandBase {
 
     protected void initialize() {
     	elevator.set(0);
-    	joystickToggle = false;
-    	distanceBottom = Constants.elevatorBottomPosition;
-    	elevator.setSetpoint(distanceBottom);
+    	elevator.setSetpoint(Constants.bottomVal);
     	elevator.enablePID();
+    	timer = new Timer();
+    	timer.start();
+    	setPoint = 0;
     }
 
     protected void execute() {
     	
-    	elevator.set(oi.getGamepadRightY());
+/*    	setPoint += oi.getGamepadRightY();
+    	
+    	elevator.setSetpoint(setPoint);
+    	MathUtil.setLimits(setPoint, Constants.bottomVal, Constants.topVal);
+    	elevator.set(elevator.getPIDOutputElevator());
+*/    	if(timer.get() % 100 == 0) {
+    		
+    	elevator.getCurrent();
+    	SmartDashboard.putString("RobotLog", "% " + oi.getGamepadRightY());
+    	}
+
+		if(Math.abs(oi.getGamepadRightY()) > 0.1){
+	
+			elevator.disablePID();
+			joystickToggle = true;
+	
+			if(elevator.reachedBottom() && oi.getGamepadRightY() < 0) elevator.set(0);
+			else if(elevator.reachedTop() && oi.getGamepadRightY() > 0) elevator.set(0);
+			else elevator.set(oi.getGamepadRightY());
+	
+		}else {
+			if(joystickToggle){
+				elevator.enablePID();
+				elevator.setSetpoint(elevator.getDistance());
+				joystickToggle = false;
+			}
+	    	elevator.set(elevator.getPIDOutputElevator());
+		}
     	/*
     	if(elevator.reachedBottom())
     		distanceBottom = elevator.getDistance();

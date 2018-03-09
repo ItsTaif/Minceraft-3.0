@@ -2,6 +2,7 @@ package org.usfirst.frc.team818.robot.subsystems;
 
 import org.usfirst.frc.team818.robot.commands.ElevatorCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem extends Subsystem {
 
@@ -41,8 +43,8 @@ public class ElevatorSubsystem extends Subsystem {
 					
 			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 			
-			
-			elevatorEncoder = new Encoder(elevatorEncoderPorts[0], elevatorEncoderPorts[1]);
+			elevatorEncoder = new Encoder(8,9);
+			elevatorMotor1.getSensorCollection().getQuadraturePosition();
 			elevatorEncoder.setDistancePerPulse(elevatorDistance);
 				elevatorEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 	
@@ -51,10 +53,14 @@ public class ElevatorSubsystem extends Subsystem {
 			elevatorController = new PIDController(ELEVATOR_PID_VALUES[0], ELEVATOR_PID_VALUES[1],
 					ELEVATOR_PID_VALUES[2], elevatorEncoder, pidOutputElevator);
 			elevatorController.setOutputRange(ELEVATOR_PID_RANGE[0], ELEVATOR_PID_RANGE[1]);
-			elevatorController.setInputRange(Double.MAX_VALUE, Double.MIN_VALUE);
+			elevatorController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			elevatorController.setSetpoint(0);
 			elevatorController.setContinuous(false);
 		}
+	}
+	
+	public void getCurrent() {
+		RobotLog.putMessage("1 " + elevatorMotor1.getOutputCurrent() + "  2 "  + elevatorMotor2.getOutputCurrent()); 
 	}
 
 	public void initDefaultCommand() {
@@ -94,8 +100,9 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	public void enablePID() {
 		if (elevatorEnabled) 
-			if (!elevatorController.isEnabled())
-				elevatorController.enable();
+			if (!elevatorController.isEnabled()) {
+				//elevatorController.enable();
+			}
 	}
 
 	public void disablePID() {
@@ -105,7 +112,8 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public double getPIDOutputElevator() {
-		return (elevatorEnabled) ? pidOutputElevator.get() : 0;
+		//return (elevatorEnabled) ? pidOutputElevator.get() : 0;
+		return 0;
 	}
 
 }

@@ -7,29 +7,28 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class IntakeInCommand extends CommandBase {
+	Timer timer = new Timer();
 	public IntakeInCommand() {
 		requires(intake);
 	}
 
 	protected void initialize() {
-    	if((((oi.getLeftY())+(oi.getRightY()))/2) > 0.1) {
-    		intake.intakeIn(((oi.getLeftY())+(oi.getRightY()))/2);
-    	} else {
-    		intake.intakeIn(0.1);
-    	}
+    	intake.intakeIn(0.0);
+    	timer.start();
 	}
 
 	protected void execute() {
-		if((((oi.getLeftY())+(oi.getRightY()))/2) > 0.1) {
-    		intake.intakeIn(((oi.getLeftY())+(oi.getRightY()))/2);
-    	} else {
-    		intake.intakeIn(0.1);
-    	}
+		intake.intakeIn(0.8);
 	}
 
 	protected boolean isFinished() {
-		return intake.hasCube();
+		if (!intake.hasCube()) {
+			timer.reset();
+		}
+		return timer.hasPeriodPassed(1);
 	}
 
 	protected void end() {

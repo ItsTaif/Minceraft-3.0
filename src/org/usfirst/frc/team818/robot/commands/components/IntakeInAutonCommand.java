@@ -45,7 +45,7 @@ public class IntakeInAutonCommand extends CommandBase {
 		if(!Constants.intakeEnabled)
 			return true;
 		else
-			return timer.hasPeriodPassed(time) || intake.hasCube();
+			return timer.hasPeriodPassed(time) ;
 	}
 
 	protected void end() {

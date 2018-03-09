@@ -14,12 +14,14 @@ import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
 	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom,
 			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberRelease, climberDetatch;
+	//public Trigger up;
 
 	public OI() {
 
@@ -43,7 +45,13 @@ public class OI {
 		intakeDown = new JoystickButton(gamepad, 8);
 		climberRelease = new JoystickButton(gamepad, 9);
 		climberDetatch = new JoystickButton(gamepad, 10);
-
+		//up = new Trigger() {
+		//	@Override
+		//	public boolean get() {
+		//		// TODO Auto-generated method stub
+		//		return getGamepadRightY() > 0.0;
+		//	}
+		//};
 		// Buttons
 		speedLimit.whenPressed(new LimitedDriveCommand());
 		dynamicBraking.whileHeld(new DynamicBraking());
@@ -51,9 +59,12 @@ public class OI {
 		armadilloDrive.whenPressed(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
-		intakeUp.whileHeld(new IntakeUpCommand());
-		intakeDown.whileHeld(new IntakeDownCommand());
-
+		intakeUp.toggleWhenPressed(new IntakeUpCommand());
+		intakeDown.toggleWhenPressed(new IntakeDownCommand());
+		
+		//Triggers
+		//up.whenActive(new IntakeUpCommand());
+		
 		// Climber can only run in the last 30 seconds
 		try {
 			if (DriverStation.getInstance().getMatchTime() <= 30) {
@@ -64,6 +75,7 @@ public class OI {
 			climberRelease.whenPressed(new ClimberDetatchCommand());
 			climberDetatch.whileHeld(new ClimberSpinCommand());
 		}
+		
 	}
 
 	// Elevator Configurations
