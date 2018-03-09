@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 
@@ -40,7 +39,7 @@ public class Robot extends TimedRobot {
 
 	public void autonomousInit() {
 		m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
-		//m_autonomousCommand = new Baseline();
+//		m_autonomousCommand = new Baseline();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

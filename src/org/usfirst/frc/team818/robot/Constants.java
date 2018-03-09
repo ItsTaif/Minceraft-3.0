@@ -8,6 +8,7 @@ public class Constants {
 	public static final boolean elevatorEnabled = true;
 	public static final boolean intakeEnabled = true;
 	public static final boolean shifterEnabled = true;
+	public static final boolean wristEnabled = true;
 	public static final boolean climberTimeEnabled = false;
 
 	// Robot Dimensions
@@ -56,9 +57,12 @@ public class Constants {
 	// Used in Intake SUbsystem
 	public static final int intakeLeftMotorPort = 9;
 	public static final int intakeRightMotorPort = 11;
-	public static final int intakeArmMotorPort = 7;
 	public static final int limitSwitchPortIntakeCube = 6;//needs to be corrected
 
+	// Used in the Wrist Subsystem
+	public static final int wristMotorPort = 7;
+	public static final int[] wristEncoderPorts = {4, 5};
+	
 	// Used in the Shifter Subsystem
 	public static final int[] shifterPistonPorts = { 0, 1 };
 

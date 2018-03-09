@@ -8,6 +8,7 @@ import org.usfirst.frc.team818.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.IntakeSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.ShifterSubsystem;
+import org.usfirst.frc.team818.robot.subsystems.WristSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -21,6 +22,7 @@ public abstract class CommandBase extends Command {
 	public static ElevatorSubsystem elevator;
 	public static IntakeSubsystem intake;
 	public static ShifterSubsystem shifter;
+	public static WristSubsystem wrist;
 	
 	public static ClimberSubsystem climb;
 	
@@ -32,9 +34,9 @@ public abstract class CommandBase extends Command {
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);
 		
 		elevator = new ElevatorSubsystem(Constants.elevatorMotorPort1, Constants.elevatorMotorPort2, Constants.elevatorEncoderPorts, Constants.limitSwitchPortTop, Constants.limitSwitchPortBottom, Constants.elevatorDistance, Constants.elevatorEnabled);
-		intake = new IntakeSubsystem(Constants.intakeLeftMotorPort, Constants.intakeRightMotorPort, Constants.intakeArmMotorPort, Constants.limitSwitchPortIntakeCube, Constants.intakeEnabled);
+		intake = new IntakeSubsystem(Constants.intakeLeftMotorPort, Constants.intakeRightMotorPort, Constants.wristMotorPort, Constants.limitSwitchPortIntakeCube, Constants.intakeEnabled);
 		shifter = new ShifterSubsystem(Constants.shifterPistonPorts, Constants.shifterEnabled);
-	
+//		wrist = new WristSubsystem(Constants.wristMotorPort, Constants.wristEncoderPorts, Constants.wristEnabled);
 		oi = new OI();
 		
 		compressor.startCompressor();
