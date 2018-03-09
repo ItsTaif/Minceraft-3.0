@@ -1,8 +1,5 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
-import java.awt.MultipleGradientPaint.CycleMethod;
-
-import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.MathUtil;
 
@@ -38,7 +35,7 @@ public class Drive4Distance extends CommandBase {
 	protected void execute() {
 		pLeft = drive.getPIDOutputLeft();
 		pRight = MathUtil.setLimits(drive.getPIDOutputRight() - drive.getPIDOutputGyro(), -1, 1);
-		drive.setBoth(pLeft *.3, pRight*.3);
+		drive.setBoth(pLeft , pRight);
 	}
 
 	protected boolean isFinished() {

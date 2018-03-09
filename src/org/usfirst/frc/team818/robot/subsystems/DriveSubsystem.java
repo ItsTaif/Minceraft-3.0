@@ -25,7 +25,7 @@ public class DriveSubsystem extends Subsystem {
 	MotorCurrent leftCurrent, rightCurrent;
 	Accelerometer accelerometer;
 
-	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.01, 0.01, 0.01 };
+	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0 };
 	private static final double[] DYNAMIC_BREAKING_PID_RANGE = { -1, 1 };
 	private static final double[] GYRO_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
@@ -66,8 +66,8 @@ public class DriveSubsystem extends Subsystem {
 			driveGyro = new AnalogGyro(gyroPort);
 			accelerometer = new BuiltInAccelerometer();
 
-			leftEncoder.setDistancePerPulse(Constants.cycleDistance * Constants.encoderGearRatioHigh);
-			rightEncoder.setDistancePerPulse(Constants.cycleDistance * Constants.encoderGearRatioHigh);
+			leftEncoder.setDistancePerPulse(Constants.cycleDistance);
+			rightEncoder.setDistancePerPulse(Constants.cycleDistance);
 	
 			pidOutputRight = new DoublePIDOutput();
 			pidOutputLeft = new DoublePIDOutput();

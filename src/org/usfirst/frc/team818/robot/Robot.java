@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("RobotLog", "RIght" +CommandBase.drive.getPIDOutputSpeedLimitRight());
 		*/
 		
-		RobotLog.putMessage("Current: " + CommandBase.intake.getWristCurrent()); 
+		//RobotLog.putMessage("Current: " + CommandBase.intake.getWristCurrent()); 
 		Scheduler.getInstance().run();
 	}
 

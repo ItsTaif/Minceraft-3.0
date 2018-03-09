@@ -1,7 +1,5 @@
 package org.usfirst.frc.team818.robot.commands;
 
-import org.usfirst.frc.team818.robot.Constants;
-
 public class LimitedDriveCommand extends CommandBase {
 
 	public LimitedDriveCommand() {
@@ -16,9 +14,9 @@ public class LimitedDriveCommand extends CommandBase {
 	}
 
 	protected void execute() {
-
-		drive.setVelocity(oi.getLeftY() * Constants.speedLimit, oi.getRightY() * Constants.speedLimit);
-		drive.setBoth(drive.getPIDOutputSpeedLimitLeft(), drive.getPIDOutputSpeedLimitRight());
+		drive.setBoth(oi.getLeftY() * (12/17), oi.getRightY() * (12/17));
+		//drive.setVelocity(oi.getLeftY() * Constants.speedLimit, oi.getRightY() * Constants.speedLimit);
+		//drive.setBoth(drive.getPIDOutputSpeedLimitLeft(), drive.getPIDOutputSpeedLimitRight());
 	}
 
 	protected boolean isFinished() {

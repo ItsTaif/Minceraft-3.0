@@ -18,7 +18,7 @@ public class IntakeRotateCommand extends CommandBase {
 	}
 
 	protected void execute() {
-		intake.setIntakeVert(-oi.getGamepadLeftY() * 0.2);
+		intake.setIntakeVert(-oi.getGamepadLeftY() * 0.4);
 		
 	}
 

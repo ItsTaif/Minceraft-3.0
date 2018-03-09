@@ -3,7 +3,6 @@ package org.usfirst.frc.team818.robot.commands;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorCommand extends CommandBase {
   
@@ -38,15 +37,14 @@ public class ElevatorCommand extends CommandBase {
 		if(Math.abs(oi.getGamepadRightY()) > 0.1){
 	
 			joystickToggle = true;
-			elevator.set(-oi.getGamepadRightY());
-			elevator.
+			elevator.set(oi.getGamepadRightY());
 			
 		}else {
 			if(joystickToggle){
 				elevator.setSetpoint(elevator.getPosition());
 				joystickToggle = false;
 			}
-	    	elevator.hold();
+	    	//elevator.hold();
 		}
     	/*
     	if(elevator.reachedBottom())
