@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team818.robot;
 
-import org.usfirst.frc.team818.robot.autonomi.Baseline;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
@@ -56,10 +55,11 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
+		/*SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
 		SmartDashboard.putString("RobotLog", "L:" + CommandBase.drive.getLeftRotation()+" R:"+CommandBase.drive.getRightRotation());
 		System.out.println("Gyro: " +  CommandBase.drive.getAngle());
 		System.out.println("L: " + CommandBase.drive.getLeftRotation()+" R: "+CommandBase.drive.getRightRotation());
+		*/
 		Scheduler.getInstance().run();
 	}
 
@@ -67,15 +67,18 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		RobotLog.putMessage("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
-		System.out.println("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
+		//RobotLog.putMessage("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
+		//System.out.println("Delay is " + SmartDashboard.getNumber("Delay", 0.0));
 	}
 
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
+		/*SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
 		SmartDashboard.putString("RobotLog", "L:" + CommandBase.drive.getLeftRotation()+" R:"+CommandBase.drive.getRightRotation());
 		SmartDashboard.putString("RobotLog", "LEft" +CommandBase.drive.getPIDOutputSpeedLimitLeft());
 		SmartDashboard.putString("RobotLog", "RIght" +CommandBase.drive.getPIDOutputSpeedLimitRight());
+		*/
+		
+		RobotLog.putMessage("Current: " + CommandBase.intake.getWristCurrent()); 
 		Scheduler.getInstance().run();
 	}
 

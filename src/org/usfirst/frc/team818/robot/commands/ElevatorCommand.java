@@ -1,5 +1,7 @@
 package org.usfirst.frc.team818.robot.commands;
 
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,16 +29,17 @@ public class ElevatorCommand extends CommandBase {
     	elevator.setSetpoint(setPoint);
     	MathUtil.setLimits(setPoint, Constants.bottomVal, Constants.topVal);
     	elevator.set(elevator.getPIDOutputElevator());
-*/    	if(timer.get() % 100 == 0) {
+*/    	if(/*timer.get() % 100 == 0*/true) {
     		
     	elevator.getCurrent();
-    	SmartDashboard.putString("RobotLog", "% " + oi.getGamepadRightY());
+    	RobotLog.putMessage("% " + oi.getGamepadRightY());
     	}
 
 		if(Math.abs(oi.getGamepadRightY()) > 0.1){
 	
-			joystickToggle = true;	
-			elevator.set(oi.getGamepadRightY());
+			joystickToggle = true;
+			elevator.set(-oi.getGamepadRightY());
+			elevator.
 			
 		}else {
 			if(joystickToggle){

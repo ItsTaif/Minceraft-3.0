@@ -14,7 +14,6 @@ import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 
 public class OI {
 
@@ -39,8 +38,8 @@ public class OI {
 		elevatorBottom = new JoystickButton(gamepad, 2);
 		gamepad3 = new JoystickButton(gamepad, 3); // currently unused, will be probably backDrive
 		elevatorScale = new JoystickButton(gamepad, 4);
-		intakeIn = new JoystickButton(gamepad, 5);
-		intakeOut = new JoystickButton(gamepad, 6);
+		intakeIn = new JoystickButton(gamepad, 6);
+		intakeOut = new JoystickButton(gamepad, 5);
 		intakeUp = new JoystickButton(gamepad, 7);
 		intakeDown = new JoystickButton(gamepad, 8);
 		climberRelease = new JoystickButton(gamepad, 9);

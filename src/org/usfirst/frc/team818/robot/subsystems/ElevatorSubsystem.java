@@ -17,7 +17,7 @@ public class ElevatorSubsystem extends Subsystem {
 	Encoder elevatorEncoder;
 	double setpoint;
 
-	private static final double[] ELEVATOR_PID_VALUES = { 0.01, 0.001, 0 };
+	private static final double[] ELEVATOR_PID_VALUES = { 0.1, 0, 0 };
 	private static final double[] ELEVATOR_PID_RANGE = { -1, 1 };
 
 	private boolean elevatorEnabled;
@@ -72,6 +72,9 @@ public class ElevatorSubsystem extends Subsystem {
 	public void setSetpoint(double setpoint){
 		if (elevatorEnabled) 	
 			this.setpoint = setpoint;
+	}
+	
+	public void disablePID() {
 	}
 
 

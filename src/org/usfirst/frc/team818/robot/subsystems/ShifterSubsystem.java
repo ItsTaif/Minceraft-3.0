@@ -20,8 +20,8 @@ public class ShifterSubsystem extends Subsystem {
 		this.shifterEnabled = shifterEnabled;
 
 		if (shifterEnabled) {
-			gearShiftHigh = new Solenoid(gearPorts[0]);
-			gearShiftLow = new Solenoid(gearPorts[1]);
+			gearShiftHigh = new Solenoid(13, gearPorts[0]);
+			gearShiftLow = new Solenoid(13, gearPorts[1]);
 		}
 	}
 	

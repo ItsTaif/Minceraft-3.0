@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+	/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeRotateCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,7 +19,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem {
@@ -38,7 +37,7 @@ public class IntakeSubsystem extends Subsystem {
 	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int intakeArmMotorPort, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
-
+		
 		if (intakeEnabled) {
 			intakeL = new WPI_TalonSRX(intakeLMotorPort);
 			intakeR = new WPI_VictorSPX(intakeRMotorPort);
@@ -59,17 +58,19 @@ public class IntakeSubsystem extends Subsystem {
 			intakeController.setSetpoint(0);
 			intakeController.setContinuous(false);
 			
-			enablePID();
 		}
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new IntakeRotateCommand());
 	}
 	
 	public void enablePID() {
 		intakeController.enable();
+	}
+	
+	public void disablePID() {
+		intakeController.disable();
 	}
 	
 	public void intakeIn(double speed) {
@@ -123,6 +124,10 @@ public class IntakeSubsystem extends Subsystem {
     
     public boolean intakeReachDown() {
     	return intakeLimitDown.get();
+    }
+    
+    public double getWristCurrent() {
+    	return intakeArm.getOutputCurrent();
     }
 
 }

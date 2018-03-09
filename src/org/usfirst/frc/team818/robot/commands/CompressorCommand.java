@@ -17,8 +17,10 @@ public class CompressorCommand extends CommandBase {
 	}
 
 	protected void execute() {
-    	if(compressor.getPressureSwitchValue()) compressor.stopCompressor();
-    	else compressor.startCompressor();
+		if (compressor.getPressureSwiValue())
+			compressor.stopCompressor();
+		else
+			compressor.startCompressor();
 	}
 
 	protected boolean isFinished() {

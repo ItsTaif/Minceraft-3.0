@@ -7,18 +7,19 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-public class IntakeDownCommand extends CommandBase {
-	public IntakeDownCommand() {
+public class IntakeRotateCommand extends CommandBase {
+	public IntakeRotateCommand() {
 		requires(intake);
 	}
 
 	protected void initialize() {
-		intake.enablePID();
-		intake.pidSetPoint(0);
+		intake.disablePID();
+		intake.setIntakeVert(0);
 	}
 
 	protected void execute() {
-		//intake.setIntakeVert(intake.getPIDOutputIntake());
+		intake.setIntakeVert(-oi.getGamepadLeftY() * 0.2);
+		
 	}
 
 	protected boolean isFinished() {
