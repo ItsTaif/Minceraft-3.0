@@ -59,8 +59,8 @@ public class OI {
 		armadilloDrive.whenPressed(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
-		intakeUp.toggleWhenPressed(new IntakeUpCommand());
-		intakeDown.toggleWhenPressed(new IntakeDownCommand());
+		intakeUp.whenPressed(new IntakeUpCommand());
+		intakeDown.whenPressed (new IntakeDownCommand());
 		
 		//Triggers
 		//up.whenActive(new IntakeUpCommand());

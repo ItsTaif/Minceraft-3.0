@@ -58,12 +58,18 @@ public class IntakeSubsystem extends Subsystem {
 			intakeController.setAbsoluteTolerance(1);
 			intakeController.setSetpoint(0);
 			intakeController.setContinuous(false);
+			
+			enablePID();
 		}
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
+	}
+	
+	public void enablePID() {
+		intakeController.enable();
 	}
 	
 	public void intakeIn(double speed) {
