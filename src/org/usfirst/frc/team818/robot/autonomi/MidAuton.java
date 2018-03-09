@@ -9,6 +9,7 @@ import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.MidAutonSecondCube;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
+import org.usfirst.frc.team818.robot.utilities.GetGameData;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -29,7 +30,7 @@ public class MidAuton extends CommandGroup {
 
 	public MidAuton() {
 
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		gameData = GetGameData.getGameData();
 		
 		priority = autonPriority.getPriority();
 		

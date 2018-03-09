@@ -4,6 +4,7 @@ import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.autonomi.DoNothing;
 import org.usfirst.frc.team818.robot.autonomi.PriorityList;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
+import org.usfirst.frc.team818.robot.utilities.GetGameData;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -22,7 +23,7 @@ public class SideAutonPart2Switch extends CommandGroup {
 
 	public SideAutonPart2Switch(String side, String targetPosition) {
 
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		gameData = GetGameData.getGameData();;
 		delay = SmartDashboard.getNumber("Delay", 0);
 		
 		if(side.equals("left")){
