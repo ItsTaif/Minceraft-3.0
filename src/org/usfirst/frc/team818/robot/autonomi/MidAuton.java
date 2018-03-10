@@ -3,7 +3,6 @@ package org.usfirst.frc.team818.robot.autonomi;
 import java.util.LinkedList;
 
 import org.usfirst.frc.team818.robot.Constants;
-import org.usfirst.frc.team818.robot.commands.WristDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;

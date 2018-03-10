@@ -1,9 +1,9 @@
 package org.usfirst.frc.team818.robot.autonomi;
 
-import org.usfirst.frc.team818.robot.commands.ElevatorForTimeCommand;
-import org.usfirst.frc.team818.robot.commands.IntakeOutForTimeCommand;
 import org.usfirst.frc.team818.robot.commands.WristDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
+import org.usfirst.frc.team818.robot.commands.components.ElevatorForTimeCommand;
+import org.usfirst.frc.team818.robot.commands.components.IntakeOutForTimeCommand;
 import org.usfirst.frc.team818.robot.utilities.GetGameData;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

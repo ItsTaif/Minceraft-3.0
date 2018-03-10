@@ -3,7 +3,6 @@ package org.usfirst.frc.team818.robot.autonomi;
 import java.util.LinkedList;
 
 import org.usfirst.frc.team818.robot.Constants;
-import org.usfirst.frc.team818.robot.commands.WristDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
@@ -16,9 +15,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *ISSA PROTOYPE FAM DON'T RUN THIS JUST YET
- */
 public class LeftAuton extends CommandGroup {
 
 	String gameData;

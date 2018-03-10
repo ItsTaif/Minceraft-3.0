@@ -1,4 +1,6 @@
-package org.usfirst.frc.team818.robot.commands;
+package org.usfirst.frc.team818.robot.commands.components;
+
+import org.usfirst.frc.team818.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
 
