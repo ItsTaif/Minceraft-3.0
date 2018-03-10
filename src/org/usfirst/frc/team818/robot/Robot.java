@@ -10,6 +10,7 @@ package org.usfirst.frc.team818.robot;
 import org.usfirst.frc.team818.robot.autonomi.Baseline;
 import org.usfirst.frc.team818.robot.autonomi.SimpleSwitchRight;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
 
 	public void autonomousInit() {
 		//m_autonomousCommand = new Baseline();
-		m_autonomousCommand = new SimpleSwitchRight();
+		m_autonomousCommand = new TurnAngle(90);
 		RobotLog.putMessage("Baseline selected");
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

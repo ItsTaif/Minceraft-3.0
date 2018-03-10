@@ -23,15 +23,13 @@ public class DriveSubsystem extends Subsystem {
 	MotorCurrent leftCurrent, rightCurrent;
 	Accelerometer accelerometer;
 
-	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0 };
+	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] DYNAMIC_BREAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.05, 0, 0.1 };
+	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.1 };
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
 	private static final double[] TRACTION_DRIVE_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] TRACTION_DRIVE_PID_RANGE = { -1, 1 };
 	private static final double GYRO_PID_TOLERANCE = 1;
-	private static final double[] SPEEDLIMIT_PID_VALUES = { 0.01, 0.001, 0 };
-	private static final double[] SPEEDLIMIT_PID_RANGE = { -1, 1 };
 
 	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, TCLeft, TCRight;
 	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft, pidOutputTCLeft, pidOutputTCRight;
@@ -131,6 +129,13 @@ public class DriveSubsystem extends Subsystem {
 		if (driveEnabled) {
 			for (int i = 0; i < rightMotors.length; i++)
 				rightMotors[i].set(ControlMode.PercentOutput, -speed);
+		}
+	}
+	
+	public void setDistanceSetpoint(double ticks) {
+		if(driveEnabled) {
+			dynamicBreakingControllerLeft.setSetpoint(ticks);
+			dynamicBreakingControllerRight.setSetpoint(ticks);
 		}
 	}
 

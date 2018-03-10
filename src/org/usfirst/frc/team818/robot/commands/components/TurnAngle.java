@@ -42,8 +42,12 @@ public class TurnAngle extends CommandBase {
 	}
 
 	protected boolean isFinished() {
-
-		return drive.rotateOnTarget() || timer.hasPeriodPassed(3);
+		if (drive.rotateOnTarget()) {
+			return timer.hasPeriodPassed(0.5);
+		} else {
+			timer.reset();
+			return false;
+		}
 
 	}
 

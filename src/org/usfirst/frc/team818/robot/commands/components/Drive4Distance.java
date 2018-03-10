@@ -15,7 +15,7 @@ public class Drive4Distance extends CommandBase {
 		requires(drive);
 		timer = new Timer();
 		tarTimer = new Timer();
-		this.distance = distance * Constants.distanceToTickRatio;
+		this.distance = distance * Constants.distanceToTickRatio / 3.25;
 	}
 	
 	protected void initialize() {
@@ -30,12 +30,13 @@ public class Drive4Distance extends CommandBase {
 
 		drive.enablePID("driveDistance");
 		drive.setRotatePoint(0);
+		drive.setDistanceSetpoint(distance);
 	}
 
 	protected void execute() {
 		pLeft = drive.getPIDOutputLeft();
 		pRight = MathUtil.setLimits(drive.getPIDOutputRight() - drive.getPIDOutputGyro(), -1, 1);
-		drive.setBoth(pLeft, pRight);
+		drive.setBoth(pLeft * 0.4, pRight * 0.4);
 	}
 
 	protected boolean isFinished() {
