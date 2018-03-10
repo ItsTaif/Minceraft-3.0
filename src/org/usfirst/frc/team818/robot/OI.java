@@ -22,9 +22,9 @@ public class OI {
 	public OI() {
 
 		// Instantiating Joysticks
-		leftStick = new Joystick(Constants.leftJoystickPort);
-		rightStick = new Joystick(Constants.rightJoystickPort);
-		gamepad = new Joystick(Constants.gamepadPort);
+		leftStick = new Joystick(0);
+		rightStick = new Joystick(1);
+		gamepad = new Joystick(2);
 
 		// Instantiating Buttons
 		speedLimit = new JoystickButton(leftStick, 1); // will be speed limit override
@@ -42,9 +42,7 @@ public class OI {
 		climberRelease = new JoystickButton(gamepad, 9);
 		climberDetatch = new JoystickButton(gamepad, 10);
 		//up = new Trigger() {
-		//	@Override
 		//	public boolean get() {
-		//		// TODO Auto-generated method stub
 		//		return getGamepadRightY() > 0.0;
 		//	}
 		//};

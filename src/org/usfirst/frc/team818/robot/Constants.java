@@ -15,11 +15,6 @@ public class Constants {
 	public static final double robotHalfWidth = 18 / 2;//needs to be corrected
 	public static final double robotHalfLength = 18 / 2;//needs to be corrected
 	public static final double midPositionShift = 18;//needs to be corrected
-	
-	// Joystick Ports
-	public static final int leftJoystickPort = 0;
-	public static final int rightJoystickPort = 1;
-	public static final int gamepadPort = 2;
 
 	// Used in Climber Subsystem
 	public static final int climberMotorPort = 12;
