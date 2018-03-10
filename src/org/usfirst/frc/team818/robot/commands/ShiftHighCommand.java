@@ -18,7 +18,6 @@ public class ShiftHighCommand extends CommandBase {
 		RobotLog.putMessage("HIGH GEAR");
 		if (Math.abs(oi.getRightY()) >= 0.1 && Math.abs(oi.getLeftY()) >= 0.1){
 			shifter.highGear();
-			drive.setEncoderGearRatio("High Gear");
 		}
 	}
 

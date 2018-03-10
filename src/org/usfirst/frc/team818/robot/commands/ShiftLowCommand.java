@@ -18,7 +18,6 @@ public class ShiftLowCommand extends CommandBase {
 		RobotLog.putMessage("LOW GEAR");
 		if (Math.abs(oi.getRightY()) >= 0.1 && Math.abs(oi.getLeftY()) >= 0.1){
 			shifter.lowGear();
-			drive.setEncoderGearRatio("Low Gear");
 		}
 		
 	}

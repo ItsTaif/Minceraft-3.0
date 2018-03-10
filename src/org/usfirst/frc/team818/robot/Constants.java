@@ -30,9 +30,9 @@ public class Constants {
 	public static final int[] rightEncoderPorts = { 0, 1 };
 
 	public static final int wheelRadius = 3;
-	public static final int encoderGearRatioHigh = 6; // need to check between low gear and high gear
-	public static final int encoderGearRatioLow = 23; // need to check between low gear and high gear
-	public static final double cycleDistance = (2 * wheelRadius * Math.PI / 360);
+	public static final double cycleDistance = (2 * wheelRadius * Math.PI);
+	public static final int gearRatioHigh = 6;
+	public static final double distanceToTickRatio = gearRatioHigh * 360 / cycleDistance;
 	public static final int speedLimit = 12; // in inches
 	public static final double slipVal = 111.1;
 

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
+import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.MathUtil;
 
@@ -14,7 +15,7 @@ public class Drive4Distance extends CommandBase {
 		requires(drive);
 		timer = new Timer();
 		tarTimer = new Timer();
-		this.distance = distance;
+		this.distance = distance * Constants.distanceToTickRatio;
 	}
 	
 	protected void initialize() {
@@ -29,13 +30,12 @@ public class Drive4Distance extends CommandBase {
 
 		drive.enablePID("driveDistance");
 		drive.setRotatePoint(0);
-		drive.setDistanceSetpoint(distance);
 	}
 
 	protected void execute() {
 		pLeft = drive.getPIDOutputLeft();
 		pRight = MathUtil.setLimits(drive.getPIDOutputRight() - drive.getPIDOutputGyro(), -1, 1);
-		drive.setBoth(pLeft * 0.4 , pRight * 0.4);
+		drive.setBoth(pLeft, pRight);
 	}
 
 	protected boolean isFinished() {
