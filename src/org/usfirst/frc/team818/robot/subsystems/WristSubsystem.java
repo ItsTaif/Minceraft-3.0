@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import org.usfirst.frc.team818.robot.commands.IntakeRotateCommand;
+import org.usfirst.frc.team818.robot.commands.WristRotateCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -54,7 +54,7 @@ public class WristSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new IntakeRotateCommand());
+		setDefaultCommand(new WristRotateCommand());
 	}
 	
 	public void enablePID() {

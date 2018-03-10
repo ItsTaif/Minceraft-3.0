@@ -13,11 +13,16 @@ public class SimpleSwitchLeft extends CommandGroup {
 	public SimpleSwitchLeft() {
 
 		addSequential(new Drive4Distance(32));
-		if (GetGameData.getGameData().charAt(0) == 'L') {
-			addSequential(new IntakeDownForTime(0.3));
-			addSequential(new ElevatorForTimeCommand(1));
-			addSequential(new IntakeOutForTimeCommand(1));
+		try {
+			if (GetGameData.getGameData().charAt(0) == 'L') {
+				addSequential(new IntakeDownForTime(0.1));
+				addSequential(new ElevatorForTimeCommand(1.2));
+				addSequential(new IntakeOutForTimeCommand(0.5));
+			}
+		} catch (Exception e) {
+
 		}
+		
 
 	}
 }

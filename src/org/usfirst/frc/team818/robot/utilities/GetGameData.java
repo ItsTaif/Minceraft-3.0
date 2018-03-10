@@ -14,20 +14,16 @@ import edu.wpi.first.wpilibj.DriverStation;
  */
 
 
-public class GetGameData extends Thread{
+public class GetGameData{
 
 	private static String data;
 	
-	public void run(){
+	public static String getGameData() {
 		
 		do {
 			data = DriverStation.getInstance().getGameSpecificMessage();
 		}while(data.isEmpty());
 		
-
-	}
-	
-	public static String getGameData() {
 		return data;
 	}
 	

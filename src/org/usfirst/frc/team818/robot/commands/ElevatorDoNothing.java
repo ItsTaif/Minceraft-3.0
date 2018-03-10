@@ -2,13 +2,13 @@ package org.usfirst.frc.team818.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class ElevatorForTimeCommand extends CommandBase {
+public class ElevatorDoNothing extends CommandBase {
   
     Timer timer;
     double setPoint, time;
     boolean joystickToggle;
 	
-	public ElevatorForTimeCommand(double time) {
+	public ElevatorDoNothing(double time) {
        	requires(elevator);
        	this.time = time;
        	timer = new Timer();
@@ -18,6 +18,8 @@ public class ElevatorForTimeCommand extends CommandBase {
     	elevator.set(0);
     	timer.start();
     	setPoint = 0;
+    	elevator.setSetpoint(elevator.getPosition());
+    	
     }
 
     protected void execute() {
@@ -31,12 +33,8 @@ public class ElevatorForTimeCommand extends CommandBase {
     		
     //	elevator.getCurrent();
     	//RobotLog.putMessage("% " + oi.getGamepadRightY());
-		if (timer.hasPeriodPassed(time)) {
-			elevator.set(0);
-		} else {
-			elevator.set(1);
-		}
 		
+		//elevator.set(0);
 		
 	}
     	/*
@@ -73,7 +71,7 @@ public class ElevatorForTimeCommand extends CommandBase {
     }
 
     protected boolean isFinished() {
-        return timer.hasPeriodPassed(time + 2);
+        return timer.hasPeriodPassed(time);
     }
 
     protected void end() {

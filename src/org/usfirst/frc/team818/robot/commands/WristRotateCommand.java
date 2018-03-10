@@ -7,18 +7,18 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-public class IntakeRotateCommand extends CommandBase {
-	public IntakeRotateCommand() {
-		requires(intake);
+public class WristRotateCommand extends CommandBase {
+	public WristRotateCommand() {
+		requires(wrist);
 	}
 
 	protected void initialize() {
-		intake.disablePID();
-		intake.setIntakeVert(0);
+		wrist.disablePID();
+		wrist.setWrist(0);
 	}
 
 	protected void execute() {
-		intake.setIntakeVert(-oi.getGamepadLeftY() * 0.4);
+		wrist.setWrist(-oi.getGamepadLeftY() * 0.4);
 		
 	}
 
@@ -27,10 +27,10 @@ public class IntakeRotateCommand extends CommandBase {
 	}
 
 	protected void end() {
-		intake.intakeVertOff();
+		wrist.setWrist(0);
 	}
 
 	protected void interrupted() {
-		intake.intakeVertOff();
+		wrist.setWrist(0);
 	}
 }

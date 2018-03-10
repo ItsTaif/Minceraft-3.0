@@ -59,11 +59,15 @@ public class DriveSubsystem extends Subsystem {
 			leftEncoder.setReverseDirection(true);
 			rightEncoder.setReverseDirection(true);
 
-			for (int i = 0; i < leftMotorPorts.length; i++)
+			for (int i = 0; i < leftMotorPorts.length; i++) {
 				leftMotors[i] = new WPI_TalonSRX(leftMotorPorts[i]);
+				leftMotors[i].configOpenloopRamp(0.2, 10);
+			}
 
-			for (int i = 0; i < rightMotorPorts.length; i++)
+			for (int i = 0; i < rightMotorPorts.length; i++) {
 				rightMotors[i] = new WPI_TalonSRX(rightMotorPorts[i]);
+				rightMotors[i].configOpenloopRamp(0.2, 10);
+			}
 
 			driveGyro = new AnalogGyro(gyroPort);
 			accelerometer = new BuiltInAccelerometer();

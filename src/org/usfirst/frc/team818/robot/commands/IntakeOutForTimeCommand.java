@@ -24,7 +24,7 @@ public class IntakeOutForTimeCommand extends CommandBase {
 	}
 
 	protected void execute() {
-		intake.intakeOut(0.8);
+			intake.intakeOut(0.8);
 	}
 
 	protected boolean isFinished() {

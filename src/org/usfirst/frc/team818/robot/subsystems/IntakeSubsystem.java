@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import org.usfirst.frc.team818.robot.commands.IntakeRotateCommand;
+import org.usfirst.frc.team818.robot.commands.WristRotateCommand;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -48,8 +48,7 @@ public class IntakeSubsystem extends Subsystem {
 			//intakeLimitDown = new DigitalInput(limitSwitchPortIntakeDown);
 
 			pidOutputIntake = new DoublePIDOutput();
-			
-	
+				
 			intakeController = new PIDController(INTAKE_PID_VALUES[0], INTAKE_PID_VALUES[1],
 					INTAKE_PID_VALUES[2], encoder, pidOutputIntake);
 			intakeController.setOutputRange(INTAKE_PID_RANGE[0], INTAKE_PID_RANGE[1]);
@@ -62,7 +61,7 @@ public class IntakeSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new IntakeRotateCommand());
+		setDefaultCommand(new WristRotateCommand());
 	}
 	
 	public void enablePID() {
@@ -124,10 +123,6 @@ public class IntakeSubsystem extends Subsystem {
     
     public boolean intakeReachDown() {
     	return intakeLimitDown.get();
-    }
-    
-    public double getWristCurrent() {
-    	return intakeArm.getOutputCurrent();
     }
 
 }
