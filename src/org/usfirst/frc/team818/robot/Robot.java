@@ -9,7 +9,6 @@ package org.usfirst.frc.team818.robot;
 
 import org.usfirst.frc.team818.robot.autonomi.Baseline;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
-import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,18 +20,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser;
+	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	public void robotInit() {
 		
 		CommandBase.init();
 		RobotLog.init();
-		
-		m_chooser = new SendableChooser<>();
+//		chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_chooser.addDefault("Baseline", new Baseline());
-//		chooser.addObject("My Auto", new MyAutoCommand());
-//		SmartDashboard.putData("Auto mode", m_chooser);
+		
 		
 	}
 
@@ -45,11 +42,10 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousInit() {
-//		m_autonomousCommand = new Drive4Distance(110);
+		m_autonomousCommand = new Baseline();
 //		m_autonomousCommand = new Baseline();
-		m_autonomousCommand = m_chooser.getSelected();
+		RobotLog.putMessage("Baseline selected");
 		/*
-		 * m
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
