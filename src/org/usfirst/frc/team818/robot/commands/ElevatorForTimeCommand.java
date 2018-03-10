@@ -4,14 +4,15 @@ import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class ElevatorCommand extends CommandBase {
+public class ElevatorForTimeCommand extends CommandBase {
   
     Timer timer;
-    double setPoint;
+    double setPoint, time;
     boolean joystickToggle;
 	
-	public ElevatorCommand() {
+	public ElevatorForTimeCommand(double time) {
        	requires(elevator);
+       	this.time = time;
     }
 
     protected void initialize() {
@@ -32,20 +33,8 @@ public class ElevatorCommand extends CommandBase {
     		
     //	elevator.getCurrent();
     	//RobotLog.putMessage("% " + oi.getGamepadRightY());
-    	}
-
-		if(Math.abs(oi.getGamepadRightY()) > 0.1){
-	
-			joystickToggle = true;
-			elevator.set(oi.getGamepadRightY());
-			
-		}else {
-			if(joystickToggle){
-				elevator.setSetpoint(elevator.getPosition());
-				joystickToggle = false;
-			}
-	    	//elevator.hold();
-		}
+		elevator.set(0.5);
+	}
     	/*
     	if(elevator.reachedBottom())
     		distanceBottom = elevator.getDistance();
@@ -80,7 +69,7 @@ public class ElevatorCommand extends CommandBase {
     }
 
     protected boolean isFinished() {
-        return false;
+        return timer.hasPeriodPassed(time);
     }
 
     protected void end() {

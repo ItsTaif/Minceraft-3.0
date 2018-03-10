@@ -73,9 +73,9 @@ public class MidAuton extends CommandGroup {
 		switch (target) {
 		case 1: //left Scale
 			addSequential(new WaitCommand(delay));
-			addSequential(new IntakeDownCommand()); // moves intake down
-			addSequential(new Drive4Distance(40)); // move forward to gap between the power cube pile and the exchange zone
-			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
+//			addSequential(new IntakeDownCommand()); // moves intake down
+			addSequential(new Drive4Distance(20)); // move forward to gap between the power cube pile and the exchange zone
+//			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(132 + Constants.midPositionShift)); // move forward to the left side of the field
@@ -85,7 +85,7 @@ public class MidAuton extends CommandGroup {
 			addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(42 +  - Constants.robotHalfLength)); // move forward  to Scale
-			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+//			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
 			endLeft = true;
 			break;
 		case 2: //rightScale

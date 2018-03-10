@@ -13,6 +13,7 @@ public class DriveCommand extends CommandBase {
 
     protected void initialize() {
     	drive.setBoth(0);
+    	drive.disablePID();
     }
 
     protected void execute() {

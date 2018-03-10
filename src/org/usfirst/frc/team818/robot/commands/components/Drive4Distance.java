@@ -35,7 +35,7 @@ public class Drive4Distance extends CommandBase {
 	protected void execute() {
 		pLeft = drive.getPIDOutputLeft();
 		pRight = MathUtil.setLimits(drive.getPIDOutputRight() - drive.getPIDOutputGyro(), -1, 1);
-		drive.setBoth(pLeft , pRight);
+		drive.setBoth(pLeft * 0.4 , pRight * 0.4);
 	}
 
 	protected boolean isFinished() {
@@ -43,7 +43,7 @@ public class Drive4Distance extends CommandBase {
 			return tarTimer.hasPeriodPassed(0.5);
 		} else {
 			tarTimer.reset();
-			return timer.hasPeriodPassed(5);
+			return timer.hasPeriodPassed(3);
 		}
 		//return (timer.hasPeriodPassed(5) || Math.abs((drive.getLeftRotation() + drive.getRightRotation())/2) > (distance/Constants.cycleDistance)/Constants.encoderGearRatioHigh);
 

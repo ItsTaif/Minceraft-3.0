@@ -28,9 +28,7 @@ public class AutonomousSelector {
 
 		try {
 
-			autonomous = (CommandGroup) Class.forName(
-					"org.usfirst.frc.team818.robot.autonomi." + SmartDashboard.getString("Autonomous", "DoNothing"))
-					.newInstance();
+			autonomous = (CommandGroup)Class.forName("org.usfirst.frc.team818.robot.autonomi." + SmartDashboard.getString("Autonomous", "DoNothing")).newInstance();
 
 		} catch (Exception e) {
 

@@ -52,7 +52,7 @@ public class OI {
 		//	}
 		//};
 		// Buttons
-		speedLimit.whenPressed(new LimitedDriveCommand());
+		//speedLimit.whenPressed(new LimitedDriveCommand());
 		dynamicBraking.whileHeld(new DynamicBraking());
 		shiftGear.toggleWhenPressed(new ShiftLowCommand());
 		armadilloDrive.whenPressed(new ArmadilloDrive());
