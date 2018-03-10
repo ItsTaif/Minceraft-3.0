@@ -35,8 +35,10 @@ public class DriveSubsystem extends Subsystem {
 	private static final double[] SPEEDLIMIT_PID_VALUES = { 0.01, 0.001, 0 };
 	private static final double[] SPEEDLIMIT_PID_RANGE = { -1, 1 };
 
-	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, speedLimitControllerLeft, speedLimitControllerRight, TCLeft, TCRight;
-	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft, pidOutputSpeedLimitLeft, pidOutputSpeedLimitRight, pidOutputTCLeft, pidOutputTCRight;
+	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController,
+			speedLimitControllerLeft, speedLimitControllerRight, TCLeft, TCRight;
+	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft, pidOutputSpeedLimitLeft,
+			pidOutputSpeedLimitRight, pidOutputTCLeft, pidOutputTCRight;
 
 	private boolean driveEnabled;
 
@@ -48,7 +50,7 @@ public class DriveSubsystem extends Subsystem {
 		if (driveEnabled) {
 			leftMotors = new WPI_TalonSRX[leftMotorPorts.length];
 			rightMotors = new WPI_TalonSRX[rightMotorPorts.length];
-			
+
 			leftCurrent = new MotorCurrent(leftMotors);
 			rightCurrent = new MotorCurrent(rightMotors);
 
@@ -57,10 +59,10 @@ public class DriveSubsystem extends Subsystem {
 			leftEncoder.setReverseDirection(true);
 			rightEncoder.setReverseDirection(true);
 
-			for (int i = 0; i <leftMotorPorts.length; i++)
+			for (int i = 0; i < leftMotorPorts.length; i++)
 				leftMotors[i] = new WPI_TalonSRX(leftMotorPorts[i]);
 
-			for (int i = 0; i <rightMotorPorts.length; i++)
+			for (int i = 0; i < rightMotorPorts.length; i++)
 				rightMotors[i] = new WPI_TalonSRX(rightMotorPorts[i]);
 
 			driveGyro = new AnalogGyro(gyroPort);
@@ -68,67 +70,69 @@ public class DriveSubsystem extends Subsystem {
 
 			leftEncoder.setDistancePerPulse(Constants.cycleDistance);
 			rightEncoder.setDistancePerPulse(Constants.cycleDistance);
-	
+
 			pidOutputRight = new DoublePIDOutput();
 			pidOutputLeft = new DoublePIDOutput();
 			pidOutputGryo = new DoublePIDOutput();
 			pidOutputSpeedLimitLeft = new DoublePIDOutput();
 			pidOutputSpeedLimitRight = new DoublePIDOutput();
-	
-			dynamicBreakingControllerRight = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0], DYNAMIC_BREAKING_PID_VALUES[1],
-					DYNAMIC_BREAKING_PID_VALUES[2], rightEncoder, pidOutputRight);
+
+			dynamicBreakingControllerRight = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0],
+					DYNAMIC_BREAKING_PID_VALUES[1], DYNAMIC_BREAKING_PID_VALUES[2], rightEncoder, pidOutputRight);
 			dynamicBreakingControllerRight.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
 			dynamicBreakingControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			dynamicBreakingControllerRight.setAbsoluteTolerance(1);
 			dynamicBreakingControllerRight.setSetpoint(0);
 			dynamicBreakingControllerRight.setContinuous(false);
-	
-			dynamicBreakingControllerLeft = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0], DYNAMIC_BREAKING_PID_VALUES[1],
-					DYNAMIC_BREAKING_PID_VALUES[2], leftEncoder, pidOutputLeft);
+
+			dynamicBreakingControllerLeft = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0],
+					DYNAMIC_BREAKING_PID_VALUES[1], DYNAMIC_BREAKING_PID_VALUES[2], leftEncoder, pidOutputLeft);
 			dynamicBreakingControllerLeft.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
 			dynamicBreakingControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			dynamicBreakingControllerLeft.setAbsoluteTolerance(1);//TODO: MAke this a variable isntead of magic number
+			dynamicBreakingControllerLeft.setAbsoluteTolerance(1);// TODO: MAke this a variable isntead of magic number
 			dynamicBreakingControllerLeft.setSetpoint(0);
 			dynamicBreakingControllerLeft.setContinuous(false);
-	
-			gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2],
-					driveGyro, pidOutputGryo);
+
+			gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2], driveGyro,
+					pidOutputGryo);
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
 			gyroController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
 			gyroController.setContinuous(false);
 			gyroController.setSetpoint(0);
-			
-			speedLimitControllerLeft = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1], SPEEDLIMIT_PID_VALUES[2],
-					leftEncoder, pidOutputSpeedLimitLeft);
+
+			speedLimitControllerLeft = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1],
+					SPEEDLIMIT_PID_VALUES[2], leftEncoder, pidOutputSpeedLimitLeft);
 			speedLimitControllerLeft.setOutputRange(SPEEDLIMIT_PID_RANGE[0], SPEEDLIMIT_PID_RANGE[1]);
 			speedLimitControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			speedLimitControllerLeft.setContinuous(false);
 			speedLimitControllerLeft.setSetpoint(0);
-	
-			speedLimitControllerRight = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1], SPEEDLIMIT_PID_VALUES[2],
-					rightEncoder, pidOutputSpeedLimitRight);
+
+			speedLimitControllerRight = new PIDController(SPEEDLIMIT_PID_VALUES[0], SPEEDLIMIT_PID_VALUES[1],
+					SPEEDLIMIT_PID_VALUES[2], rightEncoder, pidOutputSpeedLimitRight);
 			speedLimitControllerRight.setOutputRange(SPEEDLIMIT_PID_RANGE[0], SPEEDLIMIT_PID_RANGE[1]);
 			speedLimitControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			speedLimitControllerRight.setContinuous(false);
 			speedLimitControllerRight.setSetpoint(0);
-			
-			/*TCLeft = new PIDController(TRACTION_DRIVE_PID_VALUES[0], TRACTION_DRIVE_PID_VALUES[1], TRACTION_DRIVE_PID_VALUES[2],
-					leftCurrent, pidOutputTCLeft) ;
-			TCLeft.setOutputRange(TRACTION_DRIVE_PID_RANGE[0], TRACTION_DRIVE_PID_RANGE[1]);
-			TCLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			TCLeft.setContinuous(false);
-			TCLeft.setSetpoint(Constants.slipVal);
 
-			TCRight = new PIDController(TRACTION_DRIVE_PID_VALUES[0], TRACTION_DRIVE_PID_VALUES[1], TRACTION_DRIVE_PID_VALUES[2],
-					rightCurrent, pidOutputTCRight);
-			TCRight.setOutputRange(TRACTION_DRIVE_PID_RANGE[0], TRACTION_DRIVE_PID_RANGE[1]);
-			TCRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			TCRight.setContinuous(false);
-			TCRight.setSetpoint(Constants.slipVal);*/
-			
+			/*
+			 * TCLeft = new PIDController(TRACTION_DRIVE_PID_VALUES[0],
+			 * TRACTION_DRIVE_PID_VALUES[1], TRACTION_DRIVE_PID_VALUES[2], leftCurrent,
+			 * pidOutputTCLeft) ; TCLeft.setOutputRange(TRACTION_DRIVE_PID_RANGE[0],
+			 * TRACTION_DRIVE_PID_RANGE[1]); TCLeft.setInputRange(-Double.MAX_VALUE,
+			 * Double.MAX_VALUE); TCLeft.setContinuous(false);
+			 * TCLeft.setSetpoint(Constants.slipVal);
+			 * 
+			 * TCRight = new PIDController(TRACTION_DRIVE_PID_VALUES[0],
+			 * TRACTION_DRIVE_PID_VALUES[1], TRACTION_DRIVE_PID_VALUES[2], rightCurrent,
+			 * pidOutputTCRight); TCRight.setOutputRange(TRACTION_DRIVE_PID_RANGE[0],
+			 * TRACTION_DRIVE_PID_RANGE[1]); TCRight.setInputRange(-Double.MAX_VALUE,
+			 * Double.MAX_VALUE); TCRight.setContinuous(false);
+			 * TCRight.setSetpoint(Constants.slipVal);
+			 */
+
 		}
-		
+
 	}
 
 	public void initDefaultCommand() {
@@ -138,14 +142,14 @@ public class DriveSubsystem extends Subsystem {
 	public void setLeft(double speed) {
 		if (driveEnabled) {
 			for (int i = 0; i < leftMotors.length; i++)
-				leftMotors[i].set(ControlMode.PercentOutput,speed);
+				leftMotors[i].set(ControlMode.PercentOutput, speed);
 		}
 	}
 
 	public void setRight(double speed) {
 		if (driveEnabled) {
 			for (int i = 0; i < rightMotors.length; i++)
-				rightMotors[i].set(ControlMode.PercentOutput,-speed);
+				rightMotors[i].set(ControlMode.PercentOutput, -speed);
 		}
 	}
 
@@ -189,17 +193,17 @@ public class DriveSubsystem extends Subsystem {
 		} else
 			return 0;
 	}
-	
-	public void setEncoderGearRatio(String gear){
-		
-		if(gear.equals("High Gear")){
+
+	public void setEncoderGearRatio(String gear) {
+
+		if (gear.equals("High Gear")) {
 			leftEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
 			rightEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioHigh);
-		}else if(gear.equals("Low Gear")){
+		} else if (gear.equals("Low Gear")) {
 			leftEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioLow);
 			rightEncoder.setDistancePerPulse(Constants.cycleDistance / Constants.encoderGearRatioLow);
 		}
-		
+
 	}
 
 	public double getLeftDistance() {
@@ -215,7 +219,7 @@ public class DriveSubsystem extends Subsystem {
 		} else
 			return 0;
 	}
-	
+
 	public void resetBothEncoders() {
 		if (driveEnabled) {
 			rightEncoder.reset();
@@ -238,7 +242,7 @@ public class DriveSubsystem extends Subsystem {
 			return false;
 
 	}
-	
+
 	public void setDistanceSetpoint(double distance) {
 		dynamicBreakingControllerRight.setSetpoint(distance);
 		dynamicBreakingControllerLeft.setSetpoint(distance);
@@ -251,34 +255,34 @@ public class DriveSubsystem extends Subsystem {
 				rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 				if (gyroController.isEnabled())
 					gyroController.disable();
-				if(speedLimitControllerLeft.isEnabled())
+				if (speedLimitControllerLeft.isEnabled())
 					speedLimitControllerLeft.disable();
-				if(speedLimitControllerRight.isEnabled())
+				if (speedLimitControllerRight.isEnabled())
 					speedLimitControllerRight.disable();
 				if (!dynamicBreakingControllerRight.isEnabled())
 					dynamicBreakingControllerRight.enable();
 				if (!dynamicBreakingControllerLeft.isEnabled())
 					dynamicBreakingControllerLeft.enable();
-				/*if (TCLeft.isEnabled())
-					TCLeft.disable();
-				if (TCRight.isEnabled())
-					TCRight.disable();*/
-				} else if (pidType.equals("rotate")) {
+				/*
+				 * if (TCLeft.isEnabled()) TCLeft.disable(); if (TCRight.isEnabled())
+				 * TCRight.disable();
+				 */
+			} else if (pidType.equals("rotate")) {
 				if (dynamicBreakingControllerRight.isEnabled())
 					dynamicBreakingControllerRight.disable();
 				if (dynamicBreakingControllerLeft.isEnabled())
 					dynamicBreakingControllerLeft.disable();
-				if(speedLimitControllerLeft.isEnabled())
+				if (speedLimitControllerLeft.isEnabled())
 					speedLimitControllerLeft.disable();
-				if(speedLimitControllerRight.isEnabled())
+				if (speedLimitControllerRight.isEnabled())
 					speedLimitControllerRight.disable();
 				if (!gyroController.isEnabled())
 					gyroController.enable();
-				/*if (TCLeft.isEnabled())
-					TCLeft.disable();
-				if (TCRight.isEnabled())
-					TCRight.disable();*/
-			} else if(pidType.equals("speedLimit")){
+				/*
+				 * if (TCLeft.isEnabled()) TCLeft.disable(); if (TCRight.isEnabled())
+				 * TCRight.disable();
+				 */
+			} else if (pidType.equals("speedLimit")) {
 				leftEncoder.setPIDSourceType(PIDSourceType.kRate);
 				rightEncoder.setPIDSourceType(PIDSourceType.kRate);
 				if (gyroController.isEnabled())
@@ -298,35 +302,32 @@ public class DriveSubsystem extends Subsystem {
 			} else if (pidType.equals("driveDistance")) {
 				leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 				rightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-				if (!dynamicBreakingControllerRight.isEnabled()) 
+				if (!dynamicBreakingControllerRight.isEnabled())
 					dynamicBreakingControllerRight.enable();
 				if (!dynamicBreakingControllerLeft.isEnabled())
 					dynamicBreakingControllerLeft.enable();
 				if (!gyroController.isEnabled())
 					gyroController.enable();
-				if(speedLimitControllerLeft.isEnabled())
+				if (speedLimitControllerLeft.isEnabled())
 					speedLimitControllerLeft.disable();
-				if(speedLimitControllerRight.isEnabled())
+				if (speedLimitControllerRight.isEnabled())
 					speedLimitControllerRight.disable();
-				/*if (TCLeft.isEnabled())
-					TCLeft.disable();
-				if (TCRight.isEnabled())
-					TCRight.disable();*/
-			} else if (pidType.equals("tractionControl")) {/*
-				if (dynamicBreakingControllerRight.isEnabled())
-					dynamicBreakingControllerRight.disable();
-				if (dynamicBreakingControllerLeft.isEnabled())
-					dynamicBreakingControllerLeft.disable();
-				if (gyroController.isEnabled())
-					gyroController.disable();
-				if(speedLimitControllerLeft.isEnabled())
-					speedLimitControllerLeft.disable();
-				if(speedLimitControllerRight.isEnabled())
-					speedLimitControllerRight.disable();
-				if (!TCLeft.isEnabled())
-					TCLeft.enable();
-				if (!TCRight.isEnabled())
-					TCRight.enable();*/
+				/*
+				 * if (TCLeft.isEnabled()) TCLeft.disable(); if (TCRight.isEnabled())
+				 * TCRight.disable();
+				 */
+			} else if (pidType.equals(
+					"tractionControl")) {/*
+											 * if (dynamicBreakingControllerRight.isEnabled())
+											 * dynamicBreakingControllerRight.disable(); if
+											 * (dynamicBreakingControllerLeft.isEnabled())
+											 * dynamicBreakingControllerLeft.disable(); if (gyroController.isEnabled())
+											 * gyroController.disable(); if(speedLimitControllerLeft.isEnabled())
+											 * speedLimitControllerLeft.disable();
+											 * if(speedLimitControllerRight.isEnabled())
+											 * speedLimitControllerRight.disable(); if (!TCLeft.isEnabled())
+											 * TCLeft.enable(); if (!TCRight.isEnabled()) TCRight.enable();
+											 */
 			}
 		}
 	}
@@ -350,9 +351,9 @@ public class DriveSubsystem extends Subsystem {
 		if (driveEnabled)
 			gyroController.setSetpoint(angle);
 	}
-	
+
 	public void setVelocity(double velocityLeft, double velocityRight) {
-		if (driveEnabled){
+		if (driveEnabled) {
 			speedLimitControllerLeft.setSetpoint(velocityLeft);
 			speedLimitControllerRight.setSetpoint(velocityRight);
 		}
@@ -365,30 +366,30 @@ public class DriveSubsystem extends Subsystem {
 	public boolean distanceOnTarget() {
 		return (driveEnabled) ? dynamicBreakingControllerRight.onTarget() : true;
 	}
-	
+
 	public double getAccelX() {
 		return accelerometer.getX();
 	}
-	
+
 	public double getAccelY() {
 		return accelerometer.getY();
 	}
-	
+
 	public double getAccelZ() {
 		return accelerometer.getZ();
 	}
-	
+
 	public double getPIDOutputGyro() {
 		return (driveEnabled) ? pidOutputGryo.get() : 0;
 	}
-	
-	/*public double getPIDOutputTCLeft() {
-		return (driveEnabled) ? pidOutputTCLeft.get() : 0;
-	}
-	
-	public double getPIDOutputTCRight() {
-		return (driveEnabled) ? pidOutputTCRight.get() : 0;
-	}*/
+
+	/*
+	 * public double getPIDOutputTCLeft() { return (driveEnabled) ?
+	 * pidOutputTCLeft.get() : 0; }
+	 * 
+	 * public double getPIDOutputTCRight() { return (driveEnabled) ?
+	 * pidOutputTCRight.get() : 0; }
+	 */
 
 	public double getPIDOutputLeft() {
 		return (driveEnabled) ? pidOutputLeft.get() : 0;
@@ -397,7 +398,7 @@ public class DriveSubsystem extends Subsystem {
 	public double getPIDOutputRight() {
 		return (driveEnabled) ? pidOutputRight.get() : 0;
 	}
-	
+
 	public double getPIDOutputSpeedLimitLeft() {
 		return (driveEnabled) ? pidOutputSpeedLimitLeft.get() : 0;
 	}

@@ -7,12 +7,15 @@
 
 package org.usfirst.frc.team818.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import org.usfirst.frc.team818.robot.commands.ShiftHighCommand;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ShifterSubsystem extends Subsystem {
 	
-	Solenoid gearShiftHigh, gearShiftLow;
+	//Solenoid gearShiftHigh, gearShiftLow;
+	DoubleSolenoid gearShift;
 	private boolean shifterEnabled;
 	
 	public ShifterSubsystem(int[] gearPorts, boolean shifterEnabled) {
@@ -20,33 +23,37 @@ public class ShifterSubsystem extends Subsystem {
 		this.shifterEnabled = shifterEnabled;
 
 		if (shifterEnabled) {
-			gearShiftHigh = new Solenoid(13, gearPorts[0]);
-			gearShiftLow = new Solenoid(13, gearPorts[1]);
+			gearShift = new DoubleSolenoid(13, gearPorts[0], gearPorts[1]);
+		//	gearShiftHigh = new Solenoid(13, gearPorts[0]);
+			//gearShiftLow = new Solenoid(13, gearPorts[1]);
 		}
 	}
 	
 	public void initDefaultCommand() {
-		// setDefaultCommand(new MySpecialCommand());
+		 setDefaultCommand(new ShiftHighCommand());
 	}
 	
 	public void lowGear() {
 		if (shifterEnabled) {
-			gearShiftHigh.set(true);
-			gearShiftLow.set(false);
+			gearShift.set(DoubleSolenoid.Value.kForward);
+//			gearShiftHigh.set(true);
+//			gearShiftLow.set(false);
 		}
 	}
 
 	public void highGear() {
 		if (shifterEnabled) {
-			gearShiftHigh.set(false);
-			gearShiftLow.set(true);
+			gearShift.set(DoubleSolenoid.Value.kReverse);
+//			gearShiftHigh.set(false);
+//			gearShiftLow.set(true);
 		}
 	}
 
 	public void offGear() {
 		if (shifterEnabled) {
-			gearShiftHigh.set(false);
-			gearShiftLow.set(false);
+			gearShift.set(DoubleSolenoid.Value.kOff);
+//			gearShiftHigh.set(false);
+//			gearShiftLow.set(false);
 		}
 	}
 	
