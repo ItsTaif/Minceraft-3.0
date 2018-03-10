@@ -23,7 +23,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class IntakeSubsystem extends Subsystem {
 
-	private TalonSRX intakeL, intakeArm;
+	private TalonSRX intakeL;
 	private VictorSPX intakeR;
 	private boolean intakeEnabled;
 	private DigitalInput cube, intakeLimitUp, intakeLimitDown;
@@ -34,34 +34,18 @@ public class IntakeSubsystem extends Subsystem {
     private static final double[] INTAKE_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] INTAKE_PID_RANGE = { -1, 1 };
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int intakeArmMotorPort, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
 	
 		this.intakeEnabled = intakeEnabled;
 		
 		if (intakeEnabled) {
 			intakeL = new WPI_TalonSRX(intakeLMotorPort);
 			intakeR = new WPI_VictorSPX(intakeRMotorPort);
-			intakeArm = new WPI_TalonSRX(intakeArmMotorPort);
-			encoder = new Encoder(4,5);
 			cube = new DigitalInput(limitSwitchPortIntakeCube);
-			//intakeLimitUp = new DigitalInput(limitSwitchPortIntakeUp);
-			//intakeLimitDown = new DigitalInput(limitSwitchPortIntakeDown);
-
-			pidOutputIntake = new DoublePIDOutput();
-				
-			intakeController = new PIDController(INTAKE_PID_VALUES[0], INTAKE_PID_VALUES[1],
-					INTAKE_PID_VALUES[2], encoder, pidOutputIntake);
-			intakeController.setOutputRange(INTAKE_PID_RANGE[0], INTAKE_PID_RANGE[1]);
-			intakeController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			intakeController.setAbsoluteTolerance(1);
-			intakeController.setSetpoint(0);
-			intakeController.setContinuous(false);
-			
 		}
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new WristRotateCommand());
 	}
 	
 	public void enablePID() {
@@ -91,26 +75,6 @@ public class IntakeSubsystem extends Subsystem {
 			intakeL.set(ControlMode.PercentOutput, 0);
 			intakeR.set(ControlMode.PercentOutput, 0);
 		}
-	}
-    
-    public void intakeVertOff() {
-    	if(intakeEnabled) {
-    		intakeArm.set(ControlMode.PercentOutput, 0);
-    	}
-    }
-    
-    public void setIntakeVert(double speed) {
-    	if(intakeEnabled) {
-    		intakeArm.set(ControlMode.PercentOutput, speed);;
-    	}
-    }
-    
-    public void pidSetPoint(double setpoint) {
-    	intakeController.setSetpoint(setpoint);
-    }
-    
-    public double getPIDOutputIntake() {
-		return (intakeEnabled) ? pidOutputIntake.get() : 0;
 	}
     
     public boolean hasCube(){

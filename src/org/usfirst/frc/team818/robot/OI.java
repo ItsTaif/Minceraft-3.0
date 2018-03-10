@@ -4,11 +4,8 @@ import org.usfirst.frc.team818.robot.commands.ArmadilloDrive;
 import org.usfirst.frc.team818.robot.commands.ClimberDetatchCommand;
 import org.usfirst.frc.team818.robot.commands.ClimberSpinCommand;
 import org.usfirst.frc.team818.robot.commands.DynamicBraking;
-import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
-import org.usfirst.frc.team818.robot.commands.IntakeUpCommand;
-import org.usfirst.frc.team818.robot.commands.LimitedDriveCommand;
 import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -58,8 +55,6 @@ public class OI {
 		armadilloDrive.whenPressed(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
-		intakeUp.whenPressed(new IntakeUpCommand());
-		intakeDown.whenPressed (new IntakeDownCommand());
 		
 		//Triggers
 		//up.whenActive(new IntakeUpCommand());

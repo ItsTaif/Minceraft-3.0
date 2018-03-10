@@ -31,9 +31,6 @@ public class ElevatorForTimeCommand extends CommandBase {
     		
     //	elevator.getCurrent();
     	//RobotLog.putMessage("% " + oi.getGamepadRightY());
-		if (timer.hasPeriodPassed(time)) {
-			elevator.set(0);
-		} else {
 			elevator.set(1);
 		}
 		
@@ -70,10 +67,10 @@ public class ElevatorForTimeCommand extends CommandBase {
     	}
 	    */
 
-    }
+    
 
     protected boolean isFinished() {
-        return timer.hasPeriodPassed(time + 2);
+        return timer.hasPeriodPassed(time);
     }
 
     protected void end() {

@@ -3,7 +3,7 @@ package org.usfirst.frc.team818.robot.autonomi;
 import java.util.LinkedList;
 
 import org.usfirst.frc.team818.robot.Constants;
-import org.usfirst.frc.team818.robot.commands.IntakeDownCommand;
+import org.usfirst.frc.team818.robot.commands.WristDownCommand;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
@@ -70,7 +70,7 @@ public class RightAuton extends CommandGroup {
 		switch (target) {
 		case 1: //left Scale
 			addSequential(new WaitCommand(delay)); // wait set amount of time
-			addSequential(new IntakeDownCommand()); // moves intake down
+			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength)); // move forward to gap between the platform and the Switch
 			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
@@ -92,7 +92,7 @@ public class RightAuton extends CommandGroup {
 			break;
 		case 2: //rightScale
 			addSequential(new WaitCommand(delay)); // wait set amount of time
-			addSequential(new IntakeDownCommand()); // moves intake down
+			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(324 - Constants.robotHalfLength)); // move forward to middle of the field
 			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			addSequential(new WaitCommand(0.25));
@@ -108,7 +108,7 @@ public class RightAuton extends CommandGroup {
 			break;
 		case 3: //leftSwitch
 			addSequential(new WaitCommand(delay)); // wait set amount of time
-			addSequential(new IntakeDownCommand()); // moves intake down
+			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength)); // move forward to gap between the platform and the Switch
 			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
 			addSequential(new WaitCommand(0.25));
@@ -130,7 +130,7 @@ public class RightAuton extends CommandGroup {
 			break;
 		case 4: //rightSwitch
 			addSequential(new WaitCommand(delay)); // wait set amount of time
-			addSequential(new IntakeDownCommand()); // moves intake down
+			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(168 - Constants.robotHalfLength)); // move forward next to Switch
 			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
 			addSequential(new WaitCommand(0.25));

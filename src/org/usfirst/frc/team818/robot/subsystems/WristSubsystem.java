@@ -24,12 +24,6 @@ public class WristSubsystem extends Subsystem {
 	private TalonSRX intakeWrist;
 	private boolean wristEnabled;
 	private DigitalInput cube, intakeLimitUp, intakeLimitDown;
-	private Encoder encoder;
-	private PIDController intakeController;
-	private DoublePIDOutput pidOutputWrist;
-	
-    private static final double[] INTAKE_PID_VALUES = { 0.05, 0, 0.1 };
-	private static final double[] INTAKE_PID_RANGE = { -1, 1 };
 
 	public WristSubsystem(int intakeWristMotorPort, int[] encoderPorts, boolean wristEnabled) {
 	
@@ -38,31 +32,12 @@ public class WristSubsystem extends Subsystem {
 		if (wristEnabled) {
 			intakeWrist = new WPI_TalonSRX(intakeWristMotorPort);
 			//encoder = new Encoder(encoderPorts[1], encoderPorts[2]);
-
-			pidOutputWrist = new DoublePIDOutput();
-			
-	
-			intakeController = new PIDController(INTAKE_PID_VALUES[0], INTAKE_PID_VALUES[1],
-					INTAKE_PID_VALUES[2], encoder, pidOutputWrist);
-			intakeController.setOutputRange(INTAKE_PID_RANGE[0], INTAKE_PID_RANGE[1]);
-			intakeController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			intakeController.setAbsoluteTolerance(1);
-			intakeController.setSetpoint(0);
-			intakeController.setContinuous(false);
 			
 		}
 	}
 
 	public void initDefaultCommand() {
 		setDefaultCommand(new WristRotateCommand());
-	}
-	
-	public void enablePID() {
-		intakeController.enable();
-	}
-	
-	public void disablePID() {
-		intakeController.disable();
 	}
 	    
     public void stopWrist() {
@@ -76,14 +51,6 @@ public class WristSubsystem extends Subsystem {
     		intakeWrist.set(ControlMode.PercentOutput, speed);;
     	}
     }
-    
-    public void pidSetPoint(double setpoint) {
-    	intakeController.setSetpoint(setpoint);
-    }
-    
-    public double getPIDOutputWrist() {
-		return (wristEnabled) ? pidOutputWrist.get() : 0;
-	}
     
     public boolean hasCube(){
     	return cube.get();

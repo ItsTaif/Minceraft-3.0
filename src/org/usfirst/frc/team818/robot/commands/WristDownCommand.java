@@ -7,29 +7,34 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-public class IntakeDownCommand extends CommandBase {
-	public IntakeDownCommand() {
-		requires(intake);
+import edu.wpi.first.wpilibj.Timer;
+
+public class WristDownCommand extends CommandBase {
+	Timer timer;
+	double time;
+	public WristDownCommand(double time) {
+		requires(wrist);
+		timer = new Timer();
 	}
 
 	protected void initialize() {
-		intake.enablePID();
-		intake.pidSetPoint(0);
+		wrist.setWrist(0);
+		timer.start();
 	}
 
 	protected void execute() {
-		//intake.setIntakeVert(intake.getPIDOutputIntake());
+		wrist.setWrist(0.5);
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return timer.hasPeriodPassed(time);
 	}
 
 	protected void end() {
-		intake.intakeVertOff();
+		wrist.setWrist(0);
 	}
 
 	protected void interrupted() {
-		intake.intakeVertOff();
+		wrist.setWrist(0);
 	}
 }

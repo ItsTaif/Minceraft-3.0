@@ -13,7 +13,6 @@ public class WristRotateCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-		wrist.disablePID();
 		wrist.setWrist(0);
 	}
 
