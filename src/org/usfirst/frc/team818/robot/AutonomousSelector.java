@@ -1,10 +1,11 @@
 package org.usfirst.frc.team818.robot;
 
+import org.usfirst.frc.team818.robot.autonomi.DoNothing;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team818.robot.autonomi.*;
-import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 /**
  * Matthew P. Team 818 The Steel Armadillos
@@ -34,6 +35,7 @@ public class AutonomousSelector {
 
 			RobotLog.putMessage("Could not run " + autonomous.toString());
 			RobotLog.putMessage(e.getMessage());
+			autonomous = new DoNothing();
 
 		}
 
