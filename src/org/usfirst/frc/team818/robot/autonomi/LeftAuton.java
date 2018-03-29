@@ -10,6 +10,7 @@ import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Scale;
 import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Switch;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
 import org.usfirst.frc.team818.robot.utilities.GetGameData;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -25,6 +26,7 @@ public class LeftAuton extends CommandGroup {
 
 	public LeftAuton() {
 
+		RobotLog.putMessage("Running LeftAuton");
 		gameData = GetGameData.getGameData();
 		
 		priority = autonPriority.getPriority();

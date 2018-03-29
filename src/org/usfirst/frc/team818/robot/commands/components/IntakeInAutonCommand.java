@@ -9,6 +9,7 @@ package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -33,6 +34,7 @@ public class IntakeInAutonCommand extends CommandBase {
 	}
 
 	protected void initialize() {
+		RobotLog.putMessage("Running IntakeInAutonCommand: " + time + " seconds, " + speed + " speed");
 		timer.start();
     	intake.intakeOff();
 	}
@@ -49,10 +51,12 @@ public class IntakeInAutonCommand extends CommandBase {
 	}
 
 	protected void end() {
+		RobotLog.putMessage("Finished IntakeInAutonCommand: " + time + " seconds, " + speed + " speed");
 		intake.intakeOff();
 	}
 
 	protected void interrupted() {
+		RobotLog.putMessage("Interrupted IntakeInAutonCommand: " + time + " seconds, " + speed + " speed");
 		intake.intakeOff();
 	}
 }

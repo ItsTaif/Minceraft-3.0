@@ -24,8 +24,8 @@ public abstract class RobotLog {
 	
 	public static void init(){
 		
-		 log = new String[64];
-		for(int i = 0; i < 64; i++)
+		 log = new String[128];
+		for(int i = 0; i < 128; i++)
 			log[i] = "";
 		
 		updateLog();
@@ -34,7 +34,7 @@ public abstract class RobotLog {
 	
 	public static void putMessage(String message){
 		
-		for(int i = 63; i > 0; i--)
+		for(int i = 127; i > 0; i--)
 			log[i] = log[i-1];
 		
 		date = new Date();
@@ -47,7 +47,7 @@ public abstract class RobotLog {
 	private static void updateLog(){
 		
 		String logMessage = "";
-		for(int i = 0; i < 64; i++)
+		for(int i = 0; i < 128; i++)
 			logMessage += "\n" + log[i];
 		logMessage = logMessage.replaceFirst("\n", "");
 		

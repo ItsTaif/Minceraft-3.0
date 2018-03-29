@@ -8,6 +8,7 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -21,6 +22,7 @@ public class IntakeOutForTimeCommand extends CommandBase {
 	}
 
 	protected void initialize() {
+		RobotLog.putMessage("Running IntakeOutForTimeCommand: " + time + " seconds");
     	intake.intakeOut(0.8);
     	timer.start();
 	}
@@ -34,10 +36,12 @@ public class IntakeOutForTimeCommand extends CommandBase {
 	}
 
 	protected void end() {
+		RobotLog.putMessage("Finished IntakeOutForTimeCommand: " + time + " seconds");
 		intake.intakeOff();
 	}
 
 	protected void interrupted() {
+		RobotLog.putMessage("Interrupted IntakeOutForTimeCommand: " + time + " seconds");
 		intake.intakeOff();
 	}
 }

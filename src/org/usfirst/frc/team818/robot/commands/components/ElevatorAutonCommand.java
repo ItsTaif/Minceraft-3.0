@@ -2,6 +2,7 @@ package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 public class ElevatorAutonCommand extends CommandBase {
   
@@ -14,6 +15,8 @@ public class ElevatorAutonCommand extends CommandBase {
     }
 
     protected void initialize() {
+    	
+    	RobotLog.putMessage("Running ElevatorAutonCommand to " + position + " position");
     	elevator.set(0);
     	positionBottom = Constants.elevatorBottomPosition;
     	elevator.setSetpoint(positionBottom);
@@ -47,10 +50,12 @@ public class ElevatorAutonCommand extends CommandBase {
     }
 
     protected void end() {
+    	RobotLog.putMessage("Finished ElevatorAutonCommand to " + position + " position");
     	elevator.set(0);
     }
 
     protected void interrupted() {
+    	RobotLog.putMessage("Interrupted ElevatorAutonCommand to " + position + " position");
     	elevator.set(0);
     }
 }

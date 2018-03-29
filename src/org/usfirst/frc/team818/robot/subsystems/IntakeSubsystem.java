@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-	/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -23,43 +23,48 @@ public class IntakeSubsystem extends Subsystem {
 	private boolean intakeEnabled;
 	private DigitalInput cube;
 
-	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int limitSwitchPortIntakeCube, boolean intakeEnabled) {
-	
+	public IntakeSubsystem(int intakeLMotorPort, int intakeRMotorPort, int limitSwitchPortIntakeCube,
+			boolean intakeEnabled) {
+
 		this.intakeEnabled = intakeEnabled;
-		
+
 		if (intakeEnabled) {
 			intakeL = new WPI_TalonSRX(intakeLMotorPort);
 			intakeR = new WPI_VictorSPX(intakeRMotorPort);
+			intakeR.setInverted(true);
 			cube = new DigitalInput(limitSwitchPortIntakeCube);
 		}
 	}
 
 	public void initDefaultCommand() {
 	}
-	
+
 	public void intakeIn(double speed) {
 		if (intakeEnabled) {
 			intakeL.set(ControlMode.PercentOutput, speed);
 			intakeR.set(ControlMode.PercentOutput, speed);
 		}
 	}
-	
+
 	public void intakeOut(double speed) {
 		if (intakeEnabled) {
 			intakeL.set(ControlMode.PercentOutput, -speed);
 			intakeR.set(ControlMode.PercentOutput, -speed);
 		}
 	}
-	
+
 	public void intakeOff() {
 		if (intakeEnabled) {
 			intakeL.set(ControlMode.PercentOutput, 0);
 			intakeR.set(ControlMode.PercentOutput, 0);
 		}
 	}
-    
-    public boolean hasCube(){
-    	return cube.get();
-   }
-    
+
+	public boolean hasCube() {
+		if (intakeEnabled)
+			return cube.get();
+		else
+			return false;
+	}
+
 }

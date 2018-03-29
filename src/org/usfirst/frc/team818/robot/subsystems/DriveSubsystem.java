@@ -25,14 +25,13 @@ public class DriveSubsystem extends Subsystem {
 
 	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] DYNAMIC_BREAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.1 };
+	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.15 };
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
-	private static final double[] TRACTION_DRIVE_PID_VALUES = { 0.05, 0, 0.1 };
-	private static final double[] TRACTION_DRIVE_PID_RANGE = { -1, 1 };
-	private static final double GYRO_PID_TOLERANCE = 1;
+	private static final double GYRO_PID_TOLERANCE = 1.5;
 
-	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, TCLeft, TCRight;
-	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft, pidOutputTCLeft, pidOutputTCRight;
+	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, TCLeft,
+			TCRight;
+	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft;
 
 	private boolean driveEnabled;
 
@@ -91,7 +90,7 @@ public class DriveSubsystem extends Subsystem {
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
 			gyroController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
-			gyroController.setContinuous(false);
+			gyroController.setContinuous();
 			gyroController.setSetpoint(0);
 
 			/*
@@ -129,13 +128,6 @@ public class DriveSubsystem extends Subsystem {
 		if (driveEnabled) {
 			for (int i = 0; i < rightMotors.length; i++)
 				rightMotors[i].set(ControlMode.PercentOutput, -speed);
-		}
-	}
-	
-	public void setDistanceSetpoint(double ticks) {
-		if(driveEnabled) {
-			dynamicBreakingControllerLeft.setSetpoint(ticks);
-			dynamicBreakingControllerRight.setSetpoint(ticks);
 		}
 	}
 
@@ -273,6 +265,13 @@ public class DriveSubsystem extends Subsystem {
 				dynamicBreakingControllerRight.disable();
 			if (dynamicBreakingControllerLeft.isEnabled())
 				dynamicBreakingControllerLeft.disable();
+		}
+	}
+	
+	public void setDistanceSetpoint(double ticks) {
+		if(driveEnabled) {
+			dynamicBreakingControllerLeft.setSetpoint(ticks);
+			dynamicBreakingControllerRight.setSetpoint(ticks);
 		}
 	}
 

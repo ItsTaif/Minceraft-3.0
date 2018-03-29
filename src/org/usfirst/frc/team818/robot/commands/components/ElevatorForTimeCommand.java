@@ -1,6 +1,7 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.commands.CommandBase;
+import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -17,6 +18,7 @@ public class ElevatorForTimeCommand extends CommandBase {
     }
 
     protected void initialize() {
+    	RobotLog.putMessage("Running EleavtorForTimeCommand: " + time + " seconds");
     	elevator.set(0);
     	timer.start();
     	setPoint = 0;
@@ -76,10 +78,12 @@ public class ElevatorForTimeCommand extends CommandBase {
     }
 
     protected void end() {
+    	RobotLog.putMessage("Finished EleavtorForTimeCommand: " + time + " seconds");
     	elevator.set(0);
     }
 
     protected void interrupted() {
+    	RobotLog.putMessage("Interrupted EleavtorForTimeCommand: " + time + " seconds");
     	elevator.set(0);
     }
 }

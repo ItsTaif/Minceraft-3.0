@@ -27,7 +27,7 @@ public class TurnAngle extends CommandBase {
 	}
 
 	protected void initialize() {
-		RobotLog.putMessage("Running TurnAngle");
+		RobotLog.putMessage("Running TurnAngle: " + angle);
 		drive.resetGyro();
 		drive.setRotatePoint(angle);
 		drive.enablePID("rotate");
@@ -53,6 +53,7 @@ public class TurnAngle extends CommandBase {
 
 	protected void end() {
 
+		RobotLog.putMessage("Finished TurnAngle: " + angle);
 		timer.stop();
 		drive.setRotatePoint(0);
 		drive.disablePID();
@@ -62,6 +63,7 @@ public class TurnAngle extends CommandBase {
 
 	protected void interrupted() {
 
+		RobotLog.putMessage("Interrupted TurnAngle: " + angle);
 		timer.stop();
 		drive.setRotatePoint(0);
 		drive.disablePID();

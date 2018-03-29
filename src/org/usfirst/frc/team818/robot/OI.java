@@ -50,7 +50,7 @@ public class OI {
 		//speedLimit.whenPressed(new LimitedDriveCommand());
 		dynamicBraking.whileHeld(new DynamicBraking());
 		shiftGear.toggleWhenPressed(new ShiftLowCommand());
-		armadilloDrive.whenPressed(new ArmadilloDrive());
+		armadilloDrive.toggleWhenPressed(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
 		

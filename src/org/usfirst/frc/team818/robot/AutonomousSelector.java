@@ -30,10 +30,11 @@ public class AutonomousSelector {
 		try {
 
 			autonomous = (CommandGroup)Class.forName("org.usfirst.frc.team818.robot.autonomi." + SmartDashboard.getString("Autonomous", "DoNothing")).newInstance();
-
+			RobotLog.putMessage("Selected " + SmartDashboard.getString("Autonomous", "DoNothing"));
+			
 		} catch (Exception e) {
 
-			RobotLog.putMessage("Could not run " + autonomous.toString());
+			RobotLog.putMessage("Could not run selected autonomous");
 			RobotLog.putMessage(e.getMessage());
 			autonomous = new DoNothing();
 

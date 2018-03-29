@@ -31,12 +31,12 @@ public class Robot extends TimedRobot {
 		CommandBase.init();
 		RobotLog.init();
 
-		m_chooser.addDefault("DoNothing", new DoNothing());
-		m_chooser.addObject("Baseline", new Baseline());
-		m_chooser.addObject("LeftAuton", new LeftAuton());
-		m_chooser.addObject("RightAuton", new RightAuton());
-		m_chooser.addObject("MidAuton", new MidAuton());
-		SmartDashboard.putData("Autonomous", m_chooser); // ******CHECK THE KEY IN DRIVER'S STATION******
+//		m_chooser.addDefault("DoNothing", new DoNothing());
+//		m_chooser.addObject("Baseline", new Baseline());
+//		m_chooser.addObject("LeftAuton", new LeftAuton());
+//		m_chooser.addObject("RightAuton", new RightAuton());
+//		m_chooser.addObject("MidAuton", new MidAuton());
+//		SmartDashboard.putData("Autonomous", m_chooser); // ******CHECK THE KEY IN DRIVER'S STATION******
 
 	}
 
@@ -50,8 +50,7 @@ public class Robot extends TimedRobot {
 
 	public void autonomousInit() {
 		// m_autonomousCommand = new Baseline();
-		m_autonomousCommand = m_chooser.getSelected();
-		RobotLog.putMessage(" selected");
+		m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
 
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 //		switch (autoSelected) {

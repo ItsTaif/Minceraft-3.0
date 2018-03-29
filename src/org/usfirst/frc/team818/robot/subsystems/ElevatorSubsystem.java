@@ -22,60 +22,60 @@ public class ElevatorSubsystem extends Subsystem {
 
 	private boolean elevatorEnabled;
 
-	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int[] elevatorEncoderPorts, int limitSwitchPortTop, int limitSwitchPortBottom, double elevatorDistance, boolean elevatorEnabled) {
+	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int[] elevatorEncoderPorts,
+			int limitSwitchPortTop, int limitSwitchPortBottom, double elevatorDistance, boolean elevatorEnabled) {
 
 		this.elevatorEnabled = elevatorEnabled;
 		if (elevatorEnabled) {
 			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPort1);
 			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPort2);
-			
+
+			// Second ElevatorMotor set to follow first and set to inverted
 			elevatorMotor2.follow(elevatorMotor1);
-					
+			elevatorMotor2.setInverted(true);
+			
 			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 			elevatorMotor1.configNominalOutputForward(0, 0);
-			 elevatorMotor1.configNominalOutputReverse(0, 0);
-			 elevatorMotor1.configPeakOutputForward(ELEVATOR_PID_RANGE[1], 0);
-			 elevatorMotor1.configPeakOutputReverse(ELEVATOR_PID_RANGE[0], 0);
+			elevatorMotor1.configNominalOutputReverse(0, 0);
+			elevatorMotor1.configPeakOutputForward(ELEVATOR_PID_RANGE[1], 0);
+			elevatorMotor1.configPeakOutputReverse(ELEVATOR_PID_RANGE[0], 0);
 
-			 elevatorMotor1.config_kP(0, ELEVATOR_PID_VALUES[0], 0);
-			 elevatorMotor1.config_kI(0, ELEVATOR_PID_VALUES[1], 0);
-			 elevatorMotor1.config_kD(0, ELEVATOR_PID_VALUES[2], 0);
+			elevatorMotor1.config_kP(0, ELEVATOR_PID_VALUES[0], 0);
+			elevatorMotor1.config_kI(0, ELEVATOR_PID_VALUES[1], 0);
+			elevatorMotor1.config_kD(0, ELEVATOR_PID_VALUES[2], 0);
 
 		}
-	}
-	
-	public void getCurrent() {
-		RobotLog.putMessage("1 " + elevatorMotor1.getOutputCurrent() + "  2 "  + elevatorMotor2.getOutputCurrent()); 
 	}
 
 	public void initDefaultCommand() {
-		if(elevatorEnabled)
-		setDefaultCommand(new ElevatorCommand());
+		if (elevatorEnabled)
+			setDefaultCommand(new ElevatorCommand());
 	}
 
 	public double getPosition() {
-		return(elevatorEnabled) ? elevatorMotor1.getSensorCollection().getQuadraturePosition() : 0;		
-	}
-	public void set(double speed) {
-		if (elevatorEnabled) {
-			elevatorMotor1.set(ControlMode.PercentOutput,speed);		
-		}
-	}
-	
-	public void hold() {
-		if (elevatorEnabled) {
-			elevatorMotor1.set(ControlMode.Position,setpoint);			
-		}
-	}
-	
-	public void setSetpoint(double setpoint){
-		if (elevatorEnabled) 	
-			this.setpoint = setpoint;
-	}
-	
-	public void disablePID() {
+		return (elevatorEnabled) ? elevatorMotor1.getSensorCollection().getQuadraturePosition() : 0;
 	}
 
+	public void set(double speed) {
+		if (elevatorEnabled) {
+			elevatorMotor1.set(ControlMode.PercentOutput, speed);
+		}
+	}
+
+	public void hold() {
+		if (elevatorEnabled) {
+			elevatorMotor1.set(ControlMode.Position, setpoint);
+		}
+	}
+
+	public void setSetpoint(double setpoint) {
+		if (elevatorEnabled)
+			this.setpoint = setpoint;
+	}
+
+	public void getCurrent() {
+		RobotLog.putMessage("1 " + elevatorMotor1.getOutputCurrent() + "  2 " + elevatorMotor2.getOutputCurrent());
+	}
 
 }
