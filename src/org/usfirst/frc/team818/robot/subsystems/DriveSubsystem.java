@@ -25,7 +25,7 @@ public class DriveSubsystem extends Subsystem {
 
 	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0.1 };
 	private static final double[] DYNAMIC_BREAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.15 };
+	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.2 };
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
 	private static final double GYRO_PID_TOLERANCE = 1.5;
 

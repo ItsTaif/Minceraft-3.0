@@ -9,20 +9,22 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Drive4Distance extends CommandBase {
 
-	double distance, pLeft, pRight, leftDistance, rightDistance;
+	double distance, distanceToTravel, pLeft, pRight, leftDistance, rightDistance;
 	Timer timer;
 	Timer tarTimer;
 	
-	public Drive4Distance(double distance) {
+	public Drive4Distance(double distanceToTravel) {
 		requires(drive);
 		timer = new Timer();
 		tarTimer = new Timer();
-		this.distance = distance * Constants.distanceToTickRatio / Constants.gearRatioHigh;
+		this.distanceToTravel = distanceToTravel;
 	}
 	
 	protected void initialize() {
 		
-		RobotLog.putMessage("Running Drive4Distance: " + distance);
+		RobotLog.putMessage("Running Drive4Distance: " + distanceToTravel);
+		
+		distance = distanceToTravel * Constants.distanceToTickRatio / Constants.gearRatioHigh;
 		drive.setBoth(0);
 		drive.resetBothEncoders();
 		drive.resetGyro();
@@ -55,13 +57,14 @@ public class Drive4Distance extends CommandBase {
 	}
 
 	protected void end() {
-		RobotLog.putMessage("Finished Drive4Distance: " + distance);
+		RobotLog.putMessage("Finished Drive4Distance: " + distanceToTravel);
+		RobotLog.putMessage("Distance traveled: " + ( (drive.getLeftRotation() + drive.getRightRotation()) / 2) * Constants.gearRatioHigh/Constants.distanceToTickRatio);
 		drive.setBoth(0);
 		drive.disablePID();
 	}
 
 	protected void interrupted() {
-		RobotLog.putMessage("Interrupted Drive4Distance: " + distance);
+		RobotLog.putMessage("Interrupted Drive4Distance: " + distanceToTravel);
 		drive.setBoth(0);
 		drive.disablePID();
 	}

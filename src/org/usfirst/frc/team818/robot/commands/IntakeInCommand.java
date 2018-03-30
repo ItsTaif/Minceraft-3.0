@@ -28,7 +28,7 @@ public class IntakeInCommand extends CommandBase {
 		if (!intake.hasCube()) {
 			timer.reset();
 		}
-		return timer.hasPeriodPassed(1);
+		return timer.hasPeriodPassed(0.5);
 	}
 
 	protected void end() {

@@ -5,6 +5,7 @@ import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -22,18 +23,20 @@ public class ElevatorSubsystem extends Subsystem {
 
 	private boolean elevatorEnabled;
 
-	public ElevatorSubsystem(int elevatorMotorPort1, int elevatorMotorPort2, int[] elevatorEncoderPorts,
-			int limitSwitchPortTop, int limitSwitchPortBottom, double elevatorDistance, boolean elevatorEnabled) {
+	public ElevatorSubsystem(int elevatorMotorPorts[], int[] elevatorEncoderPorts,
+			double elevatorDistance, boolean elevatorEnabled) {
 
 		this.elevatorEnabled = elevatorEnabled;
 		if (elevatorEnabled) {
-			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPort1);
-			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPort2);
+			elevatorMotor1 = new WPI_TalonSRX(elevatorMotorPorts[0]);
+			elevatorMotor2 = new WPI_TalonSRX(elevatorMotorPorts[1]);
 
 			// Second ElevatorMotor set to follow first and set to inverted
 			elevatorMotor2.follow(elevatorMotor1);
 			elevatorMotor2.setInverted(true);
-			
+			elevatorMotor1.setNeutralMode(NeutralMode.Coast);
+			elevatorMotor2.setNeutralMode(NeutralMode.Coast);
+
 			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
 			elevatorMotor1.configNominalOutputForward(0, 0);

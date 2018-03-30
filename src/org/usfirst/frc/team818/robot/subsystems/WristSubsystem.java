@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class WristSubsystem extends Subsystem {
@@ -27,6 +26,7 @@ public class WristSubsystem extends Subsystem {
 
 		if (wristEnabled) {
 			intakeWrist = new WPI_TalonSRX(intakeWristMotorPort);
+			intakeWrist.setInverted(true);
 			// encoder = new Encoder(encoderPorts[1], encoderPorts[2]);
 
 		}
@@ -45,7 +45,7 @@ public class WristSubsystem extends Subsystem {
 	public void setWrist(double speed) {
 		if (wristEnabled) {
 			intakeWrist.set(ControlMode.PercentOutput, speed);
-			;
+
 		}
 	}
 

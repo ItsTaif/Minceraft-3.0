@@ -14,7 +14,7 @@ public class ElevatorCommand extends CommandBase {
 	}
 
 	protected void initialize() {
-		elevator.setSetpoint(elevator.getPosition());
+//		elevator.setSetpoint(elevator.getPosition());
 		elevator.set(0);
 		timer = new Timer();
 		timer.start();
