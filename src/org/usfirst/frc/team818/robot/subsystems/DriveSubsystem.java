@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends Subsystem {
 
@@ -150,6 +151,12 @@ public class DriveSubsystem extends Subsystem {
 			setLeft(speed);
 			setRight(speed);
 		}
+	}
+
+	public void showSensorReadouts() {
+		SmartDashboard.putNumber("Left Encoder", getLeftRotation());
+		SmartDashboard.putNumber("Right Encoder", getRightRotation());
+		SmartDashboard.putNumber("GyroReadout", getAngle());
 	}
 
 	public void resetGyro() {

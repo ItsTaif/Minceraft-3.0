@@ -36,10 +36,10 @@ public class ElevatorCommand extends CommandBase {
 				// RobotLog.putMessage("% " + oi.getGamepadRightY());
 			}
 
-			if (Math.abs(oi.getGamepadRightY()) > 0.1) {
+			if (Math.abs(oi.getGamepadLeftY()) > 0.1) {
 
 				joystickToggle = true;
-				elevator.set(oi.getGamepadRightY());
+				elevator.set(oi.getGamepadLeftY());
 
 			} else {
 				if (joystickToggle) {

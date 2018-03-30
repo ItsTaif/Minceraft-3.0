@@ -7,32 +7,35 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-import org.usfirst.frc.team818.robot.utilities.RobotLog;
+import edu.wpi.first.wpilibj.Timer;
 
-public class ShiftHighCommand extends CommandBase {
-	public ShiftHighCommand() {
-		requires(shifter);
+public class IntakeInCommand2 extends CommandBase {
+	Timer timer = new Timer();
+	public IntakeInCommand2() {
+		requires(intake);
 	}
 
 	protected void initialize() {
-		RobotLog.putMessage("HIGH GEAR");
-			shifter.highGear();
-		
+    	intake.intakeIn(0.0);
+    	timer.start();
 	}
 
 	protected void execute() {
-    	
+		intake.intakeIn(0.4);
 	}
 
 	protected boolean isFinished() {
-		return false;
+		if (!intake.hasCube()) {
+			timer.reset();
+		}
+		return timer.hasPeriodPassed(0.5);
 	}
 
 	protected void end() {
-		shifter.offGear();
+		intake.intakeOff();
 	}
 
 	protected void interrupted() {
-		shifter.offGear();
+		intake.intakeOff();
 	}
 }

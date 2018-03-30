@@ -26,10 +26,10 @@ public class WristRotateCommand extends CommandBase {
 	protected void execute() {
 		SmartDashboard.putString("DB/String 5", "" + wrist.getEncoderVal());
 		SmartDashboard.putString("DB/String 0", "" + wrist.getPIDOutput());
-		if (Math.abs(oi.getGamepadLeftY()) > 0.1) {
+		if (Math.abs(oi.getGamepadRightY()) > 0.1) {
 			buttonWasPressed = false;
 			wrist.disablePID();
-			wrist.setWrist(oi.getGamepadLeftY() * 0.4);
+			wrist.setWrist(oi.getGamepadRightY() * 0.4);
 		} else {
 			if (oi.allPressed.get() || buttonWasPressed) {
 				buttonWasPressed = true;

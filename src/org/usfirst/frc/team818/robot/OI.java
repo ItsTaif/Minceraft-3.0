@@ -3,7 +3,9 @@ package org.usfirst.frc.team818.robot;
 import org.usfirst.frc.team818.robot.commands.ArmadilloDrive;
 import org.usfirst.frc.team818.robot.commands.DynamicBraking;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeInCommand2;
 import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
+import org.usfirst.frc.team818.robot.commands.IntakeOutCommand2;
 import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -13,9 +15,10 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
-	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom,
-			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberRelease, climberDetatch, wristUp, wristMid, wristFlat;
-	public Trigger up, mid, flat, allPressed;
+	public JoystickButton shiftGear, dynamicBraking, armadilloDrive, elevatorSwitch, elevatorBottom, gamepad3,
+			elevatorScale, intakeIn, intakeOut, intakeOutSlow, intakeInSlow, climberRelease, climberDetatch, wristUp,
+			wristMid, wristFlat;
+	public Trigger shift, up, mid, flat, allPressed;
 
 	public OI() {
 
@@ -25,9 +28,9 @@ public class OI {
 		gamepad = new Joystick(2);
 
 		// Instantiating Buttons
-		speedLimit = new JoystickButton(leftStick, 1); // will be speed limit override
+		shiftGear = new JoystickButton(leftStick, 1); // will be speed limit override
 		dynamicBraking = new JoystickButton(leftStick, 2);
-		shiftGear = new JoystickButton(rightStick, 1);
+		shift = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
 		wristMid = new JoystickButton(gamepad, 1);
 		wristFlat = new JoystickButton(gamepad, 2);
@@ -35,45 +38,46 @@ public class OI {
 		wristUp = new JoystickButton(gamepad, 4);
 		intakeIn = new JoystickButton(gamepad, 6);
 		intakeOut = new JoystickButton(gamepad, 5);
-		intakeUp = new JoystickButton(gamepad, 7);
-		intakeDown = new JoystickButton(gamepad, 8);
+		intakeOutSlow = new JoystickButton(gamepad, 7);
+		intakeInSlow = new JoystickButton(gamepad, 8);
 		climberRelease = new JoystickButton(gamepad, 9);
 		climberDetatch = new JoystickButton(gamepad, 10);
-		
+
 		up = new Trigger() {
 			public boolean get() {
 				return wristUp.get();
 			}
 		};
-		
+
 		mid = new Trigger() {
 			public boolean get() {
 				return wristMid.get();
 			}
 		};
-		
+
 		flat = new Trigger() {
 			public boolean get() {
 				return wristFlat.get();
 			}
 		};
-		
+
 		allPressed = new Trigger() {
 			public boolean get() {
 				return wristMid.get() || wristUp.get() || wristFlat.get();
 			}
 		};
-		//Buttons
-		//speedLimit.whenPressed(new LimitedDriveCommand());
-		dynamicBraking.whileHeld(new DynamicBraking());
+		// Buttons
 		shiftGear.toggleWhenPressed(new ShiftLowCommand());
+		dynamicBraking.whileHeld(new DynamicBraking());
 		armadilloDrive.whileHeld(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
-		
-		//Triggers
-		//up.whenActive(new IntakeUpCommand());
-			}
+		intakeInSlow.whileHeld(new IntakeInCommand2());
+		intakeOutSlow.whileHeld(new IntakeOutCommand2());
+
+		// Triggers
+		// up.whenActive(new IntakeUpCommand());
+	}
 
 	// Elevator Configurations
 	public boolean getElevatorBottom() {
@@ -113,7 +117,7 @@ public class OI {
 		return (Math.abs(rightStick.getZ()) > 0.1) ? rightStick.getZ() : 0;
 	}
 
-	public double getGamepadLeftY() { //used for climber
+	public double getGamepadLeftY() { // used for climber
 		return (Math.abs(gamepad.getRawAxis(1)) > 0.1) ? -gamepad.getRawAxis(1) : 0;
 	}
 
@@ -121,7 +125,7 @@ public class OI {
 		return (Math.abs(gamepad.getRawAxis(3)) > 0.1) ? -gamepad.getRawAxis(3) : 0;
 	}
 
-	public double getGamepadLeftX() { //used for elevator
+	public double getGamepadLeftX() { // used for elevator
 		return (Math.abs(gamepad.getRawAxis(0)) > 0.1) ? gamepad.getRawAxis(0) : 0;
 	}
 

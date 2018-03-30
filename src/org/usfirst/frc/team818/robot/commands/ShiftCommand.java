@@ -9,19 +9,19 @@ package org.usfirst.frc.team818.robot.commands;
 
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
-public class ShiftHighCommand extends CommandBase {
-	public ShiftHighCommand() {
+public class ShiftCommand extends CommandBase {
+	public ShiftCommand() {
 		requires(shifter);
 	}
 
 	protected void initialize() {
-		RobotLog.putMessage("HIGH GEAR");
-			shifter.highGear();
-		
+		RobotLog.putMessage("Shift");
 	}
 
 	protected void execute() {
-    	
+    	if (oi.shift.get()) {
+    		shifter.fire();
+    	}
 	}
 
 	protected boolean isFinished() {

@@ -64,6 +64,9 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousPeriodic() {
+		
+		CommandBase.drive.showSensorReadouts();
+
 		/*
 		 * SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
 		 * SmartDashboard.putString("RobotLog", "L:" +
@@ -85,6 +88,9 @@ public class Robot extends TimedRobot {
 	}
 
 	public void teleopPeriodic() {
+		
+		CommandBase.drive.showSensorReadouts();
+
 		/*
 		 * SmartDashboard.putNumber("Gyro", CommandBase.drive.getAngle());
 		 * SmartDashboard.putString("RobotLog", "L:" +

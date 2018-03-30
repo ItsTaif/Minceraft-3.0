@@ -33,6 +33,16 @@ public class ShifterSubsystem extends Subsystem {
 		 setDefaultCommand(new ShiftHighCommand());
 	}
 	
+	public void fire() {
+		if (shifterEnabled) {
+			if (gearShift.get() == DoubleSolenoid.Value.kForward) {
+				gearShift.set(DoubleSolenoid.Value.kReverse);
+			} else if (gearShift.get() == DoubleSolenoid.Value.kReverse) {
+				gearShift.set(DoubleSolenoid.Value.kForward);
+			}
+		}
+	}
+	
 	public void lowGear() {
 		if (shifterEnabled) {
 			gearShift.set(DoubleSolenoid.Value.kForward);

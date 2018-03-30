@@ -7,21 +7,17 @@
 
 package org.usfirst.frc.team818.robot.commands;
 
-import org.usfirst.frc.team818.robot.utilities.RobotLog;
-
-public class ShiftHighCommand extends CommandBase {
-	public ShiftHighCommand() {
-		requires(shifter);
+public class IntakeOutCommand2 extends CommandBase {
+	public IntakeOutCommand2() {
+		requires(intake);
 	}
 
 	protected void initialize() {
-		RobotLog.putMessage("HIGH GEAR");
-			shifter.highGear();
-		
+    	intake.intakeOut(0.0);
 	}
 
 	protected void execute() {
-    	
+		intake.intakeOut(0.4);
 	}
 
 	protected boolean isFinished() {
@@ -29,10 +25,10 @@ public class ShiftHighCommand extends CommandBase {
 	}
 
 	protected void end() {
-		shifter.offGear();
+		intake.intakeOff();
 	}
 
 	protected void interrupted() {
-		shifter.offGear();
+		intake.intakeOff();
 	}
 }
