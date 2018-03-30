@@ -7,11 +7,6 @@
 
 package org.usfirst.frc.team818.robot;
 
-import org.usfirst.frc.team818.robot.autonomi.Baseline;
-import org.usfirst.frc.team818.robot.autonomi.DoNothing;
-import org.usfirst.frc.team818.robot.autonomi.LeftAuton;
-import org.usfirst.frc.team818.robot.autonomi.MidAuton;
-import org.usfirst.frc.team818.robot.autonomi.RightAuton;
 import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
@@ -19,7 +14,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Robot extends TimedRobot {
 

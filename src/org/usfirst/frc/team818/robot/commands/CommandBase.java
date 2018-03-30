@@ -2,7 +2,6 @@ package org.usfirst.frc.team818.robot.commands;
 
 import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.OI;
-import org.usfirst.frc.team818.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.CompressorSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.DriveSubsystem;
 import org.usfirst.frc.team818.robot.subsystems.ElevatorSubsystem;
@@ -15,7 +14,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public abstract class CommandBase extends Command {
 
 	public static OI oi;
-	public static ClimberSubsystem climber;
 	public static CompressorSubsystem compressor;
 	public static DriveSubsystem drive;
 	public static ElevatorSubsystem elevator;
@@ -23,12 +21,9 @@ public abstract class CommandBase extends Command {
 	public static ShifterSubsystem shifter;
 	public static WristSubsystem wrist;
 
-	public static ClimberSubsystem climb;
 
 	public static void init() {
 
-		climber = new ClimberSubsystem(Constants.climberMotorPort, Constants.rClimberPistonPort,
-				Constants.dClimberPistonPort, Constants.climberEnabled);
 		compressor = new CompressorSubsystem(Constants.compressorEnabled);
 		drive = new DriveSubsystem(Constants.leftMotorPorts, Constants.rightMotorPorts, Constants.gyroDrivePort,
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);
@@ -43,6 +38,8 @@ public abstract class CommandBase extends Command {
 
 		compressor.startCompressor();
 		shifter.highGear();
+		
+		drive.calibrateGyro();
 	}
 
 	public static void disable() {

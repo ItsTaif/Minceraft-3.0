@@ -10,11 +10,11 @@ public class MotorCurrent implements PIDSource{
 	double averageCurrent;
 	
 	public MotorCurrent(TalonSRX[] motors) {
-		double val = 0.0;
-		for (TalonSRX t : motors) {
-			//val += t.getOutputCurrent();
-		}
-		//averageCurrent = val/motors.length;
+//		double val = 0.0;
+//		for (TalonSRX t : motors) {
+//			val += t.getOutputCurrent();
+//		}
+//		averageCurrent = val/motors.length;
 	}
 
 	@Override

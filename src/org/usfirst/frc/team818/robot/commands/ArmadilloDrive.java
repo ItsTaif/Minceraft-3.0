@@ -19,7 +19,7 @@ public class ArmadilloDrive extends CommandBase {
 	protected void execute() {
 
 		speed = oi.getRightY();
-		drive.setRotatePoint(-oi.getLeftX() * 90);
+		drive.setRotatePoint(oi.getLeftX() * 90);
 
 		pLeft = speed;
 		pRight = speed;

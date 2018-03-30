@@ -41,15 +41,15 @@ public class IntakeSubsystem extends Subsystem {
 
 	public void intakeIn(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(ControlMode.PercentOutput, speed);
-			intakeR.set(ControlMode.PercentOutput, speed);
+			intakeL.set(ControlMode.PercentOutput, -speed);
+			intakeR.set(ControlMode.PercentOutput, -speed);
 		}
 	}
 
 	public void intakeOut(double speed) {
 		if (intakeEnabled) {
-			intakeL.set(ControlMode.PercentOutput, -speed);
-			intakeR.set(ControlMode.PercentOutput, -speed);
+			intakeL.set(ControlMode.PercentOutput, speed);
+			intakeR.set(ControlMode.PercentOutput, speed);
 		}
 	}
 

@@ -1,23 +1,21 @@
 package org.usfirst.frc.team818.robot;
 
 import org.usfirst.frc.team818.robot.commands.ArmadilloDrive;
-import org.usfirst.frc.team818.robot.commands.ClimberDetatchCommand;
-import org.usfirst.frc.team818.robot.commands.ClimberSpinCommand;
 import org.usfirst.frc.team818.robot.commands.DynamicBraking;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
 import org.usfirst.frc.team818.robot.commands.IntakeOutCommand;
 import org.usfirst.frc.team818.robot.commands.ShiftLowCommand;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 public class OI {
 
 	private Joystick leftStick, rightStick, gamepad;
 	public JoystickButton speedLimit, dynamicBraking, shiftGear, armadilloDrive, elevatorSwitch, elevatorBottom,
-			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberRelease, climberDetatch;
-	//public Trigger up;
+			gamepad3, elevatorScale, intakeIn, intakeOut, intakeUp, intakeDown, climberRelease, climberDetatch, wristUp, wristMid, wristFlat;
+	public Trigger up, mid, flat, allPressed;
 
 	public OI() {
 
@@ -31,44 +29,51 @@ public class OI {
 		dynamicBraking = new JoystickButton(leftStick, 2);
 		shiftGear = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
-		elevatorSwitch = new JoystickButton(gamepad, 1);
-		elevatorBottom = new JoystickButton(gamepad, 2);
+		wristMid = new JoystickButton(gamepad, 1);
+		wristFlat = new JoystickButton(gamepad, 2);
 		gamepad3 = new JoystickButton(gamepad, 3); // currently unused, will be probably backDrive
-		elevatorScale = new JoystickButton(gamepad, 4);
+		wristUp = new JoystickButton(gamepad, 4);
 		intakeIn = new JoystickButton(gamepad, 6);
 		intakeOut = new JoystickButton(gamepad, 5);
 		intakeUp = new JoystickButton(gamepad, 7);
 		intakeDown = new JoystickButton(gamepad, 8);
 		climberRelease = new JoystickButton(gamepad, 9);
 		climberDetatch = new JoystickButton(gamepad, 10);
-		//up = new Trigger() {
-		//	public boolean get() {
-		//		return getGamepadRightY() > 0.0;
-		//	}
-		//};
-		// Buttons
+		
+		up = new Trigger() {
+			public boolean get() {
+				return wristUp.get();
+			}
+		};
+		
+		mid = new Trigger() {
+			public boolean get() {
+				return wristMid.get();
+			}
+		};
+		
+		flat = new Trigger() {
+			public boolean get() {
+				return wristFlat.get();
+			}
+		};
+		
+		allPressed = new Trigger() {
+			public boolean get() {
+				return wristMid.get() || wristUp.get() || wristFlat.get();
+			}
+		};
+		//Buttons
 		//speedLimit.whenPressed(new LimitedDriveCommand());
 		dynamicBraking.whileHeld(new DynamicBraking());
 		shiftGear.toggleWhenPressed(new ShiftLowCommand());
-		armadilloDrive.toggleWhenPressed(new ArmadilloDrive());
+		armadilloDrive.whileHeld(new ArmadilloDrive());
 		intakeIn.whileHeld(new IntakeInCommand());
 		intakeOut.whileHeld(new IntakeOutCommand());
 		
 		//Triggers
 		//up.whenActive(new IntakeUpCommand());
-		
-		// Climber can only run in the last 30 seconds
-		try {
-			if (DriverStation.getInstance().getMatchTime() <= 30) {
-				climberRelease.whenPressed(new ClimberDetatchCommand());
-				climberDetatch.whileHeld(new ClimberSpinCommand());
 			}
-		} catch (Exception e) {
-			climberRelease.whenPressed(new ClimberDetatchCommand());
-			climberDetatch.whileHeld(new ClimberSpinCommand());
-		}
-		
-	}
 
 	// Elevator Configurations
 	public boolean getElevatorBottom() {

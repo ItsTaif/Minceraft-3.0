@@ -6,7 +6,6 @@ import org.usfirst.frc.team818.robot.autonomi.PriorityList;
 import org.usfirst.frc.team818.robot.commands.IntakeInCommand;
 import org.usfirst.frc.team818.robot.utilities.GetGameData;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

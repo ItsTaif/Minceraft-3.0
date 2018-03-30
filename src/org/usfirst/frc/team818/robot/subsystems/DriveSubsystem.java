@@ -5,6 +5,7 @@ import org.usfirst.frc.team818.robot.commands.components.MotorCurrent;
 import org.usfirst.frc.team818.robot.utilities.DoublePIDOutput;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -23,15 +24,14 @@ public class DriveSubsystem extends Subsystem {
 	MotorCurrent leftCurrent, rightCurrent;
 	Accelerometer accelerometer;
 
-	private static final double[] DYNAMIC_BREAKING_PID_VALUES = { 0.05, 0, 0.1 };
-	private static final double[] DYNAMIC_BREAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.2 };
+	private static final double[] DYNAMIC_BRAKING_PID_VALUES = { 0.05, 0, 0.28 };
+	private static final double[] DYNAMIC_BRAKING_PID_RANGE = { -1, 1 };
+	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.13 };
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
 	private static final double GYRO_PID_TOLERANCE = 1.5;
 
-	private PIDController dynamicBreakingControllerLeft, dynamicBreakingControllerRight, gyroController, TCLeft,
-			TCRight;
-	private DoublePIDOutput pidOutputGryo, pidOutputRight, pidOutputLeft;
+	private PIDController dynamicBrakingControllerLeft, dynamicBrakingControllerRight, gyroController, TCLeft, TCRight;
+	private DoublePIDOutput pidOutputGyro, pidOutputRight, pidOutputLeft;
 
 	private boolean driveEnabled;
 
@@ -67,31 +67,37 @@ public class DriveSubsystem extends Subsystem {
 
 			pidOutputRight = new DoublePIDOutput();
 			pidOutputLeft = new DoublePIDOutput();
-			pidOutputGryo = new DoublePIDOutput();
+			pidOutputGyro = new DoublePIDOutput();
 
-			dynamicBreakingControllerRight = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0],
-					DYNAMIC_BREAKING_PID_VALUES[1], DYNAMIC_BREAKING_PID_VALUES[2], rightEncoder, pidOutputRight);
-			dynamicBreakingControllerRight.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
-			dynamicBreakingControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			dynamicBreakingControllerRight.setAbsoluteTolerance(1);
-			dynamicBreakingControllerRight.setSetpoint(0);
-			dynamicBreakingControllerRight.setContinuous(false);
+			dynamicBrakingControllerRight = new PIDController(DYNAMIC_BRAKING_PID_VALUES[0],
+					DYNAMIC_BRAKING_PID_VALUES[1], DYNAMIC_BRAKING_PID_VALUES[2], rightEncoder, pidOutputRight);
+			dynamicBrakingControllerRight.setOutputRange(DYNAMIC_BRAKING_PID_RANGE[0], DYNAMIC_BRAKING_PID_RANGE[1]);
+			dynamicBrakingControllerRight.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
+			dynamicBrakingControllerRight.setAbsoluteTolerance(5);
+			dynamicBrakingControllerRight.setSetpoint(0);
+			dynamicBrakingControllerRight.setContinuous(false);
 
-			dynamicBreakingControllerLeft = new PIDController(DYNAMIC_BREAKING_PID_VALUES[0],
-					DYNAMIC_BREAKING_PID_VALUES[1], DYNAMIC_BREAKING_PID_VALUES[2], leftEncoder, pidOutputLeft);
-			dynamicBreakingControllerLeft.setOutputRange(DYNAMIC_BREAKING_PID_RANGE[0], DYNAMIC_BREAKING_PID_RANGE[1]);
-			dynamicBreakingControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
-			dynamicBreakingControllerLeft.setAbsoluteTolerance(1);// TODO: MAke this a variable isntead of magic number
-			dynamicBreakingControllerLeft.setSetpoint(0);
-			dynamicBreakingControllerLeft.setContinuous(false);
+			dynamicBrakingControllerLeft = new PIDController(DYNAMIC_BRAKING_PID_VALUES[0],
+					DYNAMIC_BRAKING_PID_VALUES[1], DYNAMIC_BRAKING_PID_VALUES[2], leftEncoder, pidOutputLeft);
+			dynamicBrakingControllerLeft.setOutputRange(DYNAMIC_BRAKING_PID_RANGE[0], DYNAMIC_BRAKING_PID_RANGE[1]);
+			dynamicBrakingControllerLeft.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
+			dynamicBrakingControllerLeft.setAbsoluteTolerance(5);// TODO: MAke this a variable isntead of magic number
+			dynamicBrakingControllerLeft.setSetpoint(0);
+			dynamicBrakingControllerLeft.setContinuous(false);
 
 			gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2], driveGyro,
-					pidOutputGryo);
+					pidOutputGyro);
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
 			gyroController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
 			gyroController.setContinuous();
 			gyroController.setSetpoint(0);
+
+			for (int i = 0; i < leftMotors.length; i++) {
+				leftMotors[i].setNeutralMode(NeutralMode.Brake);
+				rightMotors[i].setNeutralMode(NeutralMode.Brake);
+
+			}
 
 			/*
 			 * TCLeft = new PIDController(TRACTION_DRIVE_PID_VALUES[0],
@@ -114,6 +120,7 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		// setDefaultCommand(new DriveCommand());{
 		setDefaultCommand(new DriveCommand());
 	}
 
@@ -200,19 +207,19 @@ public class DriveSubsystem extends Subsystem {
 			if (pidType.equals("straight")) {
 				if (gyroController.isEnabled())
 					gyroController.disable();
-				if (!dynamicBreakingControllerRight.isEnabled())
-					dynamicBreakingControllerRight.enable();
-				if (!dynamicBreakingControllerLeft.isEnabled())
-					dynamicBreakingControllerLeft.enable();
+				if (!dynamicBrakingControllerRight.isEnabled())
+					dynamicBrakingControllerRight.enable();
+				if (!dynamicBrakingControllerLeft.isEnabled())
+					dynamicBrakingControllerLeft.enable();
 				/*
 				 * if (TCLeft.isEnabled()) TCLeft.disable(); if (TCRight.isEnabled())
 				 * TCRight.disable();
 				 */
 			} else if (pidType.equals("rotate")) {
-				if (dynamicBreakingControllerRight.isEnabled())
-					dynamicBreakingControllerRight.disable();
-				if (dynamicBreakingControllerLeft.isEnabled())
-					dynamicBreakingControllerLeft.disable();
+				if (dynamicBrakingControllerRight.isEnabled())
+					dynamicBrakingControllerRight.disable();
+				if (dynamicBrakingControllerLeft.isEnabled())
+					dynamicBrakingControllerLeft.disable();
 				if (!gyroController.isEnabled())
 					gyroController.enable();
 				/*
@@ -222,19 +229,19 @@ public class DriveSubsystem extends Subsystem {
 			} else if (pidType.equals("speedLimit")) {
 				if (gyroController.isEnabled())
 					gyroController.disable();
-				if (dynamicBreakingControllerRight.isEnabled())
-					dynamicBreakingControllerRight.disable();
-				if (dynamicBreakingControllerLeft.isEnabled())
-					dynamicBreakingControllerLeft.disable();
+				if (dynamicBrakingControllerRight.isEnabled())
+					dynamicBrakingControllerRight.disable();
+				if (dynamicBrakingControllerLeft.isEnabled())
+					dynamicBrakingControllerLeft.disable();
 				if (TCLeft.isEnabled())
 					TCLeft.disable();
 				if (TCRight.isEnabled())
 					TCRight.disable();
 			} else if (pidType.equals("driveDistance")) {
-				if (!dynamicBreakingControllerRight.isEnabled())
-					dynamicBreakingControllerRight.enable();
-				if (!dynamicBreakingControllerLeft.isEnabled())
-					dynamicBreakingControllerLeft.enable();
+				if (!dynamicBrakingControllerRight.isEnabled())
+					dynamicBrakingControllerRight.enable();
+				if (!dynamicBrakingControllerLeft.isEnabled())
+					dynamicBrakingControllerLeft.enable();
 				if (!gyroController.isEnabled())
 					gyroController.enable();
 				/*
@@ -243,10 +250,10 @@ public class DriveSubsystem extends Subsystem {
 				 */
 			} else if (pidType.equals(
 					"tractionControl")) {/*
-											 * if (dynamicBreakingControllerRight.isEnabled())
-											 * dynamicBreakingControllerRight.disable(); if
-											 * (dynamicBreakingControllerLeft.isEnabled())
-											 * dynamicBreakingControllerLeft.disable(); if (gyroController.isEnabled())
+											 * if (dynamicBrakingControllerRight.isEnabled())
+											 * dynamicBrakingControllerRight.disable(); if
+											 * (dynamicBrakingControllerLeft.isEnabled())
+											 * dynamicBrakingControllerLeft.disable(); if (gyroController.isEnabled())
 											 * gyroController.disable(); if(speedLimitControllerLeft.isEnabled())
 											 * speedLimitControllerLeft.disable();
 											 * if(speedLimitControllerRight.isEnabled())
@@ -261,17 +268,17 @@ public class DriveSubsystem extends Subsystem {
 		if (driveEnabled) {
 			if (gyroController.isEnabled())
 				gyroController.disable();
-			if (dynamicBreakingControllerRight.isEnabled())
-				dynamicBreakingControllerRight.disable();
-			if (dynamicBreakingControllerLeft.isEnabled())
-				dynamicBreakingControllerLeft.disable();
+			if (dynamicBrakingControllerRight.isEnabled())
+				dynamicBrakingControllerRight.disable();
+			if (dynamicBrakingControllerLeft.isEnabled())
+				dynamicBrakingControllerLeft.disable();
 		}
 	}
-	
+
 	public void setDistanceSetpoint(double ticks) {
-		if(driveEnabled) {
-			dynamicBreakingControllerLeft.setSetpoint(ticks);
-			dynamicBreakingControllerRight.setSetpoint(ticks);
+		if (driveEnabled) {
+			dynamicBrakingControllerLeft.setSetpoint(ticks);
+			dynamicBrakingControllerRight.setSetpoint(ticks);
 		}
 	}
 
@@ -284,8 +291,9 @@ public class DriveSubsystem extends Subsystem {
 		return (driveEnabled) ? gyroController.onTarget() : true;
 	}
 
-	public boolean distanceOnTarget() {
-		return (driveEnabled) ? dynamicBreakingControllerRight.onTarget() : true;
+	public boolean distanceOnTarget(double distance) {
+		double encoderCount = (rightEncoder.get() + leftEncoder.get()) / 2;
+		return (driveEnabled) ? encoderCount > distance - 4 && encoderCount < distance + 4 : true;
 	}
 
 	public double getAccelX() {
@@ -301,7 +309,7 @@ public class DriveSubsystem extends Subsystem {
 	}
 
 	public double getPIDOutputGyro() {
-		return (driveEnabled) ? pidOutputGryo.get() : 0;
+		return (driveEnabled) ? pidOutputGyro.get() : 0;
 	}
 
 	/*
@@ -322,6 +330,10 @@ public class DriveSubsystem extends Subsystem {
 
 	public void setRotatePID(double p, double i, double d) {
 		gyroController.setPID(p, i, d);
+	}
+
+	public void calibrateGyro() {
+		driveGyro.calibrate();
 	}
 
 }

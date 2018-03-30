@@ -10,7 +10,7 @@ public class Baseline extends CommandGroup {
 	public Baseline() {
 		
 		RobotLog.putMessage("Running Baseline");
-		addSequential(new Drive4Distance(300));
+		addSequential(new Drive4Distance(120));
 
 	}
 }
