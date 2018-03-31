@@ -39,7 +39,6 @@ public abstract class CommandBase extends Command {
 		compressor.startCompressor();
 		shifter.highGear();
 		
-		drive.calibrateGyro();
 	}
 
 	public static void disable() {

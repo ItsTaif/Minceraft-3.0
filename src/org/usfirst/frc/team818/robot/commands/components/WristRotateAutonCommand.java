@@ -5,23 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team818.robot.commands;
+package org.usfirst.frc.team818.robot.commands.components;
 
-public class DynamicBraking extends CommandBase {
-	public DynamicBraking() {
-		requires(drive);
+import org.usfirst.frc.team818.robot.commands.CommandBase;
+
+public class WristRotateAutonCommand extends CommandBase {
+	
+	boolean buttonWasPressed;
+	
+	public WristRotateAutonCommand() {
+		requires(wrist);
 	}
 
-protected void initialize() {
-		
-		drive.setBoth(0);
-		drive.resetBothEncoders();
-		drive.enablePID("straight");
-		drive.setDistanceSetpoint(0);
+	protected void initialize() {
+		wrist.enablePID();
+		wrist.setSetPoint(-100);
 	}
 
 	protected void execute() {
-		drive.setBoth(drive.getPIDOutputLeft(), drive.getPIDOutputRight());		
+		
 	}
 
 	protected boolean isFinished() {
@@ -29,13 +31,10 @@ protected void initialize() {
 	}
 
 	protected void end() {
-		drive.setBoth(0);
-		drive.disablePID();
+		wrist.setWrist(0);
 	}
 
 	protected void interrupted() {
-		drive.setBoth(0);
-		drive.disablePID();
+		wrist.setWrist(0);
 	}
-	
 }

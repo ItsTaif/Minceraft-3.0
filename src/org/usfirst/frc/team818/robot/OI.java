@@ -17,8 +17,8 @@ public class OI {
 	private Joystick leftStick, rightStick, gamepad;
 	public JoystickButton shiftGear, dynamicBraking, armadilloDrive, elevatorSwitch, elevatorBottom, gamepad3,
 			elevatorScale, intakeIn, intakeOut, intakeOutSlow, intakeInSlow, climberRelease, climberDetatch, wristUp,
-			wristMid, wristFlat;
-	public Trigger shift, up, mid, flat, allPressed;
+			wristMid, wristFlat, leftStick2;
+	public Trigger up, mid, flat, allPressed;
 
 	public OI() {
 
@@ -28,9 +28,9 @@ public class OI {
 		gamepad = new Joystick(2);
 
 		// Instantiating Buttons
-		shiftGear = new JoystickButton(leftStick, 1); // will be speed limit override
-		dynamicBraking = new JoystickButton(leftStick, 2);
-		shift = new JoystickButton(rightStick, 1);
+		dynamicBraking = new JoystickButton(leftStick, 1); // will be speed limit override
+		leftStick2 = new JoystickButton(leftStick, 2);
+		shiftGear = new JoystickButton(rightStick, 1);
 		armadilloDrive = new JoystickButton(rightStick, 2);
 		wristMid = new JoystickButton(gamepad, 1);
 		wristFlat = new JoystickButton(gamepad, 2);

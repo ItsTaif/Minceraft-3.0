@@ -18,7 +18,7 @@ public class SimpleSwitchRight extends CommandGroup {
 		addSequential(new Drive4Distance(140 - 2*Constants.robotHalfLength));
 		try {
 			if (GetGameData.getGameData().charAt(0) == 'R') {
-				addSequential(new ElevatorForTimeCommand(2));
+				addSequential(new ElevatorForTimeCommand(1));
 				addSequential(new IntakeOutForTimeCommand(0.5));
 			}
 		} catch (Exception e) {

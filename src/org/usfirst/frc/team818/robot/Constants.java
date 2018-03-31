@@ -13,7 +13,7 @@ public class Constants {
 	// Robot Dimensions
 	public static final double robotHalfWidth = 34 / 2;
 	public static final double robotHalfLength = 39 / 2;
-	public static final double midPositionShift = robotHalfLength;
+	public static final double midPositionShift = 0;
 
 	// Used in Drive Subsystem
 	public static final int[] leftMotorPorts = { 1, 3, 5 };

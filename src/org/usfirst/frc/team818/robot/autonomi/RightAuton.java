@@ -5,10 +5,11 @@ import java.util.LinkedList;
 import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
+import org.usfirst.frc.team818.robot.commands.components.ElevatorForTimeCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
-import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Scale;
-import org.usfirst.frc.team818.robot.commands.components.SideAutonPart2Switch;
+import org.usfirst.frc.team818.robot.commands.components.IntakeOutForTimeCommand;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
+import org.usfirst.frc.team818.robot.commands.components.WristRotateAutonCommand;
 import org.usfirst.frc.team818.robot.utilities.GetGameData;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
@@ -67,80 +68,87 @@ public class RightAuton extends CommandGroup {
 
 		switch (target) {
 		case 1: //left Scale
-			addSequential(new WaitCommand(delay)); // wait set amount of time
+			//addSequential(new WaitCommand(delay)); // wait set amount of time
 			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength)); // move forward to gap between the platform and the Switch
 			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(264 - Constants.robotHalfWidth)); // move forward to the left side of the field
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(88.765)); // move forward next to Scale
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(90)); // 90 degree right turn
 			addSequential(new Drive4Distance(42 - Constants.robotHalfLength)); // move forward to Scale
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Scale("left", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Scale("left", "Switch"));
-			}
+//			if(SmartDashboard.getBoolean("Second Scale", false)){
+//				addSequential(new SideAutonPart2Scale("left", "Scale"));
+//			}else if(SmartDashboard.getBoolean("Second Switch", false)){
+//				addSequential(new SideAutonPart2Scale("left", "Switch"));
+//			}
 			break;
 		case 2: //rightScale
-			addSequential(new WaitCommand(delay)); // wait set amount of time
+			//addSequential(new WaitCommand(delay)); // wait set amount of time
 			//addSequential(new WristDownCommand()); // moves intake down
-			addSequential(new Drive4Distance(324 - Constants.robotHalfLength)); // move forward to middle of the field
-			addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
-			addSequential(new WaitCommand(0.25));
+			addSequential(new Drive4Distance(310 - Constants.robotHalfLength)); // move forward to middle of the field
+			//addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
+			//addSequential(new WaitCommand(0.25));
+			addSequential(new WaitCommand(0.5));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
-			addSequential(new Drive4Distance(42 - Constants.robotHalfWidth - Constants.robotHalfLength)); // move forward to Scale
-			addSequential(new WaitCommand(0.25));
-			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Scale("right", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Scale("right", "Switch"));
-			}
+			addParallel(new Drive4Distance(-10)); // move forward to Scale
+
+			addSequential(new ElevatorForTimeCommand(4));
+			addParallel(new WristRotateAutonCommand());
+			addSequential(new Drive4Distance(30)); // move forward to Scale
+			addSequential(new IntakeOutForTimeCommand(0.5));
+			addSequential(new Drive4Distance(-20));
+			//addSequential(new WaitCommand(0.25));
+			//addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
+//			if(SmartDashboard.getBoolean("Second Scale", false)){
+//				addSequential(new SideAutonPart2Scale("right", "Scale"));
+//			}else if(SmartDashboard.getBoolean("Second Switch", false)){
+//				addSequential(new SideAutonPart2Scale("right", "Switch"));
+//			}
 			break;
 		case 3: //leftSwitch
-			addSequential(new WaitCommand(delay)); // wait set amount of time
+			//addSequential(new WaitCommand(delay)); // wait set amount of time
 			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(235.235 - Constants.robotHalfLength)); // move forward to gap between the platform and the Switch
 			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(264 - Constants.robotHalfWidth)); // move forward to the left side of the field
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(67.235)); // move forward next to Switch
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength)); // move forward to Switch
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Switch("left", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Switch("left", "Switch"));
-			}
+//			if(SmartDashboard.getBoolean("Second Scale", false)){
+//				addSequential(new SideAutonPart2Switch("left", "Scale"));
+//			}else if(SmartDashboard.getBoolean("Second Switch", false)){
+//				addSequential(new SideAutonPart2Switch("left", "Switch"));
+//			}
 			break;
 		case 4: //rightSwitch
-			addSequential(new WaitCommand(delay)); // wait set amount of time
+			//addSequential(new WaitCommand(delay)); // wait set amount of time
 			//addSequential(new WristDownCommand()); // moves intake down
 			addSequential(new Drive4Distance(168 - Constants.robotHalfLength)); // move forward next to Switch
 			addParallel(new ElevatorAutonCommand("Switch")); // move elevator to Switch position
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addSequential(new Drive4Distance(55.25 - Constants.robotHalfLength - Constants.robotHalfWidth)); // move forward to Switch
-			addSequential(new WaitCommand(0.25));
+			//addSequential(new WaitCommand(0.25));
 			addSequential(new IntakeOutAutonCommand(0.8, 2)); // drop power cube
-			if(SmartDashboard.getBoolean("Second Scale", false)){
-				addSequential(new SideAutonPart2Switch("right", "Scale"));
-			}else if(SmartDashboard.getBoolean("Second Switch", false)){
-				addSequential(new SideAutonPart2Switch("right", "Switch"));
-			}
+//			if(SmartDashboard.getBoolean("Second Scale", false)){
+//				addSequential(new SideAutonPart2Switch("right", "Scale"));
+//			}else if(SmartDashboard.getBoolean("Second Switch", false)){
+//				addSequential(new SideAutonPart2Switch("right", "Switch"));
+//			}
 			break;
 		case 5: addSequential(new DoNothing());
 			break;

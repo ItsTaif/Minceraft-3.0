@@ -34,8 +34,8 @@ public class ElevatorSubsystem extends Subsystem {
 			// Second ElevatorMotor set to follow first and set to inverted
 			elevatorMotor2.follow(elevatorMotor1);
 			elevatorMotor2.setInverted(true);
-			elevatorMotor1.setNeutralMode(NeutralMode.Coast);
-			elevatorMotor2.setNeutralMode(NeutralMode.Coast);
+			elevatorMotor1.setNeutralMode(NeutralMode.Brake);
+			elevatorMotor2.setNeutralMode(NeutralMode.Brake);
 
 			elevatorMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 

@@ -25,10 +25,10 @@ public class DriveSubsystem extends Subsystem {
 	MotorCurrent leftCurrent, rightCurrent;
 	Accelerometer accelerometer;
 
-	private static final double[] DYNAMIC_BRAKING_PID_VALUES = { 0.05, 0, 0.28 };
+	private static final double[] DYNAMIC_BRAKING_PID_VALUES = { 0.05, 0, 0.4 };
 	private static final double[] DYNAMIC_BRAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.04, 0, 0.13 };
-	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
+	private static final double[] GYRO_PID_VALUES = { 0.035,0, 0.12};
+	private static final double[] GYRO_PID_RANGE = { -0.6, 0.6 };
 	private static final double GYRO_PID_TOLERANCE = 1.5;
 
 	private PIDController dynamicBrakingControllerLeft, dynamicBrakingControllerRight, gyroController, TCLeft, TCRight;
@@ -89,7 +89,7 @@ public class DriveSubsystem extends Subsystem {
 			gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2], driveGyro,
 					pidOutputGyro);
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
-			gyroController.setInputRange(-Double.MAX_VALUE, Double.MAX_VALUE);
+			gyroController.setInputRange(0, 360);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
 			gyroController.setContinuous();
 			gyroController.setSetpoint(0);
@@ -294,13 +294,16 @@ public class DriveSubsystem extends Subsystem {
 			gyroController.setSetpoint(angle);
 	}
 
-	public boolean rotateOnTarget() {
-		return (driveEnabled) ? gyroController.onTarget() : true;
+	public boolean rotateOnTarget(double angle) {
+		return (driveEnabled) ? gyroController.onTarget()
+				/* driveGyro.getAngle() > angle - 2 && driveGyro.getAngle() < angle + 2 */: true;
+		
+		
 	}
 
 	public boolean distanceOnTarget(double distance) {
 		double encoderCount = (rightEncoder.get() + leftEncoder.get()) / 2;
-		return (driveEnabled) ? encoderCount > distance - 4 && encoderCount < distance + 4 : true;
+		return (driveEnabled) ? encoderCount > distance - 10 && encoderCount < distance + 10 : true;
 	}
 
 	public double getAccelX() {
