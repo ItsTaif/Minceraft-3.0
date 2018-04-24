@@ -40,7 +40,7 @@ public class Constants {
 	public static final double bottomVal = 0;
 	public static final double topVal = 200;
 
-	// Used in Intake SUbsystem
+	// Used in Intake Subsystem
 	public static final int[] intakeMotorPorts = { 9, 11 };
 	public static final int limitSwitchPortIntakeCube = 6;
 
@@ -50,5 +50,9 @@ public class Constants {
 
 	// Used in the Shifter Subsystem
 	public static final int[] shifterPistonPorts = { 0, 1 };
+	
+	// Used in the Compressor Subsystem
+	
+	public static final int compressorPort = 13;
 
 }

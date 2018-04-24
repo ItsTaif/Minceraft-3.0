@@ -24,7 +24,7 @@ public abstract class CommandBase extends Command {
 
 	public static void init() {
 
-		compressor = new CompressorSubsystem(Constants.compressorEnabled);
+		compressor = new CompressorSubsystem(Constants.compressorPort, Constants.compressorEnabled);
 		drive = new DriveSubsystem(Constants.leftMotorPorts, Constants.rightMotorPorts, Constants.gyroDrivePort,
 				Constants.leftEncoderPorts, Constants.rightEncoderPorts, Constants.driveEnabled);
 

@@ -18,10 +18,10 @@ public class CompressorSubsystem extends Subsystem {
 
 	private boolean compressorEnabled;
 
-	public CompressorSubsystem(boolean compressorEnabled) {
+	public CompressorSubsystem(int compressorPort, boolean compressorEnabled) {
 		this.compressorEnabled = compressorEnabled;
 		if (compressorEnabled) {
-			compressor = new Compressor(13);
+			compressor = new Compressor(compressorPort);
 			compressor.setClosedLoopControl(true);
 		}
 	}
