@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 	}
 
 	public void autonomousInit() {
-		m_autonomousCommand = new TurnAngle(-90);
+		m_autonomousCommand = new TurnAngle(90);
 //		m_autonomousCommand = AutonomousSelector.getSelectedAutonomous();
 
 //		String autoSelected = SmartDashboard.getString("Auto Selector", "Default");

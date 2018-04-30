@@ -28,8 +28,8 @@ public class DriveSubsystem extends Subsystem {
 	private static final double[] DYNAMIC_BRAKING_PID_VALUES = { 0.05, 0, 0.4 };
 	private static final double[] DYNAMIC_BRAKING_PID_RANGE = { -1, 1 };
 	private static final double[] GYRO_PID_VALUES = { 0.035,0, 0.12};
-	private static final double[] GYRO_PID_RANGE = { -0.6, 0.6 };
-	private static final double GYRO_PID_TOLERANCE = 1.5;
+	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
+	private static final double GYRO_PID_TOLERANCE = 1.0;
 
 	private PIDController dynamicBrakingControllerLeft, dynamicBrakingControllerRight, gyroController, TCLeft, TCRight;
 	private DoublePIDOutput pidOutputGyro, pidOutputRight, pidOutputLeft;
@@ -91,7 +91,7 @@ public class DriveSubsystem extends Subsystem {
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
 			gyroController.setInputRange(0, 360);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
-			gyroController.setContinuous();
+			gyroController.setContinuous(true);
 			gyroController.setSetpoint(0);
 
 			for (int i = 0; i < leftMotors.length; i++) {
@@ -294,7 +294,7 @@ public class DriveSubsystem extends Subsystem {
 			gyroController.setSetpoint(angle);
 	}
 
-	public boolean rotateOnTarget(double angle) {
+	public boolean rotateOnTarget() {
 		return (driveEnabled) ? gyroController.onTarget()
 				/* driveGyro.getAngle() > angle - 2 && driveGyro.getAngle() < angle + 2 */: true;
 		

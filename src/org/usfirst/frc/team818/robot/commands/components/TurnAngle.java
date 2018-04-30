@@ -1,7 +1,6 @@
 package org.usfirst.frc.team818.robot.commands.components;
 
 import org.usfirst.frc.team818.robot.commands.CommandBase;
-import org.usfirst.frc.team818.robot.utilities.MathUtil;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -35,7 +34,7 @@ public class TurnAngle extends CommandBase {
 		RobotLog.putMessage("Running TurnAngle: " + angle);
 		drive.resetGyro();
 		drive.enablePID("rotate");
-//		drive.setRotatePID(SmartDashboard.getNumber("Left Scale", 0	), SmartDashboard.getNumber("delay", 0), SmartDashboard.getNumber("Right Scale", 0));
+		drive.setRotatePID(SmartDashboard.getNumber("Left Scale", 0	), SmartDashboard.getNumber("delay", 0), SmartDashboard.getNumber("Right Scale", 0));
 		drive.setRotatePoint(angle);
 		
 		timer.start();
@@ -44,19 +43,20 @@ public class TurnAngle extends CommandBase {
 
 	protected void execute() {
 
-		speed = (drive.getPIDOutputGyro() > 0)? MathUtil.limitMin(drive.getPIDOutputGyro(), 0.23) : MathUtil.limitMax(drive.getPIDOutputGyro(), -0.23) ;
+//		speed = (drive.getPIDOutputGyro() > 0)? MathUtil.limitMin(drive.getPIDOutputGyro(), 0.23) : MathUtil.limitMax(drive.getPIDOutputGyro(), -0.23) ;
+		speed = drive.getPIDOutputGyro();
 		drive.setBoth(speed, -speed);
 
 	}
 
 	protected boolean isFinished() {
-		if (drive.rotateOnTarget(angle)) {
-			return timer.hasPeriodPassed(0.25);
-		} else {
-			timer.reset();
-			return false;//tTimer.hasPeriodPassed(1.5);
-		}
-
+//		if (drive.rotateOnTarget(angle)) {
+//			return timer.hasPeriodPassed(0.25);
+//		} else {
+//			timer.reset();
+//			return false;//tTimer.hasPeriodPassed(1.5);
+//		}
+		return drive.rotateOnTarget();
 	}
 
 	protected void end() {
