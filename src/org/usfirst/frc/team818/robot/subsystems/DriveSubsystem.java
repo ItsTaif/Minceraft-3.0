@@ -27,7 +27,7 @@ public class DriveSubsystem extends Subsystem {
 
 	private static final double[] DYNAMIC_BRAKING_PID_VALUES = { 0.05, 0, 0.4 };
 	private static final double[] DYNAMIC_BRAKING_PID_RANGE = { -1, 1 };
-	private static final double[] GYRO_PID_VALUES = { 0.035,0, 0.12};
+	private static final double[] GYRO_PID_VALUES = { 0.045,0, 0.18};
 	private static final double[] GYRO_PID_RANGE = { -0.4, 0.4 };
 	private static final double GYRO_PID_TOLERANCE = 1.0;
 
@@ -97,6 +97,7 @@ public class DriveSubsystem extends Subsystem {
 			for (int i = 0; i < leftMotors.length; i++) {
 				leftMotors[i].setNeutralMode(NeutralMode.Brake);
 				rightMotors[i].setNeutralMode(NeutralMode.Brake);
+				rightMotors[i].setInverted(true);
 
 			}
 
@@ -135,7 +136,7 @@ public class DriveSubsystem extends Subsystem {
 	public void setRight(double speed) {
 		if (driveEnabled) {
 			for (int i = 0; i < rightMotors.length; i++)
-				rightMotors[i].set(ControlMode.PercentOutput, -speed);
+				rightMotors[i].set(ControlMode.PercentOutput, speed);
 		}
 	}
 

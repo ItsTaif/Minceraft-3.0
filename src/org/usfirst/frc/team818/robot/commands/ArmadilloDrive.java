@@ -24,7 +24,6 @@ public class ArmadilloDrive extends CommandBase {
 		pLeft = speed;
 		pRight = speed;
 		pLeft += drive.getPIDOutputGyro();
-		pRight -= drive.getPIDOutputGyro();
 		drive.setBoth(pLeft, pRight);
 	}
 
