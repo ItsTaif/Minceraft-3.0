@@ -11,8 +11,8 @@ public class Constants {
 	public static final boolean wristEnabled = true;
 
 	// Robot Dimensions
-	public static final double robotHalfWidth = 34 / 2;
-	public static final double robotHalfLength = 39 / 2;
+	public static final double robotHalfWidth = 17.0;
+	public static final double robotHalfLength = 19.5;
 	public static final double midPositionShift = 0;
 
 	// Used in Drive Subsystem
@@ -25,7 +25,7 @@ public class Constants {
 
 	public static final int wheelRadius = 3;
 	public static final double cycleDistance = (2 * wheelRadius * Math.PI);
-	public static final double gearRatioHigh = 2.95;
+	public static final double gearRatioHigh = 3;
 	public static final double distanceToTickRatio = 360 / cycleDistance;
 	public static final int speedLimit = 12; // in inches
 	public static final double slipVal = 111.1;

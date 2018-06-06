@@ -5,11 +5,9 @@ import java.util.LinkedList;
 import org.usfirst.frc.team818.robot.Constants;
 import org.usfirst.frc.team818.robot.commands.components.Drive4Distance;
 import org.usfirst.frc.team818.robot.commands.components.ElevatorAutonCommand;
-import org.usfirst.frc.team818.robot.commands.components.ElevatorForTimeCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutAutonCommand;
 import org.usfirst.frc.team818.robot.commands.components.IntakeOutForTimeCommand;
 import org.usfirst.frc.team818.robot.commands.components.TurnAngle;
-import org.usfirst.frc.team818.robot.commands.components.WristRotateAutonCommand;
 import org.usfirst.frc.team818.robot.utilities.GetGameData;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
@@ -92,15 +90,15 @@ public class RightAuton extends CommandGroup {
 		case 2: //rightScale
 			//addSequential(new WaitCommand(delay)); // wait set amount of time
 			//addSequential(new WristDownCommand()); // moves intake down
-			addSequential(new Drive4Distance(310 - Constants.robotHalfLength)); // move forward to middle of the field
+			addSequential(new Drive4Distance(324 - Constants.robotHalfLength)); // move forward to middle of the field
 			//addParallel(new ElevatorAutonCommand("Scale")); // move elevator to Scale position
 			//addSequential(new WaitCommand(0.25));
 			addSequential(new WaitCommand(0.5));
 			addSequential(new TurnAngle(-90)); // 90 degree left turn
 			addParallel(new Drive4Distance(-10)); // move forward to Scale
 
-			addSequential(new ElevatorForTimeCommand(4));
-			addParallel(new WristRotateAutonCommand());
+//			addSequential(new ElevatorForTimeCommand(4));
+//			addParallel(new WristRotateAutonCommand());
 			addSequential(new Drive4Distance(30)); // move forward to Scale
 			addSequential(new IntakeOutForTimeCommand(0.5));
 			addSequential(new Drive4Distance(-20));

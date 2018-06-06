@@ -89,15 +89,15 @@ public class DriveSubsystem extends Subsystem {
 			gyroController = new PIDController(GYRO_PID_VALUES[0], GYRO_PID_VALUES[1], GYRO_PID_VALUES[2], driveGyro,
 					pidOutputGyro);
 			gyroController.setOutputRange(GYRO_PID_RANGE[0], GYRO_PID_RANGE[1]);
-			gyroController.setInputRange(0, 360);
+			gyroController.setInputRange(-360, 360);
 			gyroController.setAbsoluteTolerance(GYRO_PID_TOLERANCE);
-			gyroController.setContinuous(true);
+			gyroController.setContinuous(false);
 			gyroController.setSetpoint(0);
 
 			for (int i = 0; i < leftMotors.length; i++) {
 				leftMotors[i].setNeutralMode(NeutralMode.Brake);
 				rightMotors[i].setNeutralMode(NeutralMode.Brake);
-				rightMotors[i].setInverted(true);
+//				rightMotors[i].setInverted(true);
 
 			}
 
@@ -136,7 +136,7 @@ public class DriveSubsystem extends Subsystem {
 	public void setRight(double speed) {
 		if (driveEnabled) {
 			for (int i = 0; i < rightMotors.length; i++)
-				rightMotors[i].set(ControlMode.PercentOutput, speed);
+				rightMotors[i].set(ControlMode.PercentOutput, -speed);
 		}
 	}
 

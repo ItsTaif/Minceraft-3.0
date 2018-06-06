@@ -4,7 +4,6 @@ import org.usfirst.frc.team818.robot.commands.CommandBase;
 import org.usfirst.frc.team818.robot.utilities.RobotLog;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TurnAngle extends CommandBase {
 
@@ -30,11 +29,11 @@ public class TurnAngle extends CommandBase {
 	}
 
 	protected void initialize() {
-		angle = (angle < 0 ) ? 360- Math.abs(angle % 360) : angle ;
+//		angle = (angle < 0 ) ? 360- Math.abs(angle % 360) : angle ;
 		RobotLog.putMessage("Running TurnAngle: " + angle);
 		drive.resetGyro();
 		drive.enablePID("rotate");
-		drive.setRotatePID(SmartDashboard.getNumber("Left Scale", 0	), SmartDashboard.getNumber("delay", 0), SmartDashboard.getNumber("Right Scale", 0));
+//		drive.setRotatePID(SmartDashboard.getNumber("Left Scale", 0	), SmartDashboard.getNumber("delay", 0), SmartDashboard.getNumber("Right Scale", 0));
 		drive.setRotatePoint(angle);
 		
 		timer.start();

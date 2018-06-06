@@ -50,7 +50,7 @@ public class Drive4Distance extends CommandBase {
 			return tarTimer.hasPeriodPassed(0.5);
 		} else {
 			tarTimer.reset();
-			return timer.hasPeriodPassed(3);
+			return timer.hasPeriodPassed(2);
 		}
 		// || Math.abs((drive.getLeftRotation() + drive.getRightRotation())/2) > (distance/Constants.cycleDistance)/Constants.encoderGearRatioHigh);
 
