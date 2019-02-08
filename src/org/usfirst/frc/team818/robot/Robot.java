@@ -16,9 +16,12 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Robot extends TimedRobot {
-
+	//Added comment for testing Git Bash
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	public void doNothing(){
+		
+	}
 
 	public void robotInit() {
 
