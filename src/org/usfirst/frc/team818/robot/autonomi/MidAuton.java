@@ -138,7 +138,19 @@ public class MidAuton extends CommandGroup {
 			
 			RobotLog.putMessage("Running MidRightSwitch");
 			
-			addSequential(new SimpleSwitchRight());
+			RobotLog.putMessage("Running SimpleSwitchRight");
+			
+			addSequential(new Drive4Distance(140 - 2*Constants.robotHalfLength));
+			try {
+				if (GetGameData.getGameData().charAt(0) == 'R') {
+					addSequential(new ElevatorForTimeCommand(1));
+					addSequential(new IntakeOutForTimeCommand(0.5));
+				}
+			} catch (Exception e) {
+
+				RobotLog.putMessage("SimpleSwitchRight did not work");
+				
+			}
 //			try {
 //				if (GetGameData.getGameData().charAt(0) == 'R') {
 //					addSequential(new ElevatorForTimeCommand(2));

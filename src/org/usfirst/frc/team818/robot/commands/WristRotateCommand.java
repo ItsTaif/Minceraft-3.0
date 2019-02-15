@@ -29,7 +29,7 @@ public class WristRotateCommand extends CommandBase {
 		if (Math.abs(oi.getGamepadRightY()) > 0.1) {
 			buttonWasPressed = false;
 			wrist.disablePID();
-			wrist.setWrist(oi.getGamepadRightY() * 0.4);
+			wrist.setWrist(oi.getGamepadRightY() * 0.5);
 		} else {
 			if (oi.allPressed.get() || buttonWasPressed) {
 				buttonWasPressed = true;

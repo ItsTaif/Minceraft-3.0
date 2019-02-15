@@ -36,8 +36,8 @@ public class OI {
 		wristFlat = new JoystickButton(gamepad, 2);
 		gamepad3 = new JoystickButton(gamepad, 3); // currently unused, will be probably backDrive
 		wristUp = new JoystickButton(gamepad, 4);
-		intakeIn = new JoystickButton(gamepad, 6);
 		intakeOut = new JoystickButton(gamepad, 5);
+		intakeIn = new JoystickButton(gamepad, 6);
 		intakeOutSlow = new JoystickButton(gamepad, 7);
 		intakeInSlow = new JoystickButton(gamepad, 8);
 		climberRelease = new JoystickButton(gamepad, 9);

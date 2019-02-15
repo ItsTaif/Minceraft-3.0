@@ -39,6 +39,8 @@ public abstract class CommandBase extends Command {
 		compressor.startCompressor();
 		shifter.highGear();
 		
+		System.out.println("Initialized");
+		
 	}
 
 	public static void disable() {

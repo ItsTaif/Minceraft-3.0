@@ -13,11 +13,14 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends Subsystem {
+	
+	public PowerDistributionPanel pdp;
 
 	TalonSRX[] leftMotors, rightMotors;
 	AnalogGyro driveGyro;
@@ -42,6 +45,9 @@ public class DriveSubsystem extends Subsystem {
 		this.driveEnabled = driveEnabled;
 
 		if (driveEnabled) {
+			
+			pdp = new PowerDistributionPanel(0);
+			
 			leftMotors = new WPI_TalonSRX[leftMotorPorts.length];
 			rightMotors = new WPI_TalonSRX[rightMotorPorts.length];
 
@@ -171,6 +177,10 @@ public class DriveSubsystem extends Subsystem {
 			return driveGyro.getAngle() % 360;
 		} else
 			return 0;
+	}
+	
+	public double getCurrent() {
+		return pdp.getCurrent(0);
 	}
 
 	public int getLeftRotation() {
